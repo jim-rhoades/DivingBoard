@@ -7,9 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3826CAFC203652F800549707 /* UnsplashPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3826CAFB203652F800549707 /* UnsplashPickerController.swift */; };
 		38CB068120362C2500AE6EDA /* UnsplashPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */; };
 		38CB068620362C2500AE6EDA /* UnsplashPickerControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB068520362C2500AE6EDA /* UnsplashPickerControllerTests.swift */; };
 		38CB068820362C2500AE6EDA /* UnsplashPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		38CB069220362DE200AE6EDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38CB069120362DE200AE6EDA /* Main.storyboard */; };
+		38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0697203649AA00AE6EDA /* EmptySegue.swift */; };
+		38CB069A203649F200AE6EDA /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0699203649F200AE6EDA /* ContainerViewController.swift */; };
+		38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */; };
+		38DC741220371C80007BAF33 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */; };
+		38DC741420371FCB007BAF33 /* UIImageView+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741320371FCB007BAF33 /* UIImageView+Async.swift */; };
+		38DC74182037214F007BAF33 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC74172037214F007BAF33 /* Photo.swift */; };
+		38DC741A20372175007BAF33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741920372175007BAF33 /* User.swift */; };
+		38DC741C20372DB4007BAF33 /* CollectionTypePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +33,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3826CAFB203652F800549707 /* UnsplashPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerController.swift; sourceTree = "<group>"; };
 		38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UnsplashPickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnsplashPickerController.h; sourceTree = "<group>"; };
 		38CB067B20362C2500AE6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38CB068020362C2500AE6EDA /* UnsplashPickerControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnsplashPickerControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38CB068520362C2500AE6EDA /* UnsplashPickerControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerControllerTests.swift; sourceTree = "<group>"; };
 		38CB068720362C2500AE6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38CB069120362DE200AE6EDA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		38CB0697203649AA00AE6EDA /* EmptySegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySegue.swift; sourceTree = "<group>"; };
+		38CB0699203649F200AE6EDA /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
+		38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		38DC741320371FCB007BAF33 /* UIImageView+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Async.swift"; sourceTree = "<group>"; };
+		38DC74172037214F007BAF33 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		38DC741920372175007BAF33 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTypePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +91,16 @@
 		38CB067920362C2500AE6EDA /* UnsplashPickerController */ = {
 			isa = PBXGroup;
 			children = (
+				38DC7416203720D2007BAF33 /* DataModel */,
+				38DC7415203720B8007BAF33 /* Utilities */,
 				38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */,
 				38CB067B20362C2500AE6EDA /* Info.plist */,
+				38CB069120362DE200AE6EDA /* Main.storyboard */,
+				38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */,
+				38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */,
+				38CB0699203649F200AE6EDA /* ContainerViewController.swift */,
+				38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */,
+				3826CAFB203652F800549707 /* UnsplashPickerController.swift */,
 			);
 			path = UnsplashPickerController;
 			sourceTree = "<group>";
@@ -84,6 +112,24 @@
 				38CB068720362C2500AE6EDA /* Info.plist */,
 			);
 			path = UnsplashPickerControllerTests;
+			sourceTree = "<group>";
+		};
+		38DC7415203720B8007BAF33 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				38DC741320371FCB007BAF33 /* UIImageView+Async.swift */,
+				38CB0697203649AA00AE6EDA /* EmptySegue.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		38DC7416203720D2007BAF33 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				38DC74172037214F007BAF33 /* Photo.swift */,
+				38DC741920372175007BAF33 /* User.swift */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +194,7 @@
 				TargetAttributes = {
 					38CB067620362C2500AE6EDA = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					38CB067F20362C2500AE6EDA = {
@@ -179,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38CB069220362DE200AE6EDA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +244,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38DC74182037214F007BAF33 /* Photo.swift in Sources */,
+				38CB069A203649F200AE6EDA /* ContainerViewController.swift in Sources */,
+				38DC741220371C80007BAF33 /* PhotoCollectionViewCell.swift in Sources */,
+				3826CAFC203652F800549707 /* UnsplashPickerController.swift in Sources */,
+				38DC741A20372175007BAF33 /* User.swift in Sources */,
+				38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */,
+				38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */,
+				38DC741420371FCB007BAF33 /* UIImageView+Async.swift in Sources */,
+				38DC741C20372DB4007BAF33 /* CollectionTypePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +391,7 @@
 		38CB068C20362C2500AE6EDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -347,6 +405,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.UnsplashPickerController;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -355,6 +414,7 @@
 		38CB068D20362C2500AE6EDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -376,6 +436,7 @@
 		38CB068F20362C2500AE6EDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45ZZCTM637;
 				INFOPLIST_FILE = UnsplashPickerControllerTests/Info.plist;
@@ -390,6 +451,7 @@
 		38CB069020362C2500AE6EDA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45ZZCTM637;
 				INFOPLIST_FILE = UnsplashPickerControllerTests/Info.plist;
