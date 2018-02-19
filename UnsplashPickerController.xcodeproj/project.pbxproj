@@ -20,6 +20,7 @@
 		38DC74182037214F007BAF33 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC74172037214F007BAF33 /* Photo.swift */; };
 		38DC741A20372175007BAF33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741920372175007BAF33 /* User.swift */; };
 		38DC741C20372DB4007BAF33 /* CollectionTypePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */; };
+		38F7836B203775BE008B491C /* SegueHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F7836A203775BE008B491C /* SegueHandlerType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		38DC74172037214F007BAF33 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		38DC741920372175007BAF33 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTypePickerView.swift; sourceTree = "<group>"; };
+		38F7836A203775BE008B491C /* SegueHandlerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueHandlerType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			children = (
 				38DC741320371FCB007BAF33 /* UIImageView+Async.swift */,
 				38CB0697203649AA00AE6EDA /* EmptySegue.swift */,
+				38F7836A203775BE008B491C /* SegueHandlerType.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */,
 				38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */,
 				38DC741420371FCB007BAF33 /* UIImageView+Async.swift in Sources */,
+				38F7836B203775BE008B491C /* SegueHandlerType.swift in Sources */,
 				38DC741C20372DB4007BAF33 /* CollectionTypePickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

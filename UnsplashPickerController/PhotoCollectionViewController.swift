@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 class PhotoCollectionViewController: UICollectionViewController {
     
     // TODO: make this something you have to provide while creating the UnsplashPickerController
-    private let appID = "a8c9e9169a140922f4b1d4cfb744a8f01c45244842b0306a1dd107c2516d9bfb"
+    private let appID = ""
     
     private let cellSpacing: CGFloat = 2 // spacing between the photo thumbnails
     private var photos: [Photo] = []
@@ -21,14 +21,6 @@ class PhotoCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
         
         loadPhotos()
     }
@@ -109,6 +101,12 @@ class PhotoCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoCollectionViewCell
         let photo = photos[indexPath.item]
         let thumbnailURL = photo.urls.small // photo.urls.thumb images are too small
+        
+        if cell.imageView == nil {
+            print("IMAGE VIEW IS NIL???")
+            return cell
+        }
+        
         cell.imageView.loadImageAsync(with: thumbnailURL) // load image asynchronously, using cached version if it's there
         return cell
     }
@@ -153,4 +151,31 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     */
 
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        var cellWidth: CGFloat = 0
+        var columns: CGFloat = 2
+        
+        // if 'regular' horizontalSizeClass, show 4 columns
+        if traitCollection.horizontalSizeClass == .regular {
+            columns = 4
+        }
+        
+        cellWidth = (self.view.bounds.size.width - cellSpacing * (columns - 1)) / columns
+        
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
+    }
 }

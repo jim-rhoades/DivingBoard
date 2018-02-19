@@ -8,55 +8,74 @@
 
 import UIKit
 
-enum CollectionType {
-    case latest
+enum CollectionType: Int {
+    case latest = 0
     case popular
     case search
 }
 
 protocol CollectionTypePickerViewDelegate: class {
-    func showLatest()
-    func showPopular()
-    func showSearch()
+    func collectionTypeChanged(_ collectionType: CollectionType)
 }
 
 class CollectionTypePickerView: UIView {
     weak var delegate: CollectionTypePickerViewDelegate?
+    private var transitionInProgress = false
     private var selectionView: UIView!
-    
+    private var currentCollectionType: CollectionType = .latest
     @IBOutlet weak var latestButton: UIButton!
     @IBOutlet weak var popularButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        // set up the selectionView, defaulting to "Latest"
-        selectionView = UIView(frame: frameForSelectionView(for: .latest))
+        selectionView = UIView(frame: CGRect.zero)
+        addSubview(selectionView)
         selectionView.layer.cornerRadius = 1.0
-        selectionView.backgroundColor = .blue // TODO: pick a better color
+        selectionView.backgroundColor = UIColor.lightGray // TODO: pick a better color
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        selectionView.frame = frameForSelectionView(for: currentCollectionType)
     }
     
     @IBAction func latestButtonPressed(_ sender: Any) {
-        print("show latest")
-        
-        UIView.animate(withDuration: 0.5) {
-            self.selectionView.frame = self.frameForSelectionView(for: .latest)
-        }
+        guard !transitionInProgress else { return }
+        setSelectedCollectionType(.latest, animated: true)
+        delegate?.collectionTypeChanged(.latest)
     }
     
     @IBAction func popularButtonPressed(_ sender: Any) {
-        print("show popular")
-        
-        UIView.animate(withDuration: 0.5) {
-            self.selectionView.frame = self.frameForSelectionView(for: .popular)
-        }
+        guard !transitionInProgress else { return }
+        setSelectedCollectionType(.popular, animated: true)
+        delegate?.collectionTypeChanged(.popular)
     }
     
     @IBAction func searchButtonPressed(_ sender: Any) {
-        print("show search")
+        guard !transitionInProgress else { return }
+        setSelectedCollectionType(.search, animated: true)
+        delegate?.collectionTypeChanged(.search)
+    }
+    
+    private func setSelectedCollectionType(_ collectionType: CollectionType, animated: Bool) {
+        currentCollectionType = collectionType
         
-        UIView.animate(withDuration: 0.5) {
-            self.selectionView.frame = self.frameForSelectionView(for: .search)
+        if animated {
+            /*
+            UIView.animate(withDuration: 0.25) {
+                self.selectionView.frame = self.frameForSelectionView(for: collectionType)
+            }
+            */
+            transitionInProgress = true
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                self.selectionView.frame = self.frameForSelectionView(for: collectionType)
+            }) { completed in
+                self.transitionInProgress = false
+            }
+        } else {
+            selectionView.frame = frameForSelectionView(for: collectionType)
         }
     }
     

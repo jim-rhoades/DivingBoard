@@ -28,21 +28,21 @@
                                         <rect key="frame" x="16" y="3" width="43" height="30"/>
                                         <state key="normal" title="Latest"/>
                                         <connections>
-                                            <action selector="latestButtonPressed:" destination="xq5-Rv-Njq" eventType="touchUpInside" id="QzC-TD-UoT"/>
+                                            <action selector="latestButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="7YS-Vo-nZk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfo-cX-4hT">
                                         <rect key="frame" x="161" y="3" width="53" height="30"/>
                                         <state key="normal" title="Popular"/>
                                         <connections>
-                                            <action selector="popularButtonPressed:" destination="xq5-Rv-Njq" eventType="touchUpInside" id="RA7-Iw-xeb"/>
+                                            <action selector="popularButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="uOP-pB-nvA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6I-bf-n3D">
                                         <rect key="frame" x="311" y="3" width="48" height="30"/>
                                         <state key="normal" title="Search"/>
                                         <connections>
-                                            <action selector="searchButtonPressed:" destination="xq5-Rv-Njq" eventType="touchUpInside" id="lf5-ce-0zz"/>
+                                            <action selector="searchButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="b8e-vv-2Ia"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -83,13 +83,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionTypePickerView" destination="LlG-Pw-3jz" id="Xs7-2i-X89"/>
                         <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedLatestVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="P9F-uD-fLq"/>
                         <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedPopularVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="0aY-Pm-OTJ"/>
                         <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedSearchVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="c40-X2-7MI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k77-CV-uXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="xq5-Rv-Njq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="550" y="167"/>
         </scene>
@@ -115,19 +115,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="geP-Qx-7MR">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2wd-zA-T7f">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         </imageView>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="geP-Qx-7MR" firstAttribute="top" secondItem="zck-gx-BSQ" secondAttribute="top" id="LXw-uz-Wrm"/>
-                                    <constraint firstAttribute="trailing" secondItem="geP-Qx-7MR" secondAttribute="trailing" id="Pez-m9-SUK"/>
-                                    <constraint firstItem="geP-Qx-7MR" firstAttribute="leading" secondItem="zck-gx-BSQ" secondAttribute="leading" id="i1h-OM-ncJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="geP-Qx-7MR" secondAttribute="bottom" id="jbY-Z3-WoO"/>
+                                    <constraint firstAttribute="bottom" secondItem="2wd-zA-T7f" secondAttribute="bottom" id="Jbv-oB-Us8"/>
+                                    <constraint firstItem="2wd-zA-T7f" firstAttribute="top" secondItem="zck-gx-BSQ" secondAttribute="top" id="WyL-3y-Lkf"/>
+                                    <constraint firstAttribute="trailing" secondItem="2wd-zA-T7f" secondAttribute="trailing" id="XxS-OP-vH0"/>
+                                    <constraint firstItem="2wd-zA-T7f" firstAttribute="leading" secondItem="zck-gx-BSQ" secondAttribute="leading" id="tZo-Ua-noq"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="imageView" destination="geP-Qx-7MR" id="X2x-OD-KTU"/>
+                                    <outlet property="imageView" destination="2wd-zA-T7f" id="0TH-WE-wXu"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
