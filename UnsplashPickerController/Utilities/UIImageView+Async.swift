@@ -47,7 +47,7 @@ extension UIImageView {
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             self?.currentTask = nil
             
-            //error handling
+            // error handling
             if let error = error {
                 // don't bother reporting cancelation errors
                 if (error as NSError).domain == NSURLErrorDomain && (error as NSError).code == NSURLErrorCancelled {

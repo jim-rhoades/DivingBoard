@@ -16,13 +16,14 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     weak var delegate: UnsplashPickerControllerDelegate?
-    weak var latestViewController: PhotoCollectionViewController?
-    weak var popularViewController: PhotoCollectionViewController?
-    weak var searchViewController: PhotoCollectionViewController?
-    // var transitionInProgress = false
-    var toCollectionTypeIndex: Int = 0
-    var fromCollectionTypeIndex: Int = 0
-    @IBOutlet weak var collectionTypePickerView: CollectionTypePickerView!
+    var clientID = ""
+    
+    private weak var latestViewController: PhotoCollectionViewController?
+    private weak var popularViewController: PhotoCollectionViewController?
+    private weak var searchViewController: PhotoCollectionViewController?
+    private var toCollectionTypeIndex: Int = 0
+    private var fromCollectionTypeIndex: Int = 0
+    @IBOutlet private weak var collectionTypePickerView: CollectionTypePickerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,23 +58,27 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             print("segue.destination was not a PhotoCollectionViewController")
             return
         }
+        // assign the clientID
+        photoCollectionViewController.clientID = clientID
         
-        // adjust inset to make room for the collectionTypePickerView
-        photoCollectionViewController.collectionView?.contentInset.top += collectionTypePickerView.frame.size.height
-        photoCollectionViewController.collectionView?.scrollIndicatorInsets.top += collectionTypePickerView.frame.size.height
+        // pass along CollectionTypePickerView's height, so collectionView insets can be adjusted
+        photoCollectionViewController.topInsetAdjustment = collectionTypePickerView.bounds.size.height
         
         switch segueIdentifier {
         case .embedLatestVC:
+            // configure to show the latest photos
             latestViewController = photoCollectionViewController
-            // TODO: configure latestViewController to show the latest photos
+            latestViewController?.collectionType = .latest
             
         case .embedPopularVC:
+            // configure to show popular photos
             popularViewController = photoCollectionViewController
-            // TODO: configure popularViewController to show popular photos
+            popularViewController?.collectionType = .popular
             
         case .embedSearchVC:
+            // configure to show the search interface
             searchViewController = photoCollectionViewController
-            // TODO: configure searchViewController to show the search interface
+            searchViewController?.collectionType = .search
         }
         
         handleSegue(to: photoCollectionViewController)
@@ -100,28 +105,25 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     
     /*
-     // CROSS DISSOLVE
-     func swapFromViewController(fromViewController: UIViewController, toViewController: UIViewController) {
-     #if DEBUG
-     printDebugLog(#function)
-     #endif
-     
-     toViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-     
-     // via:
-     // http://sandmoose.com/post/35714028270/storyboards-with-custom-container-view-controllers
-     
-     fromViewController.willMoveToParentViewController(nil)
-     self.addChildViewController(toViewController)
-     self.transitionFromViewController(fromViewController, toViewController: toViewController, duration: 0.1, options: .TransitionCrossDissolve, animations: nil) { (finished: Bool) in
-     if finished {
-     fromViewController.removeFromParentViewController()
-     toViewController.didMoveToParentViewController(self)
-     self.transitionInProgress = false
+    // CROSS DISSOLVE
+    func swapFromViewController(_ fromViewController: UIViewController, toViewController: UIViewController) {
+         toViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        
+         // via:
+         // http://sandmoose.com/post/35714028270/storyboards-with-custom-container-view-controllers
+        
+        fromViewController.willMove(toParentViewController: nil)
+         self.addChildViewController(toViewController)
+        self.transition(from: fromViewController, to: toViewController, duration: 0.25, options: .transitionCrossDissolve, animations: nil) { (finished: Bool) in
+             if finished {
+                 fromViewController.removeFromParentViewController()
+                toViewController.didMove(toParentViewController: self)
+                 // self.transitionInProgress = false
+             }
+         }
      }
-     }
-     }
-     */
+    */
+ 
     
     
     

@@ -33,7 +33,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func unsplashPickerButtonPressed(_ button: UIBarButtonItem) {
-        let unsplashPicker = UnsplashPickerController.viewControllerToPresent(from: self)
+        // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
+        let unsplashPicker = UnsplashPickerController.unsplashPicker(withClientID: unsplashAppID,
+                                                                     presentingViewController: self)
         
         let presentationController = unsplashPicker.popoverPresentationController
         presentationController?.barButtonItem = button

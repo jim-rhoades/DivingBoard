@@ -12,38 +12,64 @@ private let reuseIdentifier = "Cell"
 
 class PhotoCollectionViewController: UICollectionViewController {
     
-    // TODO: make this something you have to provide while creating the UnsplashPickerController
-    private let appID = ""
-    
+    var clientID = ""
+    var topInsetAdjustment: CGFloat = 0
+    var collectionType: CollectionType = .latest
     private let cellSpacing: CGFloat = 2 // spacing between the photo thumbnails
     private var photos: [Photo] = []
     private var pageNumber = 1
-
+    private var loadingView: LoadingView?
+    
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // adjust insets to make room for the collectionTypePickerView
+        collectionView?.contentInset.top += topInsetAdjustment
+        collectionView?.scrollIndicatorInsets.top += topInsetAdjustment
+        
+        // display a loading indicator
+        loadingView = LoadingView(color: .lightGray)
+        view.addCenteredSubview(view: loadingView!)
+        
+        // load photos from Unsplash
         loadPhotos()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Photo loading
+    
     private func loadPhotos() {
-        guard let url = URL(string: "https://api.unsplash.com/photos?client_id=\(appID)&per_page=20&page=\(pageNumber)") else {
-            print("ERROR: url was nil")
+        
+        guard let url = unsplashURL() else {
             return
         }
         
-        let session = URLSession.shared
+        print(url.absoluteString)
         
-        let dataTask = session.dataTask(with: url, completionHandler: { (data, response, error) in
+        let dataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            
+            // remove the loadingView regardless of whether or not there was an error
+            DispatchQueue.main.async {
+                if let loadingView = self?.loadingView {
+                    UIView.animate(withDuration: 0.15, animations: {
+                        loadingView.alpha = 0.0
+                    }, completion: { completed in
+                        loadingView.removeFromSuperview()
+                    })
+                }
+            }
             
             guard let responseData = data else {
                 print("Error: did not receive data")
                 return
             }
+            
             guard error == nil else {
                 print(error!)
                 return
@@ -64,28 +90,37 @@ class PhotoCollectionViewController: UICollectionViewController {
             decoder.dateDecodingStrategy = .iso8601
             do {
                 let newPhotos = try decoder.decode([Photo].self, from: responseData)
-                self.photos.append(contentsOf: newPhotos)
+                self?.photos.append(contentsOf: newPhotos)
                 
                 DispatchQueue.main.async {
-                    self.collectionView?.reloadData()
+                    self?.collectionView?.reloadData()
                 }
             } catch {
                 print("error trying to convert data to JSON: \(error)")
             }
-        })
+        }
         
         dataTask.resume()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    
+    private func unsplashURL() -> URL? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https";
+        urlComponents.host = "api.unsplash.com";
+        urlComponents.path = "/photos";
+        
+        let clientIDItem = URLQueryItem(name: "client_id", value: clientID)
+        let perPageItem = URLQueryItem(name: "per_page", value: "20")
+        let pageNumberItem = URLQueryItem(name: "page", value: "\(pageNumber)")
+        urlComponents.queryItems = [clientIDItem, perPageItem, pageNumberItem]
+        
+        if collectionType == .popular {
+            let orderByItem = URLQueryItem(name: "order_by", value: "popular")
+            urlComponents.queryItems?.append(orderByItem)
+        }
+        
+        return urlComponents.url
     }
-    */
 
     // MARK: - UICollectionViewDataSource
     

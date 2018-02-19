@@ -14,7 +14,7 @@ public protocol UnsplashPickerControllerDelegate: class {
     func unsplashPickerControllerDidCancel()
     
     // func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
-    func unsplashPickerController(didFinishPickingPhoto: UIImage) // TODO: change to an 'UnsplashPhoto' struct
+    func unsplashPickerController(didFinishPickingPhoto: UIImage) // TODO: change from UIImage to an 'UnsplashPhoto' struct
 }
 
 public class UnsplashPickerController {
@@ -24,17 +24,20 @@ public class UnsplashPickerController {
     }
     
     
+    // TODO: show error when someone uses bad clientID
+    
+    
     /**
      Used to retrieve the view controller that contains the UI for picking a photo from Unsplash. You should present this view controller just as you would a UIImagePickerController.
      - Parameter presentingViewController: The UIViewController that you are presenting from, which gets set as the delegate. (Make sure your presenting view controller conforms to UnsplashPickerControllerDelegate).
      - Returns: The view controller to present.
     */
-    public static func viewControllerToPresent(from presentingViewController: UIViewController) -> UIViewController {
+    public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController) -> UIViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle(for: self))
         let navController = storyboard.instantiateInitialViewController() as! UINavigationController
         let containerViewController = navController.topViewController as! ContainerViewController
-        // assign the delegate
         containerViewController.delegate = presentingViewController as? UnsplashPickerControllerDelegate
+        containerViewController.clientID = clientID
         return navController
     }
     

@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: change to "UnsplashPhoto"?
 struct Photo: Codable {
     let id: String
     

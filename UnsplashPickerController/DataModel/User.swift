@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: change to "UnsplashUser"?
 struct User: Codable {
     let id: String
     let username: String

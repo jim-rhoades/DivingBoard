@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38E2E6B8203B702A0036173B /* ClientID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2E6B7203B702A0036173B /* ClientID.swift */; };
 		38F58CCA20375D4C00346953 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F58CC920375D4C00346953 /* AppDelegate.swift */; };
 		38F58CCC20375D4C00346953 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F58CCB20375D4C00346953 /* ViewController.swift */; };
 		38F58CCF20375D4C00346953 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38F58CCD20375D4C00346953 /* Main.storyboard */; };
@@ -55,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		38E2E6B7203B702A0036173B /* ClientID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientID.swift; sourceTree = "<group>"; };
 		38F58CC620375D4C00346953 /* PhotoViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38F58CC920375D4C00346953 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38F58CCB20375D4C00346953 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				38F58CC920375D4C00346953 /* AppDelegate.swift */,
+				38E2E6B7203B702A0036173B /* ClientID.swift */,
 				38F58CCB20375D4C00346953 /* ViewController.swift */,
 				38F58CCD20375D4C00346953 /* Main.storyboard */,
 				38F58CD020375D4C00346953 /* Assets.xcassets */,
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38E2E6B8203B702A0036173B /* ClientID.swift in Sources */,
 				38F58CCC20375D4C00346953 /* ViewController.swift in Sources */,
 				38F58CCA20375D4C00346953 /* AppDelegate.swift in Sources */,
 			);
