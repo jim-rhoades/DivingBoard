@@ -41,19 +41,19 @@ class CollectionTypePickerView: UIView {
     }
     
     @IBAction func latestButtonPressed(_ sender: Any) {
-        guard !transitionInProgress else { return }
+        guard !transitionInProgress && currentCollectionType != .latest else { return }
         setSelectedCollectionType(.latest, animated: true)
         delegate?.collectionTypeChanged(.latest)
     }
     
     @IBAction func popularButtonPressed(_ sender: Any) {
-        guard !transitionInProgress else { return }
+        guard !transitionInProgress && currentCollectionType != .popular else { return }
         setSelectedCollectionType(.popular, animated: true)
         delegate?.collectionTypeChanged(.popular)
     }
     
     @IBAction func searchButtonPressed(_ sender: Any) {
-        guard !transitionInProgress else { return }
+        guard !transitionInProgress && currentCollectionType != .search else { return }
         setSelectedCollectionType(.search, animated: true)
         delegate?.collectionTypeChanged(.search)
     }
