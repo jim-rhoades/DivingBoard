@@ -47,6 +47,13 @@ class ViewController: UIViewController {
         
         present(unsplashPicker, animated: true, completion: nil)
     }
+    
+    func resetInterface() {
+        photoView.image = nil
+        userImageView.image = nil
+        userLabel.text = nil
+        userContainerView.isHidden = false
+    }
 }
 
 // MARK: - UnsplashPickerControllerDelegate
@@ -56,22 +63,15 @@ extension ViewController: UnsplashPickerControllerDelegate {
     func unsplashPickerControllerDidFinishPicking(photo: UnsplashPhoto) {
         
         // reset
-        photoView.image = nil
-        userImageView.image = nil
-        userLabel.text = nil
-        userContainerView.isHidden = false
+        resetInterface()
         
         // load the photo
         let photoURL = photo.urls.full
-        photoView.loadImageAsync(with: photoURL)
-        
-        // TODO: need a version of loadImageAsync with completion handler
-        
-        
-        
+        photoView.loadImageAsync(with: photoURL, completion: nil)
         
         // load the user avatar and name
-        userImageView.loadImageAsync(with: photo.user.profileImage.medium)
+        let userImageURL = photo.user.profileImage.large
+        userImageView.loadImageAsync(with: userImageURL, completion: nil)
         userLabel.text = photo.user.name
         
         dismiss(animated: true, completion: nil)
@@ -89,6 +89,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             return
         }
+        
         photoView.image = image
         userContainerView.isHidden = true
         dismiss(animated: true, completion: nil)

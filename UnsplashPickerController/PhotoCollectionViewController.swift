@@ -84,7 +84,7 @@ class PhotoCollectionViewController: UICollectionViewController {
              } else {
              print("FAILED TO CONVERT DATA TO JSON STRING")
              }
-             */
+            */
             
             
             let decoder = JSONDecoder()
@@ -98,6 +98,18 @@ class PhotoCollectionViewController: UICollectionViewController {
                 }
             } catch {
                 print("error trying to convert data to JSON: \(error)")
+                
+                // TODO: is there a better way to detect this?
+                // this can happen if the rate limit has been exceeded
+                if let jsonString = String(data: responseData, encoding: .utf8),
+                    jsonString == "Rate Limit Exceeded" {
+                    let alertTitle = NSLocalizedString("Error", comment: "title of 'Error' alert")
+                    let alertController = UIAlertController(title: alertTitle, message: jsonString, preferredStyle: .alert)
+                    let okTitle = NSLocalizedString("OK", comment: "'OK' button title")
+                    let okAction = UIAlertAction(title: okTitle, style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self?.present(alertController, animated: true, completion: nil)
+                }
             }
         }
         
@@ -143,7 +155,8 @@ class PhotoCollectionViewController: UICollectionViewController {
             return cell
         }
         
-        cell.imageView.loadImageAsync(with: thumbnailURL) // load image asynchronously, using cached version if it's there
+        // load image asynchronously, using cached version if it's there
+        cell.imageView.loadImageAsync(with: thumbnailURL, completion: nil)
         return cell
     }
 
@@ -162,36 +175,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         let photo = photos[indexPath.item]
         delegate?.unsplashPickerControllerDidFinishPicking(photo: photo)
     }
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

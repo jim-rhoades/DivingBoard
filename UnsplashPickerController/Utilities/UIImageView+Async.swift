@@ -24,7 +24,7 @@ public extension UIImageView {
         set { objc_setAssociatedObject(self, &UIImageView.urlKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
-    public func loadImageAsync(with url: URL?) {
+    public func loadImageAsync(with url: URL?, completion: ((_ success: Bool) -> Void)?) {
         // cancel prior task, if any
         weak var oldTask = currentTask
         currentTask = nil
@@ -34,11 +34,15 @@ public extension UIImageView {
         self.image = nil
         
         // allow supplying of `nil` to remove old image and then return immediately
-        guard let url = url else { return }
+        guard let url = url else {
+            completion?(false)
+            return
+        }
         
         // check cache
         if let cachedImage = ImageCache.shared.image(forKey: url.absoluteString) {
             self.image = cachedImage
+            completion?(true)
             return
         }
         
@@ -51,15 +55,18 @@ public extension UIImageView {
             if let error = error {
                 // don't bother reporting cancelation errors
                 if (error as NSError).domain == NSURLErrorDomain && (error as NSError).code == NSURLErrorCancelled {
+                    completion?(false)
                     return
                 }
                 
                 print(error)
+                completion?(false)
                 return
             }
             
             guard let data = data, let downloadedImage = UIImage(data: data) else {
                 print("unable to extract image")
+                completion?(false)
                 return
             }
             
@@ -71,6 +78,8 @@ public extension UIImageView {
                     self?.image = downloadedImage
                     UIView.animate(withDuration: 0.25, animations: {
                         self?.alpha = 1.0
+                    }, completion: { completed in
+                        completion?(true)
                     })
                 }
             }
