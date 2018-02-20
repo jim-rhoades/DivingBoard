@@ -17,8 +17,8 @@
 		38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */; };
 		38DC741220371C80007BAF33 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */; };
 		38DC741420371FCB007BAF33 /* UIImageView+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741320371FCB007BAF33 /* UIImageView+Async.swift */; };
-		38DC74182037214F007BAF33 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC74172037214F007BAF33 /* Photo.swift */; };
-		38DC741A20372175007BAF33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741920372175007BAF33 /* User.swift */; };
+		38DC74182037214F007BAF33 /* UnsplashPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC74172037214F007BAF33 /* UnsplashPhoto.swift */; };
+		38DC741A20372175007BAF33 /* UnsplashUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741920372175007BAF33 /* UnsplashUser.swift */; };
 		38DC741C20372DB4007BAF33 /* CollectionTypePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */; };
 		38E2E6B4203B111B0036173B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2E6B3203B111B0036173B /* LoadingView.swift */; };
 		38E2E6B6203B24A70036173B /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2E6B5203B24A70036173B /* UIView+AutoLayout.swift */; };
@@ -49,8 +49,8 @@
 		38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		38DC741320371FCB007BAF33 /* UIImageView+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Async.swift"; sourceTree = "<group>"; };
-		38DC74172037214F007BAF33 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
-		38DC741920372175007BAF33 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		38DC74172037214F007BAF33 /* UnsplashPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPhoto.swift; sourceTree = "<group>"; };
+		38DC741920372175007BAF33 /* UnsplashUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashUser.swift; sourceTree = "<group>"; };
 		38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTypePickerView.swift; sourceTree = "<group>"; };
 		38E2E6B3203B111B0036173B /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		38E2E6B5203B24A70036173B /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
@@ -135,8 +135,8 @@
 		38DC7416203720D2007BAF33 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				38DC74172037214F007BAF33 /* Photo.swift */,
-				38DC741920372175007BAF33 /* User.swift */,
+				38DC74172037214F007BAF33 /* UnsplashPhoto.swift */,
+				38DC741920372175007BAF33 /* UnsplashUser.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -253,13 +253,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38DC74182037214F007BAF33 /* Photo.swift in Sources */,
+				38DC74182037214F007BAF33 /* UnsplashPhoto.swift in Sources */,
 				38E2E6B6203B24A70036173B /* UIView+AutoLayout.swift in Sources */,
 				38CB069A203649F200AE6EDA /* ContainerViewController.swift in Sources */,
 				38DC741220371C80007BAF33 /* PhotoCollectionViewCell.swift in Sources */,
 				38E2E6B4203B111B0036173B /* LoadingView.swift in Sources */,
 				3826CAFC203652F800549707 /* UnsplashPickerController.swift in Sources */,
-				38DC741A20372175007BAF33 /* User.swift in Sources */,
+				38DC741A20372175007BAF33 /* UnsplashUser.swift in Sources */,
 				38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */,
 				38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */,
 				38DC741420371FCB007BAF33 /* UIImageView+Async.swift in Sources */,

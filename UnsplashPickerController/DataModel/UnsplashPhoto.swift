@@ -8,9 +8,8 @@
 
 import Foundation
 
-// TODO: change to "UnsplashPhoto"?
-struct Photo: Codable {
-    let id: String
+public struct UnsplashPhoto: Codable {
+    public let id: String
     
     /*
      let createdAt: Date
@@ -23,14 +22,9 @@ struct Photo: Codable {
      let description: String?
      */
     
-    let user: User
-    let urls: URLs
-    let links: Links
-    
-    // TODO: handle 'current_user_collections'?
-    // that might only be necessary if logged into Unsplash while making the API call
-    // and this says you don't have to parse every element, so leaving it out should be fine:
-    // https://grokswift.com/json-swift-4/
+    public let user: UnsplashUser
+    public let urls: URLs
+    public let links: Links
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -51,19 +45,19 @@ struct Photo: Codable {
         case links
     }
     
-    struct URLs: Codable {
-        let raw: URL
-        let full: URL
-        let regular: URL
-        let small: URL
-        let thumb: URL
+    public struct URLs: Codable {
+        public let raw: URL
+        public let full: URL
+        public let regular: URL
+        public let small: URL
+        public let thumb: URL
     }
     
-    struct Links: Codable {
-        let selfURL: URL // the API uses 'self', but we can't use that
-        let html: URL
-        let download: URL
-        let downloadLocation: URL
+    public struct Links: Codable {
+        public let selfURL: URL // the API uses 'self', but we can't use that
+        public let html: URL
+        public let download: URL
+        public let downloadLocation: URL
         
         enum CodingKeys: String, CodingKey {
             case selfURL = "self"

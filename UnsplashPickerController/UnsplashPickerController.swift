@@ -14,7 +14,7 @@ public protocol UnsplashPickerControllerDelegate: class {
     func unsplashPickerControllerDidCancel()
     
     // func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
-    func unsplashPickerController(didFinishPickingPhoto: UIImage) // TODO: change from UIImage to an 'UnsplashPhoto' struct
+    func unsplashPickerControllerDidFinishPicking(photo: UnsplashPhoto)
 }
 
 public class UnsplashPickerController {

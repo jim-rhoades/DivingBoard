@@ -8,13 +8,12 @@
 
 import Foundation
 
-// TODO: change to "UnsplashUser"?
-struct User: Codable {
-    let id: String
-    let username: String
-    let name: String
-    let profileImage: ProfileImage
-    let links: Links
+public struct UnsplashUser: Codable {
+    public let id: String
+    public let username: String
+    public let name: String
+    public let profileImage: ProfileImage
+    public let links: Links
     
     /*
      let portfolioURL: URL
@@ -42,15 +41,15 @@ struct User: Codable {
          */
     }
     
-    struct ProfileImage: Codable {
-        let small: URL
-        let medium: URL
-        let large: URL
+    public struct ProfileImage: Codable {
+        public let small: URL
+        public let medium: URL
+        public let large: URL
     }
     
-    struct Links: Codable {
+    public struct Links: Codable {
         // let selfURL: URL // the API uses 'self', but we can't use that
-        let html: URL
+        public let html: URL
         
         // TODO: use 'photos' if I decide to allow viewing of that user's photos
         // let photos: URL

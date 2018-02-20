@@ -58,8 +58,9 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             print("segue.destination was not a PhotoCollectionViewController")
             return
         }
-        // assign the clientID
+        // assign the clientID and delegate
         photoCollectionViewController.clientID = clientID
+        photoCollectionViewController.delegate = delegate
         
         // pass along CollectionTypePickerView's height, so collectionView insets can be adjusted
         photoCollectionViewController.topInsetAdjustment = collectionTypePickerView.bounds.size.height

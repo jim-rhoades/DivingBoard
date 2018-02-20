@@ -10,7 +10,7 @@
 
 import UIKit
 
-extension UIImageView {
+public extension UIImageView {
     private static var taskKey = 0
     private static var urlKey = 0
     
@@ -24,7 +24,7 @@ extension UIImageView {
         set { objc_setAssociatedObject(self, &UIImageView.urlKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
-    func loadImageAsync(with url: URL?) {
+    public func loadImageAsync(with url: URL?) {
         // cancel prior task, if any
         weak var oldTask = currentTask
         currentTask = nil

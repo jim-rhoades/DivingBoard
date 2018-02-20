@@ -12,11 +12,15 @@ import UnsplashPickerController
 class ViewController: UIViewController {
     
     @IBOutlet weak var photoView: UIImageView!
-    @IBOutlet weak var userView: UIImageView!
+    @IBOutlet weak var userContainerView: UIView!
+    @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userImageView.layer.cornerRadius = userImageView.bounds.size.height / 2.0
+        userImageView.clipsToBounds = true
     }
     
     @IBAction func imagePickerButtonPressed(_ button: UIBarButtonItem) {
@@ -48,12 +52,27 @@ class ViewController: UIViewController {
 // MARK: - UnsplashPickerControllerDelegate
 
 extension ViewController: UnsplashPickerControllerDelegate {
-    func unsplashPickerController(didFinishPickingPhoto: UIImage) {
+    
+    func unsplashPickerControllerDidFinishPicking(photo: UnsplashPhoto) {
         
-        // TODO: display the photo
+        // reset
+        photoView.image = nil
+        userImageView.image = nil
+        userLabel.text = nil
+        userContainerView.isHidden = false
         
-        userView.isHidden = false
-        userLabel.isHidden = false
+        // load the photo
+        let photoURL = photo.urls.full
+        photoView.loadImageAsync(with: photoURL)
+        
+        // TODO: need a version of loadImageAsync with completion handler
+        
+        
+        
+        
+        // load the user avatar and name
+        userImageView.loadImageAsync(with: photo.user.profileImage.medium)
+        userLabel.text = photo.user.name
         
         dismiss(animated: true, completion: nil)
     }
@@ -70,12 +89,8 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             return
         }
-        
         photoView.image = image
-        
-        userView.isHidden = true
-        userLabel.isHidden = true
-        
+        userContainerView.isHidden = true
         dismiss(animated: true, completion: nil)
     }
     

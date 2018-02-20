@@ -13,10 +13,11 @@ private let reuseIdentifier = "Cell"
 class PhotoCollectionViewController: UICollectionViewController {
     
     var clientID = ""
+    weak var delegate: UnsplashPickerControllerDelegate?
     var topInsetAdjustment: CGFloat = 0
     var collectionType: CollectionType = .latest
     private let cellSpacing: CGFloat = 2 // spacing between the photo thumbnails
-    private var photos: [Photo] = []
+    private var photos: [UnsplashPhoto] = []
     private var pageNumber = 1
     private var loadingView: LoadingView?
     
@@ -89,7 +90,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             do {
-                let newPhotos = try decoder.decode([Photo].self, from: responseData)
+                let newPhotos = try decoder.decode([UnsplashPhoto].self, from: responseData)
                 self?.photos.append(contentsOf: newPhotos)
                 
                 DispatchQueue.main.async {
@@ -155,6 +156,11 @@ class PhotoCollectionViewController: UICollectionViewController {
             pageNumber += 1
             loadPhotos()
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photo = photos[indexPath.item]
+        delegate?.unsplashPickerControllerDidFinishPicking(photo: photo)
     }
 
     /*
