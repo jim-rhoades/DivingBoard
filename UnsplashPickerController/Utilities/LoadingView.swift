@@ -19,7 +19,7 @@ public class LoadingView: UIView {
     private var circle1: CircleView!
     private var circle2: CircleView!
     private var circle3: CircleView!
-    private let defaultColor = UIColor(white: 0.15, alpha: 0.3)
+    private let defaultColor = UIColor(white: 0.5, alpha: 0.5)
     private let defaultFrame = CGRect(x: 0.0, y: 0.0, width: 60.0, height: 12.0)
     
     // default frame and color
@@ -89,7 +89,7 @@ public class LoadingView: UIView {
     }
     
     private func animateCircle(_ circle: CircleView) {
-        UIView.animate(withDuration: 1.0, delay: 0.0, options: [.repeat, .autoreverse, .curveEaseInOut, /*.beginFromCurrentState*/], animations: {
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: [.repeat, .autoreverse, .curveEaseInOut, .beginFromCurrentState], animations: {
             circle.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             circle.alpha = 0.5;
         }, completion: nil)
