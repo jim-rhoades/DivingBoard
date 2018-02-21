@@ -65,9 +65,21 @@ extension ViewController: UnsplashPickerControllerDelegate {
         // reset
         resetInterface()
         
+        // show a loading indicator
+        let loadingView = LoadingView()
+        photoView.addCenteredSubview(view: loadingView)
+        
         // load the photo
         let photoURL = photo.urls.full
-        photoView.loadImageAsync(with: photoURL, completion: nil)
+        photoView.loadImageAsync(with: photoURL) { success in
+            
+            // remove the loading indicator
+            UIView.animate(withDuration: 0.15, animations: {
+                loadingView.alpha = 0.0
+            }, completion: { completed in
+                loadingView.removeFromSuperview()
+            })
+        }
         
         // load the user avatar and name
         let userImageURL = photo.user.profileImage.large

@@ -31,7 +31,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         collectionView?.scrollIndicatorInsets.top += topInsetAdjustment
         
         // display a loading indicator
-        loadingView = LoadingView(color: .lightGray)
+        loadingView = LoadingView()
         view.addCenteredSubview(view: loadingView!)
         
         // load photos from Unsplash

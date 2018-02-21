@@ -10,36 +10,48 @@ import UIKit
 /**
  A loading indicator view that shows three circles pulsing in and out.
  
- For convenience, use init(color:) which provides a standard size of 60.0 width and 14.0 height.
+ For convenience use either init(color:) which provides a standard size of 60.0 width and 12.0 height, or init() which provides the same standard size along with a default color.
  
  Otherwise, the size of the circles and the spacing between them will depend on frame size provided during init(frame:) or init(frame: color:).
  */
-class LoadingView: UIView {
-    private var color: UIColor?
-    
+public class LoadingView: UIView {
+    private var color: UIColor
     private var circle1: CircleView!
     private var circle2: CircleView!
     private var circle3: CircleView!
+    private let defaultColor = UIColor(white: 0.15, alpha: 0.3)
+    private let defaultFrame = CGRect(x: 0.0, y: 0.0, width: 60.0, height: 12.0)
     
-    init(color: UIColor?) {
-        let frame = CGRect(x: 0.0, y: 0.0, width: 60.0, height: 14.0)
+    // default frame and color
+    public init() {
+        self.color = defaultColor
+        super.init(frame: defaultFrame)
+        setup()
+    }
+    
+    // default frame, user provided color
+    public init(color: UIColor) {
+        self.color = color
+        super.init(frame: defaultFrame)
+        setup()
+    }
+    
+    // user provided frame and color
+    public init(frame: CGRect, color: UIColor) {
         self.color = color
         super.init(frame: frame)
         setup()
     }
     
-    init(frame: CGRect, color: UIColor?) {
-        self.color = color
+    // user provided frame, default color
+    public override init(frame: CGRect) {
+        self.color = defaultColor
         super.init(frame: frame)
         setup()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
+        self.color = defaultColor
         super.init(coder: aDecoder)
         setup()
     }
@@ -61,21 +73,23 @@ class LoadingView: UIView {
         addSubview(circle3)
         
         // start animating the first circle
-        animateCircle(circle1)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: {
+            self.animateCircle(self.circle1)
+        })
         
         // animate the second circle after 0.25 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             self.animateCircle(self.circle2)
         })
         
         // animate the third circle after 0.5 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75, execute: {
             self.animateCircle(self.circle3)
         })
     }
     
     private func animateCircle(_ circle: CircleView) {
-        UIView.animate(withDuration: 1.0, delay: 0.0, options: [.repeat, .autoreverse, .curveEaseInOut, .beginFromCurrentState], animations: {
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: [.repeat, .autoreverse, .curveEaseInOut, /*.beginFromCurrentState*/], animations: {
             circle.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             circle.alpha = 0.5;
         }, completion: nil)
@@ -83,9 +97,9 @@ class LoadingView: UIView {
 }
 
 class CircleView: UIView {
-    private var color: UIColor?
+    private var color = UIColor.lightGray
     
-    init(frame: CGRect, color: UIColor?){
+    init(frame: CGRect, color: UIColor){
         self.color = color
         super.init(frame: frame)
         setup()
@@ -110,8 +124,7 @@ class CircleView: UIView {
             return
         }
         context.addEllipse(in: rect)
-        let fillColor = color ?? UIColor.lightGray // if 'color' is nil, use lightGray
-        context.setFillColor(fillColor.cgColor)
+        context.setFillColor(color.cgColor)
         context.fillPath()
     }
 }

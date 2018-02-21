@@ -8,8 +8,8 @@
 
 import UIKit
 
-extension UIView {
-    func addCenteredSubview(view viewToAdd: UIView) {
+public extension UIView {
+    public func addCenteredSubview(view viewToAdd: UIView) {
         viewToAdd.translatesAutoresizingMaskIntoConstraints = false
         addSubview(viewToAdd)
         let widthConstraint = NSLayoutConstraint(item: viewToAdd, attribute: .width,
