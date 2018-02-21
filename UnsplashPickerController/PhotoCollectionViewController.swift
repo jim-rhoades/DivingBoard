@@ -105,9 +105,11 @@ class PhotoCollectionViewController: UICollectionViewController {
                     
                     var errorMessage = "Unknown error"
                     if jsonString == "Rate Limit Exceeded" {
-                        errorMessage = "Rate Limit Exceeded"
+                        errorMessage = NSLocalizedString("Rate Limit Exceeded",
+                                                         comment: "error message shown when the Unsplash API rate limit has been exceeded")
                     } else if jsonString.contains("The access token is invalid") {
-                        errorMessage = "The access token is invalid"
+                        errorMessage = NSLocalizedString("The access token is invalid",
+                                                         comment: "error message shown when an incorrect application ID has been used to access the Unsplash API")
                     }
                     self?.showErrorAlert(message: errorMessage)
                 }
@@ -159,11 +161,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoCollectionViewCell
         let photo = photos[indexPath.item]
         let thumbnailURL = photo.urls.small // photo.urls.thumb images are too small
-        
-        if cell.imageView == nil {
-            print("IMAGE VIEW IS NIL???")
-            return cell
-        }
         
         // load image asynchronously, using cached version if it's there
         cell.imageView.loadImageAsync(with: thumbnailURL, completion: nil)
