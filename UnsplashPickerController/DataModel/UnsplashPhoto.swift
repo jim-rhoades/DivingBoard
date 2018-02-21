@@ -16,12 +16,12 @@ public struct UnsplashPhoto: Codable {
      let updatedAt: Date
      let width: Int
      let height: Int
-     let color: String // hex string like #60544D
      let likes: Int
      let likedByUser: Bool
      let description: String?
      */
     
+    public let color: String // hex string like #60544D
     public let user: UnsplashUser
     public let urls: URLs
     public let links: Links
@@ -40,6 +40,7 @@ public struct UnsplashPhoto: Codable {
          case description
          */
         
+        case color
         case user
         case urls
         case links

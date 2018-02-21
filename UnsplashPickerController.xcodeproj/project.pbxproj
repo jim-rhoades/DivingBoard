@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3826CAFC203652F800549707 /* UnsplashPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3826CAFB203652F800549707 /* UnsplashPickerController.swift */; };
+		38C02AC1203E137B00319C83 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C02AC0203E137B00319C83 /* UIColor+Hex.swift */; };
 		38CB068120362C2500AE6EDA /* UnsplashPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */; };
 		38CB068620362C2500AE6EDA /* UnsplashPickerControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB068520362C2500AE6EDA /* UnsplashPickerControllerTests.swift */; };
 		38CB068820362C2500AE6EDA /* UnsplashPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		3826CAFB203652F800549707 /* UnsplashPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerController.swift; sourceTree = "<group>"; };
+		38C02AC0203E137B00319C83 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UnsplashPickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnsplashPickerController.h; sourceTree = "<group>"; };
 		38CB067B20362C2500AE6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				38F7836A203775BE008B491C /* SegueHandlerType.swift */,
 				38DC741320371FCB007BAF33 /* UIImageView+Async.swift */,
 				38E2E6B5203B24A70036173B /* UIView+AutoLayout.swift */,
+				38C02AC0203E137B00319C83 /* UIColor+Hex.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				38DC741A20372175007BAF33 /* UnsplashUser.swift in Sources */,
 				38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */,
 				38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */,
+				38C02AC1203E137B00319C83 /* UIColor+Hex.swift in Sources */,
 				38DC741420371FCB007BAF33 /* UIImageView+Async.swift in Sources */,
 				38F7836B203775BE008B491C /* SegueHandlerType.swift in Sources */,
 				38DC741C20372DB4007BAF33 /* CollectionTypePickerView.swift in Sources */,

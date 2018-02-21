@@ -69,6 +69,9 @@ extension ViewController: UnsplashPickerControllerDelegate {
         let loadingView = LoadingView()
         photoView.addCenteredSubview(view: loadingView)
         
+        // do something with the photo's related color
+        // photoView.backgroundColor = UIColor(hexString: photo.color)
+        
         // load the photo
         let photoURL = photo.urls.full
         photoView.loadImageAsync(with: photoURL) { success in
