@@ -99,21 +99,31 @@ class PhotoCollectionViewController: UICollectionViewController {
             } catch {
                 print("error trying to convert data to JSON: \(error)")
                 
-                // TODO: is there a better way to detect this?
-                // this can happen if the rate limit has been exceeded
-                if let jsonString = String(data: responseData, encoding: .utf8),
-                    jsonString == "Rate Limit Exceeded" {
-                    let alertTitle = NSLocalizedString("Error", comment: "title of 'Error' alert")
-                    let alertController = UIAlertController(title: alertTitle, message: jsonString, preferredStyle: .alert)
-                    let okTitle = NSLocalizedString("OK", comment: "'OK' button title")
-                    let okAction = UIAlertAction(title: okTitle, style: .default, handler: nil)
-                    alertController.addAction(okAction)
-                    self?.present(alertController, animated: true, completion: nil)
+                // handle common errors
+                if let jsonString = String(data: responseData, encoding: .utf8) {
+                    print(jsonString)
+                    
+                    var errorMessage = "Unknown error"
+                    if jsonString == "Rate Limit Exceeded" {
+                        errorMessage = "Rate Limit Exceeded"
+                    } else if jsonString.contains("The access token is invalid") {
+                        errorMessage = "The access token is invalid"
+                    }
+                    self?.showErrorAlert(message: errorMessage)
                 }
             }
         }
         
         dataTask.resume()
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alertTitle = NSLocalizedString("Error", comment: "title of 'Error' alert")
+        let alertController = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
+        let okTitle = NSLocalizedString("OK", comment: "'OK' button title")
+        let okAction = UIAlertAction(title: okTitle, style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     private func unsplashURL() -> URL? {
