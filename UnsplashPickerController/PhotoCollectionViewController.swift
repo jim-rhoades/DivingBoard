@@ -30,15 +30,15 @@ class PhotoCollectionViewController: UICollectionViewController {
         collectionView?.contentInset.top += topInsetAdjustment
         collectionView?.scrollIndicatorInsets.top += topInsetAdjustment
         
+        // hide navigation bar when scrolling down
+        navigationController?.hidesBarsOnSwipe = true
+        
         // display a loading indicator
         loadingView = LoadingView()
         view.addCenteredSubview(view: loadingView!)
         
         // load photos from Unsplash
         loadPhotos()
-        
-        // hide navigation bar when scrolling down
-        navigationController?.hidesBarsOnSwipe = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,12 +49,9 @@ class PhotoCollectionViewController: UICollectionViewController {
     // MARK: - Photo loading
     
     private func loadPhotos() {
-        
         guard let url = unsplashURL() else {
             return
         }
-        
-        print(url.absoluteString)
         
         let dataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             
@@ -78,17 +75,6 @@ class PhotoCollectionViewController: UICollectionViewController {
                 print(error!)
                 return
             }
-            
-            
-            // TODO: for testing purposes
-            /*
-             if let jsonString = String(data: responseData, encoding: .utf8) {
-             print(jsonString)
-             } else {
-             print("FAILED TO CONVERT DATA TO JSON STRING")
-             }
-            */
-            
             
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
