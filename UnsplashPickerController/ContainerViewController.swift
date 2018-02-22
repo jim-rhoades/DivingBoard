@@ -23,26 +23,77 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     private weak var searchViewController: PhotoCollectionViewController?
     private var toCollectionTypeIndex: Int = 0
     private var fromCollectionTypeIndex: Int = 0
+    private let commonBarColor = UIColor(white: 247.0/255.0, alpha: 1.0)
+    private var previousStatusBarColor: UIColor?
     @IBOutlet private weak var collectionTypePickerView: CollectionTypePickerView!
-
+    
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Unsplash"
         
-        // hide the shadow line on the navigationBar
-        navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        // store the app's status bar color so it can be reset when UnsplashPicker is dismissed
+        previousStatusBarColor = statusBarColor
+        
+        if let navigationController = navigationController {
+            navigationController.navigationBar.setValue(true, forKey: "hidesShadow") // hide shadow line
+            navigationController.navigationBar.barTintColor = commonBarColor
+        }
         
         collectionTypePickerView.delegate = self
         
-        // load the Latest photos initially
+        // load the Latest photos
         performSegue(withIdentifier: .embedLatestVC, sender: self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        statusBarColor = commonBarColor
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarColor = previousStatusBarColor
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Status bar
+    
+    var statusBarColor: UIColor? {
+        get {
+            guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+                return nil
+            }
+            return statusBar.backgroundColor
+        }
+        set {
+            if let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView {
+                statusBar.backgroundColor = newValue
+            }
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        // always return false on iPhone X
+        if UIApplication.shared.statusBarFrame.height >= CGFloat(44.0) {
+            return false
+        }
+        
+        // hide the status bar when the navigation bar is hidden
+        return navigationController?.isNavigationBarHidden ?? false
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    
+    // MARK: - Interaction
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         delegate?.unsplashPickerControllerDidCancel()
@@ -103,32 +154,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         view.bringSubview(toFront: collectionTypePickerView)
     }
     
-    
-    
-    /*
-    // CROSS DISSOLVE
-    func swapFromViewController(_ fromViewController: UIViewController, toViewController: UIViewController) {
-         toViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        
-         // via:
-         // http://sandmoose.com/post/35714028270/storyboards-with-custom-container-view-controllers
-        
-        fromViewController.willMove(toParentViewController: nil)
-         self.addChildViewController(toViewController)
-        self.transition(from: fromViewController, to: toViewController, duration: 0.25, options: .transitionCrossDissolve, animations: nil) { (finished: Bool) in
-             if finished {
-                 fromViewController.removeFromParentViewController()
-                toViewController.didMove(toParentViewController: self)
-                 // self.transitionInProgress = false
-             }
-         }
-     }
-    */
- 
-    
-    
-    
-    // SLIDE FROM LEFT / RIGHT
     func swapFromViewController(_ fromViewController: UIViewController, toViewController: UIViewController) {
         // decide whether to slide left or right
         var slideFromRight = false
@@ -141,20 +166,9 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         // start the incoming viewController offscreen
         if slideFromRight == true {
             toViewController.view.frame = offScreenRightFrame()
-        }
-        else {
+        } else {
             toViewController.view.frame = offScreenLeftFrame()
         }
-        
-        
-        // with help from:
-        // http://sandmoose.com/post/35714028270/storyboards-with-custom-container-view-controllers
-        
-        // and:
-        // http://code.tutsplus.com/tutorials/implementing-container-containment-sliding-menu-controller--mobile-14562
-        
-        // NOTE: added beginAppearanceTransition and endAppearanceTransition
-        // to fix iOS 11 issue where completion block wasn't being called
         
         addChildViewController(toViewController)
         fromViewController.willMove(toParentViewController: nil)
@@ -166,8 +180,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             
             if slideFromRight == true {
                 fromViewController.view.frame = self.offScreenLeftFrame()
-            }
-            else {
+            } else {
                 fromViewController.view.frame = self.offScreenRightFrame()
             }
         }) { (finished: Bool) in

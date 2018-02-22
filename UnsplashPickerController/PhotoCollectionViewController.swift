@@ -36,6 +36,9 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         // load photos from Unsplash
         loadPhotos()
+        
+        // hide navigation bar when scrolling down
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     override func didReceiveMemoryWarning() {

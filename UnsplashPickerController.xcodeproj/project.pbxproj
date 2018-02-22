@@ -128,9 +128,9 @@
 				38CB0697203649AA00AE6EDA /* EmptySegue.swift */,
 				38E2E6B3203B111B0036173B /* LoadingView.swift */,
 				38F7836A203775BE008B491C /* SegueHandlerType.swift */,
+				38C02AC0203E137B00319C83 /* UIColor+Hex.swift */,
 				38DC741320371FCB007BAF33 /* UIImageView+Async.swift */,
 				38E2E6B5203B24A70036173B /* UIView+AutoLayout.swift */,
-				38C02AC0203E137B00319C83 /* UIColor+Hex.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

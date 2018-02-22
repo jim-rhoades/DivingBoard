@@ -22,17 +22,27 @@ class CollectionTypePickerView: UIView {
     weak var delegate: CollectionTypePickerViewDelegate?
     private var transitionInProgress = false
     private var selectionView: UIView!
-    private var currentCollectionType: CollectionType = .latest
+    private let normalColor = UIView().tintColor! // default iOS blue color
+    private let selectedColor = UIColor.black
+    
     @IBOutlet weak var latestButton: UIButton!
     @IBOutlet weak var popularButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    private var currentCollectionType: CollectionType = .latest {
+        // when the currentCollectionType changes, update the button colors
+        didSet {
+            updateButtonColors()
+        }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         selectionView = UIView(frame: CGRect.zero)
         addSubview(selectionView)
         selectionView.layer.cornerRadius = 1.0
-        selectionView.backgroundColor = UIColor.lightGray // TODO: pick a better color
+        selectionView.backgroundColor = selectedColor
+        updateButtonColors()
     }
     
     override func layoutSubviews() {
@@ -58,15 +68,27 @@ class CollectionTypePickerView: UIView {
         delegate?.collectionTypeChanged(.search)
     }
     
+    private func updateButtonColors() {
+        switch currentCollectionType {
+        case .latest:
+            latestButton.setTitleColor(selectedColor, for: .normal)
+            popularButton.setTitleColor(normalColor, for: .normal)
+            searchButton.setTitleColor(normalColor, for: .normal)
+        case .popular:
+            latestButton.setTitleColor(normalColor, for: .normal)
+            popularButton.setTitleColor(selectedColor, for: .normal)
+            searchButton.setTitleColor(normalColor, for: .normal)
+        case .search:
+            latestButton.setTitleColor(normalColor, for: .normal)
+            popularButton.setTitleColor(normalColor, for: .normal)
+            searchButton.setTitleColor(selectedColor, for: .normal)
+        }
+    }
+    
     private func setSelectedCollectionType(_ collectionType: CollectionType, animated: Bool) {
         currentCollectionType = collectionType
         
         if animated {
-            /*
-            UIView.animate(withDuration: 0.25) {
-                self.selectionView.frame = self.frameForSelectionView(for: collectionType)
-            }
-            */
             transitionInProgress = true
             
             UIView.animate(withDuration: 0.25, animations: {
