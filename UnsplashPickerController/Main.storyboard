@@ -25,9 +25,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ge-9u-7QP">
-                                        <rect key="frame" x="16" y="3.6666666666666714" width="49" height="33"/>
+                                        <rect key="frame" x="16" y="3.6666666666666714" width="36" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <state key="normal" title="Latest"/>
+                                        <state key="normal" title="New"/>
                                         <connections>
                                             <action selector="latestButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="7YS-Vo-nZk"/>
                                         </connections>
