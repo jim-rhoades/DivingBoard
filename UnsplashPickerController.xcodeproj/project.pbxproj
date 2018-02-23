@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3826CAFC203652F800549707 /* UnsplashPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3826CAFB203652F800549707 /* UnsplashPickerController.swift */; };
 		38C02AC1203E137B00319C83 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C02AC0203E137B00319C83 /* UIColor+Hex.swift */; };
+		38C5E929203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */; };
 		38CB068120362C2500AE6EDA /* UnsplashPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */; };
 		38CB068620362C2500AE6EDA /* UnsplashPickerControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB068520362C2500AE6EDA /* UnsplashPickerControllerTests.swift */; };
 		38CB068820362C2500AE6EDA /* UnsplashPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,6 +24,7 @@
 		38DC741C20372DB4007BAF33 /* CollectionTypePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */; };
 		38E2E6B4203B111B0036173B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2E6B3203B111B0036173B /* LoadingView.swift */; };
 		38E2E6B6203B24A70036173B /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2E6B5203B24A70036173B /* UIView+AutoLayout.swift */; };
+		38E87BDD203F6E640036BBFD /* UnsplashSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E87BDC203F6E640036BBFD /* UnsplashSearchResults.swift */; };
 		38F7836B203775BE008B491C /* SegueHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F7836A203775BE008B491C /* SegueHandlerType.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +41,7 @@
 /* Begin PBXFileReference section */
 		3826CAFB203652F800549707 /* UnsplashPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerController.swift; sourceTree = "<group>"; };
 		38C02AC0203E137B00319C83 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoCollectionViewController+Search.swift"; sourceTree = "<group>"; };
 		38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UnsplashPickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnsplashPickerController.h; sourceTree = "<group>"; };
 		38CB067B20362C2500AE6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,6 +59,7 @@
 		38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTypePickerView.swift; sourceTree = "<group>"; };
 		38E2E6B3203B111B0036173B /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		38E2E6B5203B24A70036173B /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
+		38E87BDC203F6E640036BBFD /* UnsplashSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchResults.swift; sourceTree = "<group>"; };
 		38F7836A203775BE008B491C /* SegueHandlerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueHandlerType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +112,7 @@
 				38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */,
 				38CB0699203649F200AE6EDA /* ContainerViewController.swift */,
 				38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */,
+				38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */,
 				3826CAFB203652F800549707 /* UnsplashPickerController.swift */,
 			);
 			path = UnsplashPickerController;
@@ -140,6 +145,7 @@
 			children = (
 				38DC74172037214F007BAF33 /* UnsplashPhoto.swift */,
 				38DC741920372175007BAF33 /* UnsplashUser.swift */,
+				38E87BDC203F6E640036BBFD /* UnsplashSearchResults.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -257,6 +263,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				38DC74182037214F007BAF33 /* UnsplashPhoto.swift in Sources */,
+				38E87BDD203F6E640036BBFD /* UnsplashSearchResults.swift in Sources */,
+				38C5E929203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift in Sources */,
 				38E2E6B6203B24A70036173B /* UIView+AutoLayout.swift in Sources */,
 				38CB069A203649F200AE6EDA /* ContainerViewController.swift in Sources */,
 				38DC741220371C80007BAF33 /* PhotoCollectionViewCell.swift in Sources */,

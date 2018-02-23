@@ -16,10 +16,13 @@ class PhotoCollectionViewController: UICollectionViewController {
     weak var delegate: UnsplashPickerControllerDelegate?
     var topInsetAdjustment: CGFloat = 0
     var collectionType: CollectionType = .latest
-    private let cellSpacing: CGFloat = 2 // spacing between the photo thumbnails
-    private var photos: [UnsplashPhoto] = []
-    private var pageNumber = 1
-    private var loadingView: LoadingView?
+    let cellSpacing: CGFloat = 2 // spacing between the photo thumbnails
+    var loadingView: LoadingView?
+    var photos: [UnsplashPhoto] = []
+    var pageNumber = 1
+    var searchBar: UISearchBar? // gets set during prepareForSegue in the ContainerViewController
+    var currentSearchPhrase: String?
+    var currentSearchTotalPages: Int = 0
     
     // MARK: - View lifecycle
     
@@ -33,12 +36,22 @@ class PhotoCollectionViewController: UICollectionViewController {
         // hide navigation bar when scrolling down
         navigationController?.hidesBarsOnSwipe = true
         
-        // display a loading indicator
-        loadingView = LoadingView()
-        view.addCenteredSubview(view: loadingView!)
+        if collectionType == .search {
+            configureSearchBar()
+        } else {
+            // display a loading indicator
+            loadingView = LoadingView()
+            view.addCenteredSubview(view: loadingView!)
+            
+            // load photos from Unsplash
+            loadPhotos()
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        // load photos from Unsplash
-        loadPhotos()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,10 +61,12 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     // MARK: - Photo loading
     
-    private func loadPhotos() {
-        guard let url = unsplashURL() else {
+    func loadPhotos() {
+        guard let url = unsplashURL(withSearchPhrase: currentSearchPhrase) else {
             return
         }
+        
+        print(url.absoluteString)
         
         let dataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             
@@ -79,7 +94,15 @@ class PhotoCollectionViewController: UICollectionViewController {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             do {
-                let newPhotos = try decoder.decode([UnsplashPhoto].self, from: responseData)
+                var newPhotos: [UnsplashPhoto]
+                
+                if self?.collectionType == .search {
+                    let searchResults = try decoder.decode(UnsplashSearchResults.self, from: responseData)
+                    newPhotos = searchResults.results
+                    self?.currentSearchTotalPages = searchResults.totalPages
+                } else {
+                    newPhotos = try decoder.decode([UnsplashPhoto].self, from: responseData)
+                }
                 self?.photos.append(contentsOf: newPhotos)
                 
                 DispatchQueue.main.async {
@@ -117,11 +140,15 @@ class PhotoCollectionViewController: UICollectionViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func unsplashURL() -> URL? {
+    private func unsplashURL(withSearchPhrase searchPhrase: String?) -> URL? {
         var urlComponents = URLComponents()
-        urlComponents.scheme = "https";
-        urlComponents.host = "api.unsplash.com";
-        urlComponents.path = "/photos";
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.unsplash.com"
+        if collectionType == .search {
+            urlComponents.path = "/search/photos"
+        } else {
+            urlComponents.path = "/photos"
+        }
         
         let clientIDItem = URLQueryItem(name: "client_id", value: clientID)
         let perPageItem = URLQueryItem(name: "per_page", value: "20")
@@ -131,13 +158,20 @@ class PhotoCollectionViewController: UICollectionViewController {
         if collectionType == .popular {
             let orderByItem = URLQueryItem(name: "order_by", value: "popular")
             urlComponents.queryItems?.append(orderByItem)
+        } else if collectionType == .search {
+            if let searchPhrase = currentSearchPhrase {
+                let queryItem = URLQueryItem(name: "query", value: searchPhrase)
+                urlComponents.queryItems?.append(queryItem)
+            }
         }
         
         return urlComponents.url
     }
+}
 
-    // MARK: - UICollectionViewDataSource
-    
+// MARK: - UICollectionViewDataSource
+
+extension PhotoCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -155,13 +189,22 @@ class PhotoCollectionViewController: UICollectionViewController {
         cell.imageView.loadImageAsync(with: thumbnailURL, completion: nil)
         return cell
     }
+}
 
-    // MARK: - UICollectionViewDelegate
-    
+// MARK: - UICollectionViewDelegate
+
+extension PhotoCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // load more photos when scrolling to the last cell
         let indexOfLastPhoto = photos.count - 1
         if indexPath.item == indexOfLastPhoto {
+            // don't attempt to load more search results if the end has been reached
+            if collectionType == .search,
+                pageNumber == currentSearchTotalPages {
+                print("do NOT load more photos... reached last page of search results")
+                return
+            }
+            
             pageNumber += 1
             loadPhotos()
         }
