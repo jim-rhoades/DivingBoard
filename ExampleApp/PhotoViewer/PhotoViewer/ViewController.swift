@@ -40,6 +40,7 @@ class ViewController: UIViewController {
         // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
         let unsplashPicker = UnsplashPickerController.unsplashPicker(withClientID: unsplashAppID,
                                                                      presentingViewController: self)
+        unsplashPicker.modalPresentationStyle = .popover
         
         let presentationController = unsplashPicker.popoverPresentationController
         presentationController?.barButtonItem = button

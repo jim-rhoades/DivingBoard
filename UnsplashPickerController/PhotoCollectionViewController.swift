@@ -231,10 +231,14 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
         var cellWidth: CGFloat = 0
         var columns: CGFloat = 2
         
-        // if 'regular' horizontalSizeClass, show 4 columns
-        if traitCollection.horizontalSizeClass == .regular {
+        // needed if the unsplashPicker is presented without:
+        // unsplashPicker.modalPresentationStyle = .popover
+        let portraitWidthOfPlusSizePhones: CGFloat = 414.0
+        if view.bounds.size.width > portraitWidthOfPlusSizePhones {
             columns = 4
         }
+        
+        // TODO: add even more columns for iPad presented full screen?
         
         cellWidth = (self.view.bounds.size.width - cellSpacing * (columns - 1)) / columns
         
