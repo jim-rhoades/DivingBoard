@@ -23,6 +23,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     var searchBar: UISearchBar? // gets set during prepareForSegue in the ContainerViewController
     var currentSearchPhrase: String?
     var currentSearchTotalPages: Int = 0
+    let sectionHeaderIdentifier = "SectionHeader"
     
     // MARK: - View lifecycle
     
@@ -37,7 +38,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         navigationController?.hidesBarsOnSwipe = true
         
         if collectionType == .search {
-            configureSearchBar()
+            configureToShowSearchBar()
         } else {
             // display a loading indicator
             loadingView = LoadingView()
@@ -46,12 +47,6 @@ class PhotoCollectionViewController: UICollectionViewController {
             // load photos from Unsplash
             loadPhotos()
         }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -189,6 +184,18 @@ extension PhotoCollectionViewController {
         cell.imageView.loadImageAsync(with: thumbnailURL, completion: nil)
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionElementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderIdentifier, for: indexPath as IndexPath) as! CollectionReusableSearchView
+            headerView.searchBar.delegate = self
+            headerView.searchBar.becomeFirstResponder() // TODO: does this being called more than once cause problems?
+            return headerView
+        default:
+            preconditionFailure("Invalid UICollectionElementKind for this collection view")
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -240,5 +247,13 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if collectionType == .search {
+            return CGSize(width: view.bounds.width, height: searchBarHeight)
+        } else {
+            return CGSize.zero
+        }
     }
 }

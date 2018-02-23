@@ -8,29 +8,45 @@
 
 import UIKit
 
-extension PhotoCollectionViewController {
-    func configureSearchBar() {
+// MARK: - Search bar
+
+let searchBarHeight: CGFloat = 56.0
+
+class CollectionReusableSearchView: UICollectionReusableView {
+    var searchBar: UISearchBar!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    func setup() {
         let searchBarFrame = CGRect(x: 0,
-                                    y: view.safeAreaInsets.top + topInsetAdjustment,
-                                    width: view.bounds.width,
-                                    height: 56.0) // default height
+                                    y: 0,
+                                    width: bounds.width,
+                                    height: searchBarHeight) // default height
         searchBar = UISearchBar(frame: searchBarFrame)
-        guard let searchBar = searchBar else {
-            return
-        }
-        
         searchBar.autoresizingMask = [.flexibleWidth]
         searchBar.backgroundImage = UIImage()
         if let textField = searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = UIColor(white: 247.0/255.0, alpha: 0.9)
         }
-        searchBar.delegate = self
-        view.addSubview(searchBar)
-        searchBar.becomeFirstResponder()
-        
-        // adjust insets to make room for the searchBar
-        collectionView?.contentInset.top += searchBar.frame.size.height
-        collectionView?.scrollIndicatorInsets.top += searchBar.frame.size.height
+        addSubview(searchBar)
+    }
+}
+
+extension PhotoCollectionViewController {
+    func configureToShowSearchBar() {
+        // prepare to add the UISearchBar as a section header in collectionView
+        collectionView?.register(CollectionReusableSearchView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderIdentifier)
+        if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.sectionHeadersPinToVisibleBounds = true
+        }
     }
 }
 
