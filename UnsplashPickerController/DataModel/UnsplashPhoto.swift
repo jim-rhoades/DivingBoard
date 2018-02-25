@@ -14,13 +14,13 @@ public struct UnsplashPhoto: Codable {
     /*
      let createdAt: Date
      let updatedAt: Date
-     let width: Int
-     let height: Int
      let likes: Int
      let likedByUser: Bool
      let description: String?
      */
     
+    public let width: Int
+    public let height: Int
     public let color: String // hex string like #60544D
     public let user: UnsplashUser
     public let urls: URLs
@@ -32,14 +32,15 @@ public struct UnsplashPhoto: Codable {
         /*
          case createdAt = "created_at"
          case updatedAt = "updated_at"
-         case width
-         case height
+         
          case color
          case likes
          case likedByUser = "liked_by_user"
          case description
          */
         
+        case width
+        case height
         case color
         case user
         case urls
@@ -65,6 +66,12 @@ public struct UnsplashPhoto: Codable {
             case html
             case download
             case downloadLocation = "download_location"
+        }
+    }
+    
+    public var size: CGSize {
+        get {
+            return CGSize(width: width, height: height)
         }
     }
 }

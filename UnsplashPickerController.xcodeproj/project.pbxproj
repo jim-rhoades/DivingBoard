@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3826CAFC203652F800549707 /* UnsplashPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3826CAFB203652F800549707 /* UnsplashPickerController.swift */; };
+		382AB2F72042106F00932147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 382AB2F62042106F00932147 /* Assets.xcassets */; };
 		38C02AC1203E137B00319C83 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C02AC0203E137B00319C83 /* UIColor+Hex.swift */; };
 		38C5E929203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */; };
 		38CB068120362C2500AE6EDA /* UnsplashPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		3826CAFB203652F800549707 /* UnsplashPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerController.swift; sourceTree = "<group>"; };
+		382AB2F62042106F00932147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38C02AC0203E137B00319C83 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoCollectionViewController+Search.swift"; sourceTree = "<group>"; };
 		38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UnsplashPickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 				38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */,
 				38CB067B20362C2500AE6EDA /* Info.plist */,
 				38CB069120362DE200AE6EDA /* Main.storyboard */,
+				382AB2F62042106F00932147 /* Assets.xcassets */,
 				38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */,
 				38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */,
 				38CB0699203649F200AE6EDA /* ContainerViewController.swift */,
@@ -244,6 +247,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				382AB2F72042106F00932147 /* Assets.xcassets in Resources */,
 				38CB069220362DE200AE6EDA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -25,6 +25,12 @@ class PhotoCollectionViewController: UICollectionViewController {
     var currentSearchTotalPages: Int = 0
     let sectionHeaderIdentifier = "SectionHeader"
     
+    var currentLayoutStyle: LayoutStyle = .grid {
+        didSet {
+            collectionViewLayout.invalidateLayout()
+        }
+    }
+    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
@@ -229,20 +235,32 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         var cellWidth: CGFloat = 0
-        var columns: CGFloat = 2
+        var columns: CGFloat = 1
         
-        // needed if the unsplashPicker is presented without:
-        // unsplashPicker.modalPresentationStyle = .popover
-        let portraitWidthOfPlusSizePhones: CGFloat = 414.0
-        if view.bounds.size.width > portraitWidthOfPlusSizePhones {
-            columns = 4
+        if currentLayoutStyle == .grid {
+            // TODO: add more columns for iPad presented full screen?
+            
+            // needed if the unsplashPicker is presented without:
+            // unsplashPicker.modalPresentationStyle = .popover
+            let portraitWidthOfPlusSizePhones: CGFloat = 414.0
+            if view.bounds.size.width > portraitWidthOfPlusSizePhones {
+                columns = 4
+            } else {
+                columns = 2
+            }
         }
-        
-        // TODO: add even more columns for iPad presented full screen?
         
         cellWidth = (self.view.bounds.size.width - cellSpacing * (columns - 1)) / columns
         
-        return CGSize(width: cellWidth, height: cellWidth)
+        switch currentLayoutStyle {
+        case .stacked:
+            let photo = photos[indexPath.item]
+            let scale = cellWidth / photo.size.width
+            let cellHeight = photo.size.height * scale
+            return CGSize(width: cellWidth, height: cellHeight)
+        case .grid:
+            return CGSize(width: cellWidth, height: cellWidth)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

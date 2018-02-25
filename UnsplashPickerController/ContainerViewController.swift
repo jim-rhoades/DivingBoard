@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum LayoutStyle {
+    case stacked
+    case grid
+}
+
 class ContainerViewController: UIViewController, SegueHandlerType {
     enum SegueIdentifier: String {
         case embedLatestVC = "EmbedLatestVC"
@@ -25,6 +30,9 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     private var fromCollectionTypeIndex: Int = 0
     private let commonBarColor = UIColor(white: 247.0/255.0, alpha: 1.0)
     private var previousStatusBarColor: UIColor?
+    private var stackedLayoutButton: UIBarButtonItem?
+    private var gridLayoutButton: UIBarButtonItem?
+    private var currentLayoutStyle: LayoutStyle = .grid
     @IBOutlet private weak var collectionTypePickerView: CollectionTypePickerView!
     
     // MARK: - View lifecycle
@@ -36,6 +44,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
         // store the app's status bar color so it can be reset when UnsplashPicker is dismissed
         previousStatusBarColor = statusBarColor
+        
+        createLayoutButtons()
         
         if let navigationController = navigationController {
             navigationController.navigationBar.setValue(true, forKey: "hidesShadow") // hide shadow line
@@ -61,6 +71,67 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Layout buttons
+    
+    func createLayoutButtons() {
+        // only if they haven't already been created
+        guard stackedLayoutButton == nil || gridLayoutButton == nil else {
+            return
+        }
+        
+        let bundle = Bundle(for: UnsplashPickerController.self)
+        guard let stackedImage = UIImage(named: "layoutButtonStacked", in: bundle, compatibleWith: nil) else {
+            preconditionFailure("failed to load image: layoutButtonStacked")
+        }
+        guard let stackedImageDisabled = UIImage(named: "layoutButtonStacked_Disabled", in: bundle, compatibleWith: nil) else {
+            preconditionFailure("failed to load image: layoutButtonStacked_Disabled")
+        }
+        guard let gridImage = UIImage(named: "layoutButtonGrid", in: bundle, compatibleWith: nil) else {
+            preconditionFailure("failed to load image: layoutButtonGrid")
+        }
+        guard let gridImageDisabled = UIImage(named: "layoutButtonGrid_Disabled", in: bundle, compatibleWith: nil) else {
+            preconditionFailure("failed to load image: layoutButtonGrid_Disabled")
+        }
+        
+        let rect = CGRect(x: 0, y: 0, width: 32.0, height: 32.0)
+        
+        let stackedButton = UIButton(frame: rect)
+        stackedButton.setImage(stackedImage, for: .normal)
+        stackedButton.setImage(stackedImageDisabled, for: .disabled)
+        stackedButton.addTarget(self, action: #selector(stackedLayoutButtonPressed(_:)), for: .touchUpInside)
+        let stackedBarButton = UIBarButtonItem(customView: stackedButton)
+        stackedLayoutButton = stackedBarButton
+        
+        let gridButton = UIButton(frame: rect)
+        gridButton.setImage(gridImage, for: .normal)
+        gridButton.setImage(gridImageDisabled, for: .disabled)
+        gridButton.addTarget(self, action: #selector(gridLayoutButtonPressed(_:)), for: .touchUpInside)
+        let gridBarButton = UIBarButtonItem(customView: gridButton)
+        gridLayoutButton = gridBarButton
+        
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedSpace.width = 16.0
+        
+        navigationItem.leftBarButtonItems = [stackedBarButton, fixedSpace, gridBarButton]
+        updateLayoutButtons()
+    }
+    
+    func updateLayoutButtons() {
+        guard let stackedLayoutButton = stackedLayoutButton,
+            let gridLayoutButton = gridLayoutButton else {
+            return
+        }
+        
+        switch currentLayoutStyle {
+        case .stacked:
+            stackedLayoutButton.isEnabled = false
+            gridLayoutButton.isEnabled = true
+        case .grid:
+            stackedLayoutButton.isEnabled = true
+            gridLayoutButton.isEnabled = false
+        }
     }
     
     // MARK: - Status bar
@@ -95,6 +166,22 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     // MARK: - Interaction
     
+    @objc func stackedLayoutButtonPressed(_ sender: Any) {
+        currentLayoutStyle = .stacked
+        updateLayoutButtons()
+        latestViewController?.currentLayoutStyle = currentLayoutStyle
+        popularViewController?.currentLayoutStyle = currentLayoutStyle
+        searchViewController?.currentLayoutStyle = currentLayoutStyle
+    }
+    
+    @objc func gridLayoutButtonPressed(_ sender: Any) {
+        currentLayoutStyle = .grid
+        updateLayoutButtons()
+        latestViewController?.currentLayoutStyle = currentLayoutStyle
+        popularViewController?.currentLayoutStyle = currentLayoutStyle
+        searchViewController?.currentLayoutStyle = currentLayoutStyle
+    }
+    
     @IBAction func cancelButtonPressed(_ sender: Any) {
         delegate?.unsplashPickerControllerDidCancel()
     }
@@ -109,9 +196,10 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             print("segue.destination was not a PhotoCollectionViewController")
             return
         }
-        // assign the clientID and delegate
+        // configure common vars
         photoCollectionViewController.clientID = clientID
         photoCollectionViewController.delegate = delegate
+        photoCollectionViewController.currentLayoutStyle = currentLayoutStyle
         
         // pass along CollectionTypePickerView's height, so collectionView insets can be adjusted
         photoCollectionViewController.topInsetAdjustment = collectionTypePickerView.bounds.size.height
@@ -216,6 +304,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         return CGRect(x: -view.bounds.size.width, y: 0, width: view.bounds.size.width, height: view.bounds.size.height)
     }
 }
+
+// MARK: - CollectionTypePickerViewDelegate
 
 extension ContainerViewController: CollectionTypePickerViewDelegate {
     func collectionTypeChanged(_ collectionType: CollectionType) {
