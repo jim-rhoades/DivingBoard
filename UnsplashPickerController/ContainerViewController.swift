@@ -23,9 +23,9 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     weak var delegate: UnsplashPickerControllerDelegate?
     var clientID = ""
     
-    private weak var latestViewController: PhotoCollectionViewController?
-    private weak var popularViewController: PhotoCollectionViewController?
-    private weak var searchViewController: PhotoCollectionViewController?
+    private var latestViewController: PhotoCollectionViewController?
+    private var popularViewController: PhotoCollectionViewController?
+    private var searchViewController: PhotoCollectionViewController?
     private var toCollectionTypeIndex: Int = 0
     private var fromCollectionTypeIndex: Int = 0
     private let commonBarColor = UIColor(white: 247.0/255.0, alpha: 1.0)
@@ -231,15 +231,10 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             swapFromViewController(currentlyDisplayedViewController, toViewController: photoCollectionViewController)
         } else {
             // no existing childViewController, so load it from scratch
-            self.addChildViewController(photoCollectionViewController)
-            let destView = photoCollectionViewController.view
-            destView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            destView?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-            self.view.addSubview(destView!)
+            addChildViewController(photoCollectionViewController)
+            view.insertSubview(photoCollectionViewController.view, belowSubview: collectionTypePickerView)
             photoCollectionViewController.didMove(toParentViewController: self)
         }
-        // bring the collectionTypePickerView to the front
-        view.bringSubview(toFront: collectionTypePickerView)
     }
     
     func swapFromViewController(_ fromViewController: UIViewController, toViewController: UIViewController) {
@@ -248,8 +243,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         if toCollectionTypeIndex > fromCollectionTypeIndex {
             slideFromRight = true
         }
-        
-        let visibleFrame = view.bounds
         
         // start the incoming viewController offscreen
         if slideFromRight == true {
@@ -260,40 +253,31 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
         addChildViewController(toViewController)
         fromViewController.willMove(toParentViewController: nil)
-        fromViewController.beginAppearanceTransition(false, animated: true)
-        toViewController.beginAppearanceTransition(true, animated: false)
         
-        transition(from: fromViewController, to: toViewController, duration: 0.25, options: [.curveEaseOut], animations: {
-            toViewController.view.frame = visibleFrame
+        transition(from: fromViewController, to: toViewController, duration: 0.25,
+                   options: [.curveEaseOut], animations: {
+            toViewController.view.frame = self.view.bounds
             
             if slideFromRight == true {
                 fromViewController.view.frame = self.offScreenLeftFrame()
             } else {
                 fromViewController.view.frame = self.offScreenRightFrame()
             }
-        }) { (finished: Bool) in
-            if finished {
-                toViewController.endAppearanceTransition()
-                fromViewController.endAppearanceTransition()
-                toViewController.didMove(toParentViewController: self)
-                fromViewController.removeFromParentViewController()
-                
-                self.fromCollectionTypeIndex = self.toCollectionTypeIndex // at this point, the toCollectionTypeIndex is the one that's currently selected
-               //  self.transitionInProgress = false
-                
-                /*
-                 if fromViewController === self.listViewController {
-                 self.listViewController = nil
-                 }
-                 else if fromViewController === self.dueDatesViewController {
-                 self.dueDatesViewController = nil
-                 }
-                 else if fromViewController === self.searchAllViewController {
-                 self.searchAllViewController = nil
-                 }
-                 */
-            }
+        }) { finished in
+            toViewController.didMove(toParentViewController: self)
+            fromViewController.removeFromParentViewController()
+            self.fromCollectionTypeIndex = self.toCollectionTypeIndex
         }
+    }
+    
+    override func transition(from fromViewController: UIViewController, to toViewController: UIViewController, duration: TimeInterval, options: UIViewAnimationOptions = [], animations: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
+        super.transition(from: fromViewController, to: toViewController, duration: duration, options: options, animations: animations, completion: completion)
+        
+        // the transition automatically adds toViewController.view as a subview of self.view,
+        // which covers up collectionTypePickerView
+        
+        // bring collectionTypePickerView to the front
+        view.bringSubview(toFront: collectionTypePickerView)
     }
     
     func offScreenRightFrame() -> CGRect {
@@ -312,13 +296,27 @@ extension ContainerViewController: CollectionTypePickerViewDelegate {
         
         toCollectionTypeIndex = collectionType.rawValue
         
+        let currentlyDisplayedViewController = childViewControllers[0]
+        
         switch collectionType {
         case .latest:
-            performSegue(withIdentifier: .embedLatestVC, sender: self)
+            if let latestViewController = latestViewController {
+                swapFromViewController(currentlyDisplayedViewController, toViewController: latestViewController)
+            } else {
+                performSegue(withIdentifier: .embedLatestVC, sender: self)
+            }
         case .popular:
-            performSegue(withIdentifier: .embedPopularVC, sender: self)
+            if let popularViewController = popularViewController {
+                swapFromViewController(currentlyDisplayedViewController, toViewController: popularViewController)
+            } else {
+                performSegue(withIdentifier: .embedPopularVC, sender: self)
+            }
         case .search:
-            performSegue(withIdentifier: .embedSearchVC, sender: self)
+            if let searchViewController = searchViewController {
+                swapFromViewController(currentlyDisplayedViewController, toViewController: searchViewController)
+            } else {
+                performSegue(withIdentifier: .embedSearchVC, sender: self)
+            }
         }
     }
 }

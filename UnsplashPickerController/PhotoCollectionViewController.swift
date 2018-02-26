@@ -152,7 +152,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
         
         let clientIDItem = URLQueryItem(name: "client_id", value: clientID)
-        let perPageItem = URLQueryItem(name: "per_page", value: "20")
+        let perPageItem = URLQueryItem(name: "per_page", value: "30")
         let pageNumberItem = URLQueryItem(name: "page", value: "\(pageNumber)")
         urlComponents.queryItems = [clientIDItem, perPageItem, pageNumberItem]
         

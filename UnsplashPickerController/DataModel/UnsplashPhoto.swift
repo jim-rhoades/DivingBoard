@@ -32,8 +32,6 @@ public struct UnsplashPhoto: Codable {
         /*
          case createdAt = "created_at"
          case updatedAt = "updated_at"
-         
-         case color
          case likes
          case likedByUser = "liked_by_user"
          case description

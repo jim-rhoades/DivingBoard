@@ -98,10 +98,7 @@ class ImageCache {
     static let shared = ImageCache()
     
     private init() {
-        // TODO: limit memory usage?
-        // cache.totalCostLimit = 10 * 1024 * 1024 // maximum of 10MB
-        
-        // make sure to purge cache on memory pressure
+        // purge the cache when a memory warning is received
         observer = NotificationCenter.default.addObserver(forName: .UIApplicationDidReceiveMemoryWarning, object: nil, queue: nil) { [weak self] notification in
             self?.cache.removeAllObjects()
         }
