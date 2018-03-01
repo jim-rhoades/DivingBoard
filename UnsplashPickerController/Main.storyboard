@@ -29,15 +29,15 @@
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <state key="normal" title="New"/>
                                         <connections>
-                                            <action selector="latestButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="7YS-Vo-nZk"/>
+                                            <action selector="newButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="gjC-eJ-L5J"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfo-cX-4hT">
-                                        <rect key="frame" x="157" y="3.6666666666666714" width="61" height="33"/>
+                                        <rect key="frame" x="155.66666666666666" y="3.6666666666666714" width="64" height="33"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <state key="normal" title="Popular"/>
+                                        <state key="normal" title="Curated"/>
                                         <connections>
-                                            <action selector="popularButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="uOP-pB-nvA"/>
+                                            <action selector="curatedButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="D5e-sd-TJU"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6I-bf-n3D">
@@ -60,8 +60,8 @@
                                     <constraint firstAttribute="height" constant="40" id="eT6-wU-IRH"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="latestButton" destination="2Ge-9u-7QP" id="BN8-0a-CVr"/>
-                                    <outlet property="popularButton" destination="xfo-cX-4hT" id="pEa-8q-Saj"/>
+                                    <outlet property="curatedButton" destination="xfo-cX-4hT" id="4df-os-vFx"/>
+                                    <outlet property="newButton" destination="2Ge-9u-7QP" id="p7E-bQ-ioB"/>
                                     <outlet property="searchButton" destination="S6I-bf-n3D" id="wRI-RS-Ctk"/>
                                 </connections>
                             </view>
@@ -86,8 +86,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionTypePickerView" destination="LlG-Pw-3jz" id="Xs7-2i-X89"/>
-                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedLatestVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="P9F-uD-fLq"/>
-                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedPopularVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="0aY-Pm-OTJ"/>
+                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedNewVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="P9F-uD-fLq"/>
+                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedCuratedVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="0aY-Pm-OTJ"/>
                         <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedSearchVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="c40-X2-7MI"/>
                     </connections>
                 </viewController>
@@ -163,6 +163,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="c40-X2-7MI"/>
+        <segue reference="0aY-Pm-OTJ"/>
     </inferredMetricsTieBreakers>
 </document>

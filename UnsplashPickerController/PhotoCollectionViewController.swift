@@ -15,7 +15,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     var clientID = ""
     weak var delegate: UnsplashPickerControllerDelegate?
     var topInsetAdjustment: CGFloat = 0
-    var collectionType: CollectionType = .latest
+    var collectionType: CollectionType = .new
     let cellSpacing: CGFloat = 2 // spacing between the photo thumbnails
     var loadingView: LoadingView?
     var photos: [UnsplashPhoto] = []
@@ -145,10 +145,14 @@ class PhotoCollectionViewController: UICollectionViewController {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.unsplash.com"
-        if collectionType == .search {
-            urlComponents.path = "/search/photos"
-        } else {
+        
+        switch collectionType {
+        case .new:
             urlComponents.path = "/photos"
+        case .curated:
+            urlComponents.path = "/photos/curated"
+        case .search:
+            urlComponents.path = "/search/photos"
         }
         
         let clientIDItem = URLQueryItem(name: "client_id", value: clientID)
@@ -156,10 +160,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         let pageNumberItem = URLQueryItem(name: "page", value: "\(pageNumber)")
         urlComponents.queryItems = [clientIDItem, perPageItem, pageNumberItem]
         
-        if collectionType == .popular {
-            let orderByItem = URLQueryItem(name: "order_by", value: "popular")
-            urlComponents.queryItems?.append(orderByItem)
-        } else if collectionType == .search {
+        if collectionType == .search {
             if let searchPhrase = currentSearchPhrase {
                 let queryItem = URLQueryItem(name: "query", value: searchPhrase)
                 urlComponents.queryItems?.append(queryItem)

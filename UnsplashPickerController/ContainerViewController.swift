@@ -15,16 +15,16 @@ enum LayoutStyle {
 
 class ContainerViewController: UIViewController, SegueHandlerType {
     enum SegueIdentifier: String {
-        case embedLatestVC = "EmbedLatestVC"
-        case embedPopularVC = "EmbedPopularVC"
+        case embedNewVC = "EmbedNewVC"
+        case embedCuratedVC = "EmbedCuratedVC"
         case embedSearchVC = "EmbedSearchVC"
     }
     
     weak var delegate: UnsplashPickerControllerDelegate?
     var clientID = ""
     
-    private var latestViewController: PhotoCollectionViewController?
-    private var popularViewController: PhotoCollectionViewController?
+    private var newViewController: PhotoCollectionViewController?
+    private var curatedViewController: PhotoCollectionViewController?
     private var searchViewController: PhotoCollectionViewController?
     private var toCollectionTypeIndex: Int = 0
     private var fromCollectionTypeIndex: Int = 0
@@ -40,8 +40,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Unsplash"
-        
         // store the app's status bar color so it can be reset when UnsplashPicker is dismissed
         previousStatusBarColor = statusBarColor
         
@@ -54,8 +52,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
         collectionTypePickerView.delegate = self
         
-        // load the Latest photos
-        performSegue(withIdentifier: .embedLatestVC, sender: self)
+        // load the newest photos
+        performSegue(withIdentifier: .embedNewVC, sender: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -169,16 +167,16 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     @objc func stackedLayoutButtonPressed(_ sender: Any) {
         currentLayoutStyle = .stacked
         updateLayoutButtons()
-        latestViewController?.currentLayoutStyle = currentLayoutStyle
-        popularViewController?.currentLayoutStyle = currentLayoutStyle
+        newViewController?.currentLayoutStyle = currentLayoutStyle
+        curatedViewController?.currentLayoutStyle = currentLayoutStyle
         searchViewController?.currentLayoutStyle = currentLayoutStyle
     }
     
     @objc func gridLayoutButtonPressed(_ sender: Any) {
         currentLayoutStyle = .grid
         updateLayoutButtons()
-        latestViewController?.currentLayoutStyle = currentLayoutStyle
-        popularViewController?.currentLayoutStyle = currentLayoutStyle
+        newViewController?.currentLayoutStyle = currentLayoutStyle
+        curatedViewController?.currentLayoutStyle = currentLayoutStyle
         searchViewController?.currentLayoutStyle = currentLayoutStyle
     }
     
@@ -205,15 +203,15 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         photoCollectionViewController.topInsetAdjustment = collectionTypePickerView.bounds.size.height
         
         switch segueIdentifier {
-        case .embedLatestVC:
-            // configure to show the latest photos
-            latestViewController = photoCollectionViewController
-            latestViewController?.collectionType = .latest
+        case .embedNewVC:
+            // configure to show the newest photos
+            newViewController = photoCollectionViewController
+            newViewController?.collectionType = .new
             
-        case .embedPopularVC:
-            // configure to show popular photos
-            popularViewController = photoCollectionViewController
-            popularViewController?.collectionType = .popular
+        case .embedCuratedVC:
+            // configure to show curated photos
+            curatedViewController = photoCollectionViewController
+            curatedViewController?.collectionType = .curated
             
         case .embedSearchVC:
             // configure to show the search interface
@@ -299,17 +297,17 @@ extension ContainerViewController: CollectionTypePickerViewDelegate {
         let currentlyDisplayedViewController = childViewControllers[0]
         
         switch collectionType {
-        case .latest:
-            if let latestViewController = latestViewController {
-                swapFromViewController(currentlyDisplayedViewController, toViewController: latestViewController)
+        case .new:
+            if let newViewController = newViewController {
+                swapFromViewController(currentlyDisplayedViewController, toViewController: newViewController)
             } else {
-                performSegue(withIdentifier: .embedLatestVC, sender: self)
+                performSegue(withIdentifier: .embedNewVC, sender: self)
             }
-        case .popular:
-            if let popularViewController = popularViewController {
-                swapFromViewController(currentlyDisplayedViewController, toViewController: popularViewController)
+        case .curated:
+            if let curatedViewController = curatedViewController {
+                swapFromViewController(currentlyDisplayedViewController, toViewController: curatedViewController)
             } else {
-                performSegue(withIdentifier: .embedPopularVC, sender: self)
+                performSegue(withIdentifier: .embedCuratedVC, sender: self)
             }
         case .search:
             if let searchViewController = searchViewController {

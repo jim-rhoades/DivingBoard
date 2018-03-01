@@ -9,8 +9,8 @@
 import UIKit
 
 enum CollectionType: Int {
-    case latest = 0
-    case popular
+    case new = 0
+    case curated
     case search
 }
 
@@ -25,11 +25,11 @@ class CollectionTypePickerView: UIView {
     private let normalColor = UIView().tintColor! // default iOS blue color
     private let selectedColor = UIColor.black
     
-    @IBOutlet weak var latestButton: UIButton!
-    @IBOutlet weak var popularButton: UIButton!
+    @IBOutlet weak var newButton: UIButton!
+    @IBOutlet weak var curatedButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
     
-    private var currentCollectionType: CollectionType = .latest {
+    private var currentCollectionType: CollectionType = .new {
         // when the currentCollectionType changes, update the button colors
         didSet {
             updateButtonColors()
@@ -50,16 +50,16 @@ class CollectionTypePickerView: UIView {
         selectionView.frame = frameForSelectionView(for: currentCollectionType)
     }
     
-    @IBAction func latestButtonPressed(_ sender: Any) {
-        guard !transitionInProgress && currentCollectionType != .latest else { return }
-        setSelectedCollectionType(.latest, animated: true)
-        delegate?.collectionTypeChanged(.latest)
+    @IBAction func newButtonPressed(_ sender: Any) {
+        guard !transitionInProgress && currentCollectionType != .new else { return }
+        setSelectedCollectionType(.new, animated: true)
+        delegate?.collectionTypeChanged(.new)
     }
     
-    @IBAction func popularButtonPressed(_ sender: Any) {
-        guard !transitionInProgress && currentCollectionType != .popular else { return }
-        setSelectedCollectionType(.popular, animated: true)
-        delegate?.collectionTypeChanged(.popular)
+    @IBAction func curatedButtonPressed(_ sender: Any) {
+        guard !transitionInProgress && currentCollectionType != .curated else { return }
+        setSelectedCollectionType(.curated, animated: true)
+        delegate?.collectionTypeChanged(.curated)
     }
     
     @IBAction func searchButtonPressed(_ sender: Any) {
@@ -70,17 +70,17 @@ class CollectionTypePickerView: UIView {
     
     private func updateButtonColors() {
         switch currentCollectionType {
-        case .latest:
-            latestButton.setTitleColor(selectedColor, for: .normal)
-            popularButton.setTitleColor(normalColor, for: .normal)
+        case .new:
+            newButton.setTitleColor(selectedColor, for: .normal)
+            curatedButton.setTitleColor(normalColor, for: .normal)
             searchButton.setTitleColor(normalColor, for: .normal)
-        case .popular:
-            latestButton.setTitleColor(normalColor, for: .normal)
-            popularButton.setTitleColor(selectedColor, for: .normal)
+        case .curated:
+            newButton.setTitleColor(normalColor, for: .normal)
+            curatedButton.setTitleColor(selectedColor, for: .normal)
             searchButton.setTitleColor(normalColor, for: .normal)
         case .search:
-            latestButton.setTitleColor(normalColor, for: .normal)
-            popularButton.setTitleColor(normalColor, for: .normal)
+            newButton.setTitleColor(normalColor, for: .normal)
+            curatedButton.setTitleColor(normalColor, for: .normal)
             searchButton.setTitleColor(selectedColor, for: .normal)
         }
     }
@@ -103,18 +103,18 @@ class CollectionTypePickerView: UIView {
     
     private func frameForSelectionView(for collectionType: CollectionType) -> CGRect {
         var originX: CGFloat = 0
-        let originY = latestButton.frame.size.height
+        let originY = newButton.frame.size.height
         var width: CGFloat = 0
         let height: CGFloat = 2.0
         let overlap: CGFloat = 6.0
         
         switch collectionType {
-        case .latest:
-            originX = latestButton.frame.origin.x - overlap
-            width = latestButton.frame.size.width + overlap * 2
-        case .popular:
-            originX = popularButton.frame.origin.x - overlap
-            width = popularButton.frame.size.width + overlap * 2
+        case .new:
+            originX = newButton.frame.origin.x - overlap
+            width = newButton.frame.size.width + overlap * 2
+        case .curated:
+            originX = curatedButton.frame.origin.x - overlap
+            width = curatedButton.frame.size.width + overlap * 2
         case .search:
             originX = searchButton.frame.origin.x - overlap
             width = searchButton.frame.size.width + overlap * 2
