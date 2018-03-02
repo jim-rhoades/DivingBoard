@@ -35,6 +35,14 @@ class CollectionReusableSearchView: UICollectionReusableView {
         searchBar.backgroundImage = UIImage()
         if let textField = searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = UIColor(white: 247.0/255.0, alpha: 0.9)
+            
+            // ugly fix for issue where cursor animates in from upper left
+            // https://stackoverflow.com/q/46367768/234609
+            let previousTintColor = textField.tintColor
+            textField.tintColor = .clear
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                textField.tintColor = previousTintColor
+            }
         }
         addSubview(searchBar)
     }

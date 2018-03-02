@@ -55,6 +55,26 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // show keyboard if appropriate
+        if let searchBar = searchBar,
+            collectionType == .search,
+            photos.count == 0 {
+            searchBar.becomeFirstResponder()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // dismiss keyboard if appropriate
+        if collectionType == .search {
+            searchBar?.resignFirstResponder()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -197,7 +217,7 @@ extension PhotoCollectionViewController {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderIdentifier, for: indexPath as IndexPath) as! CollectionReusableSearchView
             headerView.searchBar.delegate = self
-            headerView.searchBar.becomeFirstResponder() // TODO: does this being called more than once cause problems?
+            searchBar = headerView.searchBar
             return headerView
         default:
             preconditionFailure("Invalid UICollectionElementKind for this collection view")
