@@ -25,9 +25,36 @@ class PhotoCollectionViewController: UICollectionViewController {
     var currentSearchTotalPages: Int = 0
     let sectionHeaderIdentifier = "SectionHeader"
     
+    // MARK: - Layout style switching
+    
+    var currentIndexPath: IndexPath?
+    var layoutStylePreviouslySet: Bool = false
     var currentLayoutStyle: LayoutStyle = .grid {
+        willSet {
+            // prevent an issue where calling collectionView?.indexPathsForVisibleItems
+            // on the initial load blocks the contentInset from being set properly in viewDidLoad
+            guard layoutStylePreviouslySet else {
+                layoutStylePreviouslySet = true
+                return
+            }
+            
+            // store the indexPath for the item displayed near the center
+            if let visibleIndexPaths = collectionView?.indexPathsForVisibleItems,
+                visibleIndexPaths.count > 0 {
+                let sortedIndexPaths = visibleIndexPaths.sorted(by: <)
+                let medianIndex = sortedIndexPaths.count / 2
+                let medianIndexPath = sortedIndexPaths[medianIndex]
+                currentIndexPath = medianIndexPath
+            }
+        }
         didSet {
+            // update the layout
             collectionViewLayout.invalidateLayout()
+            
+            // scroll to the same item that was being displayed near the center
+            if let currentIndexPath = currentIndexPath {
+                collectionView?.scrollToItem(at: currentIndexPath, at: .centeredVertically, animated: false)
+            }
         }
     }
     
