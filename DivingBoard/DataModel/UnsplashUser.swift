@@ -1,6 +1,6 @@
 //
-//  User.swift
-//  UnsplashPickerController
+//  UnsplashUser.swift
+//  DivingBoard
 //
 //  Created by Jim Rhoades on 2/16/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.

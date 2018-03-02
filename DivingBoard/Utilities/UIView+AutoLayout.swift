@@ -1,6 +1,6 @@
 //
 //  UIView+AutoLayout.swift
-//  UnsplashPickerController
+//  DivingBoard
 //
 //  Created by Jim Rhoades on 2/19/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  PhotoCollectionViewController+Search.swift
-//  UnsplashPickerController
+//  DivingBoard
 //
 //  Created by Jim Rhoades on 2/22/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.

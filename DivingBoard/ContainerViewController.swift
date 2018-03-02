@@ -1,6 +1,6 @@
 //
 //  ContainerViewController.swift
-//  UnsplashPickerController
+//  DivingBoard
 //
 //  Created by Jim Rhoades on 2/15/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.
@@ -20,7 +20,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         case embedSearchVC = "EmbedSearchVC"
     }
     
-    weak var delegate: UnsplashPickerControllerDelegate?
+    weak var delegate: UnsplashPickerDelegate?
     var clientID = ""
     
     private var newViewController: PhotoCollectionViewController?
@@ -40,7 +40,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // store the app's status bar color so it can be reset when UnsplashPicker is dismissed
+        // store the app's status bar color so it can be reset when the unsplashPicker is dismissed
         previousStatusBarColor = statusBarColor
         
         createLayoutButtons()
@@ -79,7 +79,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             return
         }
         
-        let bundle = Bundle(for: UnsplashPickerController.self)
+        let bundle = Bundle(for: DivingBoard.self)
         guard let stackedImage = UIImage(named: "layoutButtonStacked", in: bundle, compatibleWith: nil) else {
             preconditionFailure("failed to load image: layoutButtonStacked")
         }
@@ -181,7 +181,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        delegate?.unsplashPickerControllerDidCancel()
+        delegate?.unsplashPickerDidCancel()
     }
     
     // MARK: - Segues

@@ -1,12 +1,12 @@
 //
-//  Photo.swift
-//  UnsplashPickerController
+//  UnsplashPhoto.swift
+//  DivingBoard
 //
 //  Created by Jim Rhoades on 2/16/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public struct UnsplashPhoto: Codable {
     public let id: String

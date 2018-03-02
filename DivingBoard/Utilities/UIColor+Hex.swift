@@ -1,12 +1,12 @@
 //
 //  UIColor+Hex.swift
-//  UnsplashPickerController
+//  DivingBoard
 //
 //  Created by Jim Rhoades on 2/21/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public extension UIColor {
     public convenience init(hexString: String) {

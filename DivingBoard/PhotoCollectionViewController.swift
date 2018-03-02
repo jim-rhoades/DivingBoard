@@ -1,6 +1,6 @@
 //
 //  PhotoCollectionViewController.swift
-//  UnsplashPickerController
+//  DivingBoard
 //
 //  Created by Jim Rhoades on 2/15/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.
@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 class PhotoCollectionViewController: UICollectionViewController {
     
     var clientID = ""
-    weak var delegate: UnsplashPickerControllerDelegate?
+    weak var delegate: UnsplashPickerDelegate?
     var topInsetAdjustment: CGFloat = 0
     var collectionType: CollectionType = .new
     let cellSpacing: CGFloat = 2 // spacing between the photo thumbnails
@@ -226,7 +226,7 @@ extension PhotoCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let photo = photos[indexPath.item]
-        delegate?.unsplashPickerControllerDidFinishPicking(photo: photo)
+        delegate?.unsplashPickerDidFinishPicking(photo: photo)
     }
 }
 

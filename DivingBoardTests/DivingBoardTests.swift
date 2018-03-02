@@ -1,15 +1,15 @@
 //
-//  UnsplashPickerControllerTests.swift
-//  UnsplashPickerControllerTests
+//  DivingBoardTests.swift
+//  DivingBoardTests
 //
 //  Created by Jim Rhoades on 2/15/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.
 //
 
 import XCTest
-@testable import UnsplashPickerController
+@testable import DivingBoard
 
-class UnsplashPickerControllerTests: XCTestCase {
+class DivingBoardTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

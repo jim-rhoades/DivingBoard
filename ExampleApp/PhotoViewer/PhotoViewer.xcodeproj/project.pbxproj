@@ -7,37 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		383BA78D2049AB2800D87A66 /* DivingBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384B05442049A9CE00C77765 /* DivingBoard.framework */; };
+		383BA78E2049AB2800D87A66 /* DivingBoard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 384B05442049A9CE00C77765 /* DivingBoard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		38E2E6B8203B702A0036173B /* ClientID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2E6B7203B702A0036173B /* ClientID.swift */; };
 		38F58CCA20375D4C00346953 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F58CC920375D4C00346953 /* AppDelegate.swift */; };
 		38F58CCC20375D4C00346953 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F58CCB20375D4C00346953 /* ViewController.swift */; };
 		38F58CCF20375D4C00346953 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38F58CCD20375D4C00346953 /* Main.storyboard */; };
 		38F58CD120375D4C00346953 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38F58CD020375D4C00346953 /* Assets.xcassets */; };
 		38F58CD420375D4C00346953 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38F58CD220375D4C00346953 /* LaunchScreen.storyboard */; };
-		38F58CE6203763C900346953 /* UnsplashPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38F58CE32037636D00346953 /* UnsplashPickerController.framework */; };
-		38F58CE7203763C900346953 /* UnsplashPickerController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 38F58CE32037636D00346953 /* UnsplashPickerController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		38F58CE22037636D00346953 /* PBXContainerItemProxy */ = {
+		383BA78F2049AB2800D87A66 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 38F58CDD2037636D00346953 /* UnsplashPickerController.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 38CB067720362C2500AE6EDA;
-			remoteInfo = UnsplashPickerController;
-		};
-		38F58CE42037636D00346953 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 38F58CDD2037636D00346953 /* UnsplashPickerController.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 38CB068020362C2500AE6EDA;
-			remoteInfo = UnsplashPickerControllerTests;
-		};
-		38F58CE8203763C900346953 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 38F58CDD2037636D00346953 /* UnsplashPickerController.xcodeproj */;
+			containerPortal = 38F58CDD2037636D00346953 /* DivingBoard.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 38CB067620362C2500AE6EDA;
-			remoteInfo = UnsplashPickerController;
+			remoteInfo = DivingBoard;
+		};
+		384B05432049A9CE00C77765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 38F58CDD2037636D00346953 /* DivingBoard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 38CB067720362C2500AE6EDA;
+			remoteInfo = DivingBoard;
+		};
+		384B05452049A9CE00C77765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 38F58CDD2037636D00346953 /* DivingBoard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 38CB068020362C2500AE6EDA;
+			remoteInfo = DivingBoardTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -48,7 +48,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				38F58CE7203763C900346953 /* UnsplashPickerController.framework in Embed Frameworks */,
+				383BA78E2049AB2800D87A66 /* DivingBoard.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,7 +64,7 @@
 		38F58CD020375D4C00346953 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38F58CD320375D4C00346953 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		38F58CD520375D4C00346953 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		38F58CDD2037636D00346953 /* UnsplashPickerController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnsplashPickerController.xcodeproj; path = ../../UnsplashPickerController.xcodeproj; sourceTree = "<group>"; };
+		38F58CDD2037636D00346953 /* DivingBoard.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DivingBoard.xcodeproj; path = ../../DivingBoard.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,17 +72,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38F58CE6203763C900346953 /* UnsplashPickerController.framework in Frameworks */,
+				383BA78D2049AB2800D87A66 /* DivingBoard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		384B053F2049A9CE00C77765 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				384B05442049A9CE00C77765 /* DivingBoard.framework */,
+				384B05462049A9CE00C77765 /* DivingBoardTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		38F58CBD20375D4C00346953 = {
 			isa = PBXGroup;
 			children = (
-				38F58CDD2037636D00346953 /* UnsplashPickerController.xcodeproj */,
+				38F58CDD2037636D00346953 /* DivingBoard.xcodeproj */,
 				38F58CC820375D4C00346953 /* PhotoViewer */,
 				38F58CC720375D4C00346953 /* Products */,
 			);
@@ -110,15 +119,6 @@
 			path = PhotoViewer;
 			sourceTree = "<group>";
 		};
-		38F58CDE2037636D00346953 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				38F58CE32037636D00346953 /* UnsplashPickerController.framework */,
-				38F58CE52037636D00346953 /* UnsplashPickerControllerTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,7 +134,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				38F58CE9203763C900346953 /* PBXTargetDependency */,
+				383BA7902049AB2800D87A66 /* PBXTargetDependency */,
 			);
 			name = PhotoViewer;
 			productName = PhotoViewer;
@@ -170,8 +170,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 38F58CDE2037636D00346953 /* Products */;
-					ProjectRef = 38F58CDD2037636D00346953 /* UnsplashPickerController.xcodeproj */;
+					ProductGroup = 384B053F2049A9CE00C77765 /* Products */;
+					ProjectRef = 38F58CDD2037636D00346953 /* DivingBoard.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -182,18 +182,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		38F58CE32037636D00346953 /* UnsplashPickerController.framework */ = {
+		384B05442049A9CE00C77765 /* DivingBoard.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = UnsplashPickerController.framework;
-			remoteRef = 38F58CE22037636D00346953 /* PBXContainerItemProxy */;
+			path = DivingBoard.framework;
+			remoteRef = 384B05432049A9CE00C77765 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		38F58CE52037636D00346953 /* UnsplashPickerControllerTests.xctest */ = {
+		384B05462049A9CE00C77765 /* DivingBoardTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnsplashPickerControllerTests.xctest;
-			remoteRef = 38F58CE42037636D00346953 /* PBXContainerItemProxy */;
+			path = DivingBoardTests.xctest;
+			remoteRef = 384B05452049A9CE00C77765 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -225,10 +225,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		38F58CE9203763C900346953 /* PBXTargetDependency */ = {
+		383BA7902049AB2800D87A66 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = UnsplashPickerController;
-			targetProxy = 38F58CE8203763C900346953 /* PBXContainerItemProxy */;
+			name = DivingBoard;
+			targetProxy = 383BA78F2049AB2800D87A66 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

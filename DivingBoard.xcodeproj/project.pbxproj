@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3826CAFC203652F800549707 /* UnsplashPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3826CAFB203652F800549707 /* UnsplashPickerController.swift */; };
+		3826CAFC203652F800549707 /* DivingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3826CAFB203652F800549707 /* DivingBoard.swift */; };
 		382AB2F72042106F00932147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 382AB2F62042106F00932147 /* Assets.xcassets */; };
 		38C02AC1203E137B00319C83 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C02AC0203E137B00319C83 /* UIColor+Hex.swift */; };
 		38C5E929203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */; };
-		38CB068120362C2500AE6EDA /* UnsplashPickerController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */; };
-		38CB068620362C2500AE6EDA /* UnsplashPickerControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB068520362C2500AE6EDA /* UnsplashPickerControllerTests.swift */; };
-		38CB068820362C2500AE6EDA /* UnsplashPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		38CB068120362C2500AE6EDA /* DivingBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CB067720362C2500AE6EDA /* DivingBoard.framework */; };
+		38CB068620362C2500AE6EDA /* DivingBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB068520362C2500AE6EDA /* DivingBoardTests.swift */; };
+		38CB068820362C2500AE6EDA /* DivingBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CB067A20362C2500AE6EDA /* DivingBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		38CB069220362DE200AE6EDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38CB069120362DE200AE6EDA /* Main.storyboard */; };
 		38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0697203649AA00AE6EDA /* EmptySegue.swift */; };
 		38CB069A203649F200AE6EDA /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0699203649F200AE6EDA /* ContainerViewController.swift */; };
@@ -40,15 +40,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3826CAFB203652F800549707 /* UnsplashPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerController.swift; sourceTree = "<group>"; };
+		3826CAFB203652F800549707 /* DivingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivingBoard.swift; sourceTree = "<group>"; };
 		382AB2F62042106F00932147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38C02AC0203E137B00319C83 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoCollectionViewController+Search.swift"; sourceTree = "<group>"; };
-		38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UnsplashPickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnsplashPickerController.h; sourceTree = "<group>"; };
+		38CB067720362C2500AE6EDA /* DivingBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DivingBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		38CB067A20362C2500AE6EDA /* DivingBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DivingBoard.h; sourceTree = "<group>"; };
 		38CB067B20362C2500AE6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		38CB068020362C2500AE6EDA /* UnsplashPickerControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnsplashPickerControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		38CB068520362C2500AE6EDA /* UnsplashPickerControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerControllerTests.swift; sourceTree = "<group>"; };
+		38CB068020362C2500AE6EDA /* DivingBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DivingBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		38CB068520362C2500AE6EDA /* DivingBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivingBoardTests.swift; sourceTree = "<group>"; };
 		38CB068720362C2500AE6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38CB069120362DE200AE6EDA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		38CB0697203649AA00AE6EDA /* EmptySegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySegue.swift; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38CB068120362C2500AE6EDA /* UnsplashPickerController.framework in Frameworks */,
+				38CB068120362C2500AE6EDA /* DivingBoard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,8 +87,8 @@
 		38CB066D20362C2500AE6EDA = {
 			isa = PBXGroup;
 			children = (
-				38CB067920362C2500AE6EDA /* UnsplashPickerController */,
-				38CB068420362C2500AE6EDA /* UnsplashPickerControllerTests */,
+				38CB067920362C2500AE6EDA /* DivingBoard */,
+				38CB068420362C2500AE6EDA /* DivingBoardTests */,
 				38CB067820362C2500AE6EDA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,18 +96,18 @@
 		38CB067820362C2500AE6EDA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */,
-				38CB068020362C2500AE6EDA /* UnsplashPickerControllerTests.xctest */,
+				38CB067720362C2500AE6EDA /* DivingBoard.framework */,
+				38CB068020362C2500AE6EDA /* DivingBoardTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		38CB067920362C2500AE6EDA /* UnsplashPickerController */ = {
+		38CB067920362C2500AE6EDA /* DivingBoard */ = {
 			isa = PBXGroup;
 			children = (
 				38DC7416203720D2007BAF33 /* DataModel */,
 				38DC7415203720B8007BAF33 /* Utilities */,
-				38CB067A20362C2500AE6EDA /* UnsplashPickerController.h */,
+				38CB067A20362C2500AE6EDA /* DivingBoard.h */,
 				38CB067B20362C2500AE6EDA /* Info.plist */,
 				38CB069120362DE200AE6EDA /* Main.storyboard */,
 				382AB2F62042106F00932147 /* Assets.xcassets */,
@@ -116,18 +116,18 @@
 				38CB0699203649F200AE6EDA /* ContainerViewController.swift */,
 				38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */,
 				38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */,
-				3826CAFB203652F800549707 /* UnsplashPickerController.swift */,
+				3826CAFB203652F800549707 /* DivingBoard.swift */,
 			);
-			path = UnsplashPickerController;
+			path = DivingBoard;
 			sourceTree = "<group>";
 		};
-		38CB068420362C2500AE6EDA /* UnsplashPickerControllerTests */ = {
+		38CB068420362C2500AE6EDA /* DivingBoardTests */ = {
 			isa = PBXGroup;
 			children = (
-				38CB068520362C2500AE6EDA /* UnsplashPickerControllerTests.swift */,
+				38CB068520362C2500AE6EDA /* DivingBoardTests.swift */,
 				38CB068720362C2500AE6EDA /* Info.plist */,
 			);
-			path = UnsplashPickerControllerTests;
+			path = DivingBoardTests;
 			sourceTree = "<group>";
 		};
 		38DC7415203720B8007BAF33 /* Utilities */ = {
@@ -160,16 +160,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38CB068820362C2500AE6EDA /* UnsplashPickerController.h in Headers */,
+				38CB068820362C2500AE6EDA /* DivingBoard.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		38CB067620362C2500AE6EDA /* UnsplashPickerController */ = {
+		38CB067620362C2500AE6EDA /* DivingBoard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 38CB068B20362C2500AE6EDA /* Build configuration list for PBXNativeTarget "UnsplashPickerController" */;
+			buildConfigurationList = 38CB068B20362C2500AE6EDA /* Build configuration list for PBXNativeTarget "DivingBoard" */;
 			buildPhases = (
 				38CB067220362C2500AE6EDA /* Sources */,
 				38CB067320362C2500AE6EDA /* Frameworks */,
@@ -180,14 +180,14 @@
 			);
 			dependencies = (
 			);
-			name = UnsplashPickerController;
+			name = DivingBoard;
 			productName = UnsplashPickerController;
-			productReference = 38CB067720362C2500AE6EDA /* UnsplashPickerController.framework */;
+			productReference = 38CB067720362C2500AE6EDA /* DivingBoard.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		38CB067F20362C2500AE6EDA /* UnsplashPickerControllerTests */ = {
+		38CB067F20362C2500AE6EDA /* DivingBoardTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 38CB068E20362C2500AE6EDA /* Build configuration list for PBXNativeTarget "UnsplashPickerControllerTests" */;
+			buildConfigurationList = 38CB068E20362C2500AE6EDA /* Build configuration list for PBXNativeTarget "DivingBoardTests" */;
 			buildPhases = (
 				38CB067C20362C2500AE6EDA /* Sources */,
 				38CB067D20362C2500AE6EDA /* Frameworks */,
@@ -198,9 +198,9 @@
 			dependencies = (
 				38CB068320362C2500AE6EDA /* PBXTargetDependency */,
 			);
-			name = UnsplashPickerControllerTests;
+			name = DivingBoardTests;
 			productName = UnsplashPickerControllerTests;
-			productReference = 38CB068020362C2500AE6EDA /* UnsplashPickerControllerTests.xctest */;
+			productReference = 38CB068020362C2500AE6EDA /* DivingBoardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -224,7 +224,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 38CB067120362C2500AE6EDA /* Build configuration list for PBXProject "UnsplashPickerController" */;
+			buildConfigurationList = 38CB067120362C2500AE6EDA /* Build configuration list for PBXProject "DivingBoard" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -236,8 +236,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				38CB067620362C2500AE6EDA /* UnsplashPickerController */,
-				38CB067F20362C2500AE6EDA /* UnsplashPickerControllerTests */,
+				38CB067620362C2500AE6EDA /* DivingBoard */,
+				38CB067F20362C2500AE6EDA /* DivingBoardTests */,
 			);
 		};
 /* End PBXProject section */
@@ -273,7 +273,7 @@
 				38CB069A203649F200AE6EDA /* ContainerViewController.swift in Sources */,
 				38DC741220371C80007BAF33 /* PhotoCollectionViewCell.swift in Sources */,
 				38E2E6B4203B111B0036173B /* LoadingView.swift in Sources */,
-				3826CAFC203652F800549707 /* UnsplashPickerController.swift in Sources */,
+				3826CAFC203652F800549707 /* DivingBoard.swift in Sources */,
 				38DC741A20372175007BAF33 /* UnsplashUser.swift in Sources */,
 				38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */,
 				38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */,
@@ -288,7 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38CB068620362C2500AE6EDA /* UnsplashPickerControllerTests.swift in Sources */,
+				38CB068620362C2500AE6EDA /* DivingBoardTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +297,7 @@
 /* Begin PBXTargetDependency section */
 		38CB068320362C2500AE6EDA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 38CB067620362C2500AE6EDA /* UnsplashPickerController */;
+			target = 38CB067620362C2500AE6EDA /* DivingBoard */;
 			targetProxy = 38CB068220362C2500AE6EDA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -427,10 +427,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = UnsplashPickerController/Info.plist;
+				INFOPLIST_FILE = DivingBoard/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.UnsplashPickerController;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.DivingBoard;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -450,10 +450,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = UnsplashPickerController/Info.plist;
+				INFOPLIST_FILE = DivingBoard/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.UnsplashPickerController;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.DivingBoard;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -467,9 +467,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45ZZCTM637;
-				INFOPLIST_FILE = UnsplashPickerControllerTests/Info.plist;
+				INFOPLIST_FILE = DivingBoardTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.UnsplashPickerControllerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.DivingBoardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -482,9 +482,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45ZZCTM637;
-				INFOPLIST_FILE = UnsplashPickerControllerTests/Info.plist;
+				INFOPLIST_FILE = DivingBoardTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.UnsplashPickerControllerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crushapps.DivingBoardTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -494,7 +494,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		38CB067120362C2500AE6EDA /* Build configuration list for PBXProject "UnsplashPickerController" */ = {
+		38CB067120362C2500AE6EDA /* Build configuration list for PBXProject "DivingBoard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				38CB068920362C2500AE6EDA /* Debug */,
@@ -503,7 +503,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		38CB068B20362C2500AE6EDA /* Build configuration list for PBXNativeTarget "UnsplashPickerController" */ = {
+		38CB068B20362C2500AE6EDA /* Build configuration list for PBXNativeTarget "DivingBoard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				38CB068C20362C2500AE6EDA /* Debug */,
@@ -512,7 +512,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		38CB068E20362C2500AE6EDA /* Build configuration list for PBXNativeTarget "UnsplashPickerControllerTests" */ = {
+		38CB068E20362C2500AE6EDA /* Build configuration list for PBXNativeTarget "DivingBoardTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				38CB068F20362C2500AE6EDA /* Debug */,

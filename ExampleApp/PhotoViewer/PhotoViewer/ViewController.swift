@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import UnsplashPickerController
+import DivingBoard
 
 class ViewController: UIViewController {
     
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     @IBAction func unsplashPickerButtonPressed(_ button: UIBarButtonItem) {
         // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
-        let unsplashPicker = UnsplashPickerController.unsplashPicker(withClientID: unsplashAppID,
+        let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
                                                                      presentingViewController: self)
         unsplashPicker.modalPresentationStyle = .popover
         
@@ -57,11 +57,11 @@ class ViewController: UIViewController {
     }
 }
 
-// MARK: - UnsplashPickerControllerDelegate
+// MARK: - UnsplashPickerDelegate
 
-extension ViewController: UnsplashPickerControllerDelegate {
+extension ViewController: UnsplashPickerDelegate {
     
-    func unsplashPickerControllerDidFinishPicking(photo: UnsplashPhoto) {
+    func unsplashPickerDidFinishPicking(photo: UnsplashPhoto) {
         
         // reset
         resetInterface()
@@ -93,7 +93,7 @@ extension ViewController: UnsplashPickerControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    func unsplashPickerControllerDidCancel() {
+    func unsplashPickerDidCancel() {
         dismiss(animated: true, completion: nil)
     }
 }
