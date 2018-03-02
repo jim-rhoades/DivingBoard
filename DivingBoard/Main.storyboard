@@ -13,7 +13,7 @@
         <!--Container View Controller-->
         <scene sceneID="w6L-Ds-8HS">
             <objects>
-                <viewController id="uKU-x6-yg8" customClass="ContainerViewController" customModule="UnsplashPickerController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="uKU-x6-yg8" customClass="ContainerViewController" customModule="DivingBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CRl-fQ-X18">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6V6-gS-IDa">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LlG-Pw-3jz" customClass="CollectionTypePickerView" customModule="UnsplashPickerController" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LlG-Pw-3jz" customClass="CollectionTypePickerView" customModule="DivingBoard" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ge-9u-7QP">
@@ -52,8 +52,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="xfo-cX-4hT" firstAttribute="centerX" secondItem="LlG-Pw-3jz" secondAttribute="centerX" id="30u-6y-b9Z"/>
-                                    <constraint firstItem="2Ge-9u-7QP" firstAttribute="leading" secondItem="LlG-Pw-3jz" secondAttribute="leading" constant="16" id="4An-Lo-X7I"/>
-                                    <constraint firstAttribute="trailing" secondItem="S6I-bf-n3D" secondAttribute="trailing" constant="16" id="AQv-5d-Vbt"/>
                                     <constraint firstItem="xfo-cX-4hT" firstAttribute="centerY" secondItem="LlG-Pw-3jz" secondAttribute="centerY" id="Mtt-mv-fkR"/>
                                     <constraint firstItem="2Ge-9u-7QP" firstAttribute="centerY" secondItem="LlG-Pw-3jz" secondAttribute="centerY" id="S8v-U6-NTP"/>
                                     <constraint firstItem="S6I-bf-n3D" firstAttribute="centerY" secondItem="LlG-Pw-3jz" secondAttribute="centerY" id="VvX-e7-PJk"/>
@@ -68,12 +66,14 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="LlG-Pw-3jz" firstAttribute="top" secondItem="8K1-6A-pGN" secondAttribute="top" id="9Uj-T1-UPO"/>
-                            <constraint firstItem="8K1-6A-pGN" firstAttribute="trailing" secondItem="LlG-Pw-3jz" secondAttribute="trailing" id="DOv-xx-uvF"/>
+                            <constraint firstItem="8K1-6A-pGN" firstAttribute="trailing" secondItem="S6I-bf-n3D" secondAttribute="trailing" constant="16" id="C6V-Yy-uPv"/>
+                            <constraint firstAttribute="trailing" secondItem="LlG-Pw-3jz" secondAttribute="trailing" id="DOv-xx-uvF"/>
                             <constraint firstItem="6V6-gS-IDa" firstAttribute="trailing" secondItem="CRl-fQ-X18" secondAttribute="trailing" id="L5S-T3-d86"/>
                             <constraint firstItem="6V6-gS-IDa" firstAttribute="top" secondItem="CRl-fQ-X18" secondAttribute="top" id="N0b-GR-iS3"/>
                             <constraint firstItem="6V6-gS-IDa" firstAttribute="bottom" secondItem="CRl-fQ-X18" secondAttribute="bottom" id="NvA-Sk-tgb"/>
-                            <constraint firstItem="LlG-Pw-3jz" firstAttribute="leading" secondItem="8K1-6A-pGN" secondAttribute="leading" id="aVU-r9-9eL"/>
+                            <constraint firstItem="LlG-Pw-3jz" firstAttribute="leading" secondItem="CRl-fQ-X18" secondAttribute="leading" id="aVU-r9-9eL"/>
                             <constraint firstItem="6V6-gS-IDa" firstAttribute="leading" secondItem="CRl-fQ-X18" secondAttribute="leading" id="eTv-3m-9u6"/>
+                            <constraint firstItem="2Ge-9u-7QP" firstAttribute="leading" secondItem="8K1-6A-pGN" secondAttribute="leading" constant="16" id="kFI-zQ-hfN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8K1-6A-pGN"/>
                     </view>
@@ -86,9 +86,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionTypePickerView" destination="LlG-Pw-3jz" id="Xs7-2i-X89"/>
-                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedNewVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="P9F-uD-fLq"/>
-                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedCuratedVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="0aY-Pm-OTJ"/>
-                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedSearchVC" customClass="EmptySegue" customModule="UnsplashPickerController" customModuleProvider="target" id="c40-X2-7MI"/>
+                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedNewVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="P9F-uD-fLq"/>
+                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedCuratedVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="0aY-Pm-OTJ"/>
+                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedSearchVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="c40-X2-7MI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k77-CV-uXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -98,7 +98,7 @@
         <!--Photo Collection View Controller-->
         <scene sceneID="Ne9-va-9Fv">
             <objects>
-                <collectionViewController id="jd7-el-n7u" customClass="PhotoCollectionViewController" customModule="UnsplashPickerController" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="jd7-el-n7u" customClass="PhotoCollectionViewController" customModule="DivingBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Dv2-9b-3Db">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,7 +110,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="zck-gx-BSQ" customClass="PhotoCollectionViewCell" customModule="UnsplashPickerController" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="zck-gx-BSQ" customClass="PhotoCollectionViewCell" customModule="DivingBoard" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
