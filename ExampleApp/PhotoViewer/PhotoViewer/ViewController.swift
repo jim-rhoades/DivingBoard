@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
         let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
                                                                      presentingViewController: self,
-                                                                     modalPresentationStyle: .overFullScreen)
+                                                                     modalPresentationStyle: .fullScreen)
         present(unsplashPicker, animated: true, completion: nil)
     }
     
