@@ -22,7 +22,7 @@
                                 <rect key="frame" x="16" y="36" width="343" height="491"/>
                                 <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7XX-8P-z0K">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7XX-8P-z0K">
                                 <rect key="frame" x="16" y="543" width="343" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oPC-ff-HIJ">
@@ -78,7 +78,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="photoView" destination="67K-0s-vk5" id="wjp-Nf-66A"/>
-                        <outlet property="userContainerView" destination="7XX-8P-z0K" id="yN2-xj-8X6"/>
                         <outlet property="userImageView" destination="oPC-ff-HIJ" id="NdX-o1-yK9"/>
                         <outlet property="userLabel" destination="jUP-nc-DzE" id="3c4-3d-mFP"/>
                     </connections>

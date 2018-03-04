@@ -6,43 +6,33 @@
 //  Copyright © 2018 Crush Apps. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public struct UnsplashPhoto: Codable {
     public let id: String
-    
-    /*
-     let createdAt: Date
-     let updatedAt: Date
-     let likes: Int
-     let likedByUser: Bool
-     let description: String?
-     */
-    
+    public let createdAt: Date
+    public let updatedAt: Date
     public let width: Int
     public let height: Int
     public let color: String // hex string like #60544D
-    public let user: UnsplashUser
+    public let description: String?
     public let urls: URLs
     public let links: Links
+    public let likes: Int
+    public let user: UnsplashUser
     
     enum CodingKeys: String, CodingKey {
         case id
-        
-        /*
-         case createdAt = "created_at"
-         case updatedAt = "updated_at"
-         case likes
-         case likedByUser = "liked_by_user"
-         case description
-         */
-        
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
         case width
         case height
         case color
-        case user
+        case description
         case urls
         case links
+        case likes
+        case user
     }
     
     public struct URLs: Codable {
@@ -54,17 +44,8 @@ public struct UnsplashPhoto: Codable {
     }
     
     public struct Links: Codable {
-        public let selfURL: URL // the API uses 'self', but we can't use that
         public let html: URL
         public let download: URL
-        public let downloadLocation: URL
-        
-        enum CodingKeys: String, CodingKey {
-            case selfURL = "self"
-            case html
-            case download
-            case downloadLocation = "download_location"
-        }
     }
     
     public var size: CGSize {

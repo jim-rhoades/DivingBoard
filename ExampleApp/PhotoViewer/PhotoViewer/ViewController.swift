@@ -8,19 +8,24 @@
 
 import UIKit
 import DivingBoard
+import SafariServices
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var photoView: UIImageView!
-    @IBOutlet weak var userContainerView: UIView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
+    var photoTapGesture: UITapGestureRecognizer?
+    var userTapGesture: UITapGestureRecognizer?
+    var currentPhoto: UnsplashPhoto?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         userImageView.layer.cornerRadius = userImageView.bounds.size.height / 2.0
         userImageView.clipsToBounds = true
+        userImageView.isUserInteractionEnabled = true
+        photoView.isUserInteractionEnabled = true
     }
     
     @IBAction func imagePickerButtonPressed(_ button: UIBarButtonItem) {
@@ -53,7 +58,37 @@ class ViewController: UIViewController {
         photoView.image = nil
         userImageView.image = nil
         userLabel.text = nil
-        userContainerView.isHidden = false
+        currentPhoto = nil
+        if let userTapGesture = userTapGesture {
+            userImageView.removeGestureRecognizer(userTapGesture)
+        }
+        userTapGesture = nil
+        if let photoTapGesture = photoTapGesture {
+            photoView.removeGestureRecognizer(photoTapGesture)
+        }
+        photoTapGesture = nil
+    }
+    
+    @objc func handleTapPhoto(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard gestureRecognizer.state == .ended,
+            let currentPhoto = currentPhoto else {
+            return
+        }
+        let safariVC = SFSafariViewController(url: currentPhoto.links.html)
+        safariVC.modalPresentationStyle = .overFullScreen
+        present(safariVC, animated: true, completion: nil)
+        
+    }
+    
+    @objc func handleTapUser(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard gestureRecognizer.state == .ended,
+            let currentPhoto = currentPhoto else {
+                return
+        }
+        let safariVC = SFSafariViewController(url: currentPhoto.user.links.html)
+        safariVC.modalPresentationStyle = .overFullScreen
+        present(safariVC, animated: true, completion: nil)
+        
     }
 }
 
@@ -66,12 +101,12 @@ extension ViewController: UnsplashPickerDelegate {
         // reset
         resetInterface()
         
+        // assign currentPhoto, will be used to retrieve URLs when tapping photo/avatar
+        currentPhoto = photo
+        
         // show a loading indicator
         let loadingView = LoadingView()
         photoView.addCenteredSubview(view: loadingView)
-        
-        // do something with the photo's related color
-        // photoView.backgroundColor = UIColor(hexString: photo.color)
         
         // load the photo
         let photoURL = photo.urls.full
@@ -85,10 +120,27 @@ extension ViewController: UnsplashPickerDelegate {
             })
         }
         
-        // load the user avatar and name
+        // make the photo tappable
+        photoTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapPhoto(_:)))
+        photoView.addGestureRecognizer(photoTapGesture!)
+        
+        // show the user name
+        userLabel.text = photo.user.name
+        
+        // load the user avatar
         let userImageURL = photo.user.profileImage.large
         userImageView.loadImageAsync(with: userImageURL, completion: nil)
-        userLabel.text = photo.user.name
+        
+        // make the avatar tappable
+        userTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapUser(_:)))
+        userImageView.addGestureRecognizer(userTapGesture!)
+        
+        // related color
+        // photoView.backgroundColor = UIColor(hexString: photo.color)
+        
+        // dates
+        // print("photo created on: \(photo.createdAt)")
+        // print("photo updated on: \(photo.updatedAt)")
         
         dismiss(animated: true, completion: nil)
     }
@@ -106,8 +158,9 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             return
         }
         
+        resetInterface()
         photoView.image = image
-        userContainerView.isHidden = true
+        
         dismiss(animated: true, completion: nil)
     }
     
