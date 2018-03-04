@@ -24,12 +24,19 @@ public class DivingBoard {
      - Parameter presentingViewController: The UIViewController that you are presenting from, which gets set as the delegate. (Make sure your presenting view controller conforms to UnsplashPickerDelegate).
      - Returns: The view controller to present.
     */
-    public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController) -> UIViewController {
+    public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle) -> UIViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle(for: self))
         let navController = storyboard.instantiateInitialViewController() as! UINavigationController
         let containerViewController = navController.topViewController as! ContainerViewController
         containerViewController.delegate = presentingViewController as? UnsplashPickerDelegate
         containerViewController.clientID = clientID
+        
+        navController.modalPresentationStyle = modalPresentationStyle
+        if modalPresentationStyle == .popover {
+            // have containerViewController handle removing the cancel button if needed
+            navController.popoverPresentationController?.delegate = containerViewController
+        }
+        
         return navController
     }
 }

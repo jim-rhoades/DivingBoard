@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     var userTapGesture: UITapGestureRecognizer?
     var currentPhoto: UnsplashPhoto?
     
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,9 @@ class ViewController: UIViewController {
         photoView.isUserInteractionEnabled = true
     }
     
-    @IBAction func imagePickerButtonPressed(_ button: UIBarButtonItem) {
+    // MARK: - Interaction
+    
+    @IBAction func cameraRollButtonPressed(_ button: UIBarButtonItem) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
@@ -41,11 +45,19 @@ class ViewController: UIViewController {
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func unsplashPickerButtonPressed(_ button: UIBarButtonItem) {
+    @IBAction func fullScreenButtonPressed(_ button: UIBarButtonItem) {
         // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
         let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
-                                                                     presentingViewController: self)
-        unsplashPicker.modalPresentationStyle = .popover
+                                                                     presentingViewController: self,
+                                                                     modalPresentationStyle: .overFullScreen)
+        present(unsplashPicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func popoverButtonPressed(_ button: UIBarButtonItem) {
+        // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
+        let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
+                                                        presentingViewController: self,
+                                                        modalPresentationStyle: .popover)
         
         let presentationController = unsplashPicker.popoverPresentationController
         presentationController?.barButtonItem = button

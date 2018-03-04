@@ -32,8 +32,8 @@
                                             <constraint firstAttribute="width" constant="64" id="uQD-K1-CKF"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUP-nc-DzE">
-                                        <rect key="frame" x="72" y="21.5" width="265" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUP-nc-DzE">
+                                        <rect key="frame" x="72" y="32" width="265" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -62,15 +62,21 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="ImagePicker" id="aEU-Cp-Xte">
+                        <barButtonItem title="Camera Roll" id="aEU-Cp-Xte">
                             <connections>
-                                <action selector="imagePickerButtonPressed:" destination="BYZ-38-t0r" id="RBq-ci-h5Q"/>
+                                <action selector="cameraRollButtonPressed:" destination="BYZ-38-t0r" id="2JE-IU-EXy"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="clR-mt-8O1"/>
-                        <barButtonItem title="UnsplashPicker" id="oA0-TW-jKj">
+                        <barButtonItem title="Full Screen" id="00z-Aq-tBP">
                             <connections>
-                                <action selector="unsplashPickerButtonPressed:" destination="BYZ-38-t0r" id="gUk-ij-OqF"/>
+                                <action selector="fullScreenButtonPressed:" destination="BYZ-38-t0r" id="gmC-FF-Ec7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ek6-nr-1eC"/>
+                        <barButtonItem title="Popover" id="oA0-TW-jKj">
+                            <connections>
+                                <action selector="popoverButtonPressed:" destination="BYZ-38-t0r" id="T0f-Bm-dnY"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>

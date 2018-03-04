@@ -292,10 +292,6 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
         var columns: CGFloat = 1
         
         if currentLayoutStyle == .grid {
-            // TODO: add more columns for iPad presented full screen?
-            
-            // needed if the unsplashPicker is presented without:
-            // unsplashPicker.modalPresentationStyle = .popover
             let portraitWidthOfPlusSizePhones: CGFloat = 414.0
             if view.bounds.size.width > portraitWidthOfPlusSizePhones {
                 columns = 4

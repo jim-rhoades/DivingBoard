@@ -318,3 +318,12 @@ extension ContainerViewController: CollectionTypePickerViewDelegate {
         }
     }
 }
+
+// MARK: - UIPopoverPresentationControllerDelegate
+
+extension ContainerViewController: UIPopoverPresentationControllerDelegate {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        // remove the "Cancel" button when the unsplashPicker is presented as a popover
+        navigationItem.rightBarButtonItem = nil
+    }
+}
