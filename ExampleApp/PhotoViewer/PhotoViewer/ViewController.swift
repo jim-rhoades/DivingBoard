@@ -90,10 +90,12 @@ class ViewController: UIViewController {
             let currentPhoto = currentPhoto else {
             return
         }
-        let safariVC = SFSafariViewController(url: currentPhoto.links.html)
+        
+        let photoURL = currentPhoto.links.html
+        let url = urlWithReferral(baseURL: photoURL) ?? photoURL
+        let safariVC = SFSafariViewController(url: url)
         safariVC.modalPresentationStyle = .overFullScreen
         present(safariVC, animated: true, completion: nil)
-        
     }
     
     @objc func handleTapUser(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -101,10 +103,30 @@ class ViewController: UIViewController {
             let currentPhoto = currentPhoto else {
                 return
         }
-        let safariVC = SFSafariViewController(url: currentPhoto.user.links.html)
+        
+        let photographerURL = currentPhoto.user.links.html
+        let url = urlWithReferral(baseURL: photographerURL) ?? photographerURL
+        let safariVC = SFSafariViewController(url: url)
         safariVC.modalPresentationStyle = .overFullScreen
         present(safariVC, animated: true, completion: nil)
+    }
+    
+    func urlWithReferral(baseURL: URL) -> URL? {
+        // add proper attribution to the URL as described in Unsplash guidelines
+        // by adding 'utm_source=your_app_name&utm_medium=referral'
+        // https://medium.com/unsplash/unsplash-api-guidelines-attribution-4d433941d777
         
+        guard var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
+            return nil
+        }
+        
+        // FIXME: replace with your app name
+        let appName = "Diving Board"
+        
+        let sourceItem = URLQueryItem(name: "utm_source", value: appName)
+        let mediumItem = URLQueryItem(name: "utm_medium", value: "referral")
+        urlComponents.queryItems = [sourceItem, mediumItem]
+        return urlComponents.url
     }
 }
 
