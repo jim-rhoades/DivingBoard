@@ -49,7 +49,11 @@ class ViewController: UIViewController {
         // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
         let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
                                                                      presentingViewController: self,
-                                                                     modalPresentationStyle: .fullScreen)
+                                                                     modalPresentationStyle: .overFullScreen)
+        
+        // .overFullScreen is used instead of .fullScreen
+        // so that the status bar is properly hidden in landscape on certain devices
+        
         present(unsplashPicker, animated: true, completion: nil)
     }
     
