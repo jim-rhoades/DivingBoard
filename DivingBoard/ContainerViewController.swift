@@ -35,6 +35,10 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     private var currentLayoutStyle: LayoutStyle = .grid
     @IBOutlet private weak var collectionTypePickerView: CollectionTypePickerView!
     
+    private lazy var isPhoneDevice: Bool = {
+        return UIDevice.current.userInterfaceIdiom == .phone
+    }()
+    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
@@ -50,7 +54,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             navigationController.navigationBar.barTintColor = commonBarColor
             
             // on iPhone, hide navigation bar when scrolling down
-            if UIDevice.current.userInterfaceIdiom == .phone {
+            if isPhoneDevice {
                 navigationController.hidesBarsOnSwipe = true
             }
         }
@@ -63,12 +67,18 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        statusBarColor = commonBarColor
+        if isPhoneDevice {
+            // this is for iPhone X
+            // set a color for status bar, so that photos don't show behind it
+            statusBarColor = commonBarColor
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        statusBarColor = previousStatusBarColor
+        if isPhoneDevice {
+            statusBarColor = previousStatusBarColor
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -160,8 +170,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         }
         
         // always hide status bar in landscape on iPhone devices
-        let device = UIDevice.current
-        if device.userInterfaceIdiom == .phone && device.orientation.isLandscape {
+        if isPhoneDevice && UIDevice.current.orientation.isLandscape {
             return true
         }
         
