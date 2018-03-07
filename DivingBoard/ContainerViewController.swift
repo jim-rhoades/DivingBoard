@@ -149,9 +149,15 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     override var prefersStatusBarHidden: Bool {
-        // always return false on iPhone X
-        if UIApplication.shared.statusBarFrame.height >= CGFloat(44.0) {
+        // never hide status bar on iPhone X in portrait
+        if UIApplication.shared.statusBarFrame.height >= 44.0 {
             return false
+        }
+        
+        // always hide status bar in landscape on iPhone devices
+        let device = UIDevice.current
+        if device.userInterfaceIdiom == .phone && device.orientation.isLandscape {
+            return true
         }
         
         // hide the status bar when the navigation bar is hidden
