@@ -48,6 +48,11 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         if let navigationController = navigationController {
             navigationController.navigationBar.setValue(true, forKey: "hidesShadow") // hide shadow line
             navigationController.navigationBar.barTintColor = commonBarColor
+            
+            // on iPhone, hide navigation bar when scrolling down
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                navigationController.hidesBarsOnSwipe = true
+            }
         }
         
         collectionTypePickerView.delegate = self

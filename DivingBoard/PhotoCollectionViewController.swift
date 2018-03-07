@@ -67,9 +67,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         collectionView?.contentInset.top += topInsetAdjustment
         collectionView?.scrollIndicatorInsets.top += topInsetAdjustment
         
-        // hide navigation bar when scrolling down
-        navigationController?.hidesBarsOnSwipe = true
-        
         if collectionType == .search {
             configureToShowSearchBar()
         } else {
