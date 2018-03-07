@@ -229,9 +229,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     func handleSegue(to photoCollectionViewController: PhotoCollectionViewController) {
-        if childViewControllers.count > 0 {
+        if let currentlyDisplayedViewController = childViewControllers.first {
             // there is an existing childViewController, so perform a swap
-            let currentlyDisplayedViewController = childViewControllers[0]
             swapFromViewController(currentlyDisplayedViewController, toViewController: photoCollectionViewController)
         } else {
             // no existing childViewController, so load it from scratch
@@ -297,10 +296,11 @@ class ContainerViewController: UIViewController, SegueHandlerType {
 
 extension ContainerViewController: CollectionTypePickerViewDelegate {
     func collectionTypeChanged(_ collectionType: CollectionType) {
+        guard let currentlyDisplayedViewController = childViewControllers.first else {
+            return
+        }
         
         toCollectionTypeIndex = collectionType.rawValue
-        
-        let currentlyDisplayedViewController = childViewControllers[0]
         
         switch collectionType {
         case .new:
