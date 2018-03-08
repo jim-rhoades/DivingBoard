@@ -28,6 +28,9 @@ class ViewController: UIViewController {
         userImageView.clipsToBounds = true
         userImageView.isUserInteractionEnabled = true
         photoView.isUserInteractionEnabled = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(handleSavePhoto))
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     // MARK: - Interaction
@@ -82,14 +85,53 @@ class ViewController: UIViewController {
         photoTapGesture = nil
     }
     
+    @objc func handleSavePhoto() {
+        guard let photo = photoView.image else {
+            return
+        }
+        // save the photo
+        // if successful, the photo's download count will be incremented during didFinishSavingWithError
+        UIImageWriteToSavedPhotosAlbum(photo, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            print(error)
+        } else {
+            guard let currentPhoto = currentPhoto else {
+                return
+            }
+            
+            // increment the download count for the photo on Unsplash as required by their API guidelines:
+            // https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02
+            DivingBoard.incrementUnsplashPhotoDownloadCount(photo: currentPhoto, clientID: unsplashAppID)
+            
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            
+            let alertController = UIAlertController(title: "Saved",
+                                                    message: "The photo has been saved and the download count has been incremented on Unsplash.com",
+                                                    preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alertController, animated: true)
+        }
+    }
+    
     @objc func handleTapPhoto(_ gestureRecognizer: UITapGestureRecognizer) {
         guard gestureRecognizer.state == .ended,
             let currentPhoto = currentPhoto else {
             return
         }
         
+        // TODO: change to your app's name
+        let appName = "Photo Viewer"
+        
         let photoURL = currentPhoto.links.html
-        let url = urlWithReferral(baseURL: photoURL) ?? photoURL
+        
+        // add proper attribution to the URL as described in Unsplash guidelines
+        // https://medium.com/unsplash/unsplash-api-guidelines-attribution-4d433941d777
+        let url = DivingBoard.unsplashURLWithReferral(baseURL: photoURL,
+                                                      appName: appName) ?? photoURL
+        
         let safariVC = SFSafariViewController(url: url)
         safariVC.modalPresentationStyle = .overFullScreen
         present(safariVC, animated: true, completion: nil)
@@ -101,29 +143,19 @@ class ViewController: UIViewController {
                 return
         }
         
+        // TODO: change to your app's name
+        let appName = "Photo Viewer"
+        
         let photographerURL = currentPhoto.user.links.html
-        let url = urlWithReferral(baseURL: photographerURL) ?? photographerURL
+        
+        // add proper attribution to the URL as described in Unsplash guidelines
+        // https://medium.com/unsplash/unsplash-api-guidelines-attribution-4d433941d777
+        let url = DivingBoard.unsplashURLWithReferral(baseURL: photographerURL,
+                                                      appName: appName) ?? photographerURL
+        
         let safariVC = SFSafariViewController(url: url)
         safariVC.modalPresentationStyle = .overFullScreen
         present(safariVC, animated: true, completion: nil)
-    }
-    
-    func urlWithReferral(baseURL: URL) -> URL? {
-        // add proper attribution to the URL as described in Unsplash guidelines
-        // by adding 'utm_source=your_app_name&utm_medium=referral'
-        // https://medium.com/unsplash/unsplash-api-guidelines-attribution-4d433941d777
-        
-        guard var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
-            return nil
-        }
-        
-        // FIXME: replace with your app name
-        let appName = "Diving Board"
-        
-        let sourceItem = URLQueryItem(name: "utm_source", value: appName)
-        let mediumItem = URLQueryItem(name: "utm_medium", value: "referral")
-        urlComponents.queryItems = [sourceItem, mediumItem]
-        return urlComponents.url
     }
 }
 
@@ -136,7 +168,10 @@ extension ViewController: UnsplashPickerDelegate {
         // reset
         resetInterface()
         
-        // assign currentPhoto, will be used to retrieve URLs when tapping photo/avatar
+        // enable the 'Save' button, to download photo and save it to camera roll
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        
+        // assign currentPhoto, will be used to retrieve URLs when tapping photo/avatar/save
         currentPhoto = photo
         
         // show a loading indicator

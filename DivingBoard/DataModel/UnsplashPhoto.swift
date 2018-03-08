@@ -45,7 +45,12 @@ public struct UnsplashPhoto: Codable {
     
     public struct Links: Codable {
         public let html: URL
-        public let download: URL
+        public let downloadLocation: URL
+        
+        enum CodingKeys: String, CodingKey {
+            case html
+            case downloadLocation = "download_location"
+        }
     }
     
     public var size: CGSize {
