@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 
 class PhotoCollectionViewController: UICollectionViewController {
     
-    var clientID = ""
+    var clientID: String?
     weak var delegate: UnsplashPickerDelegate?
     var topInsetAdjustment: CGFloat = 0
     var collectionType: CollectionType = .new
@@ -192,6 +192,10 @@ class PhotoCollectionViewController: UICollectionViewController {
     }
     
     private func unsplashURL(withSearchPhrase searchPhrase: String?) -> URL? {
+        guard let clientID = clientID else {
+            return nil
+        }
+        
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.unsplash.com"

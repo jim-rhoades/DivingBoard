@@ -21,19 +21,19 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     weak var delegate: UnsplashPickerDelegate?
-    var clientID = ""
+    var clientID: String?
     
-    private var newViewController: PhotoCollectionViewController?
-    private var curatedViewController: PhotoCollectionViewController?
-    private var searchViewController: PhotoCollectionViewController?
-    private var toCollectionTypeIndex: Int = 0
-    private var fromCollectionTypeIndex: Int = 0
-    private let commonBarColor = UIColor(white: 247.0/255.0, alpha: 1.0)
-    private var previousStatusBarColor: UIColor?
-    private var stackedLayoutButton: UIBarButtonItem?
-    private var gridLayoutButton: UIBarButtonItem?
-    private var currentLayoutStyle: LayoutStyle = .grid
-    @IBOutlet private weak var collectionTypePickerView: CollectionTypePickerView!
+    var newViewController: PhotoCollectionViewController?
+    var curatedViewController: PhotoCollectionViewController?
+    var searchViewController: PhotoCollectionViewController?
+    var toCollectionTypeIndex: Int = 0
+    var fromCollectionTypeIndex: Int = 0
+    let commonBarColor = UIColor(white: 247.0/255.0, alpha: 1.0)
+    var previousStatusBarColor: UIColor?
+    var stackedLayoutButton: UIBarButtonItem?
+    var gridLayoutButton: UIBarButtonItem?
+    var currentLayoutStyle: LayoutStyle = .grid
+    @IBOutlet weak var collectionTypePickerView: CollectionTypePickerView!
     
     private lazy var isPhoneDevice: Bool = {
         return UIDevice.current.userInterfaceIdiom == .phone
@@ -45,7 +45,11 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         super.viewDidLoad()
         
         // store the app's status bar color so it can be reset when the unsplashPicker is dismissed
-        previousStatusBarColor = statusBarColor
+        // (really only necessary for iPhone X, but this has no negative affect on other iPhones,
+        //  and helps ensure compatibility with future devices)
+        if isPhoneDevice {
+            previousStatusBarColor = statusBarColor
+        }
         
         createLayoutButtons()
         
@@ -211,7 +215,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         let segueIdentifier = segueIdentifierForSegue(segue)
         
         guard let photoCollectionViewController = segue.destination as? PhotoCollectionViewController else {
-            print("segue.destination was not a PhotoCollectionViewController")
             return
         }
         // configure common vars

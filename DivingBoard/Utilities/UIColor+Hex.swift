@@ -15,6 +15,14 @@ public extension UIColor {
             uppercasedString.remove(at: hexString.startIndex)
         }
         
+        // convert 3 character hex strings to 6 characters
+        if uppercasedString.count == 3 {
+            let c0 = String(Array(uppercasedString)[0])
+            let c1 = String(Array(uppercasedString)[1])
+            let c2 = String(Array(uppercasedString)[2])
+            uppercasedString = c0 + c0 + c1 + c1 + c2 + c2
+        }
+        
         var rgbValue: UInt32 = 0
         Scanner(string: uppercasedString).scanHexInt32(&rgbValue)
         

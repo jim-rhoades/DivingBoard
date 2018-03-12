@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3812900F205321F100E8D768 /* UIColor+HexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3812900E205321F100E8D768 /* UIColor+HexTests.swift */; };
 		3826CAFC203652F800549707 /* DivingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3826CAFB203652F800549707 /* DivingBoard.swift */; };
 		382AB2F72042106F00932147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 382AB2F62042106F00932147 /* Assets.xcassets */; };
+		388716882053467D00FC37BE /* ContainerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388716872053467D00FC37BE /* ContainerViewControllerTests.swift */; };
+		3887168A205346D600FC37BE /* ViewControllerForPresentingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38871689205346D600FC37BE /* ViewControllerForPresentingPicker.swift */; };
 		38C02AC1203E137B00319C83 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C02AC0203E137B00319C83 /* UIColor+Hex.swift */; };
 		38C5E929203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */; };
 		38CB068120362C2500AE6EDA /* DivingBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CB067720362C2500AE6EDA /* DivingBoard.framework */; };
@@ -40,8 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3812900E205321F100E8D768 /* UIColor+HexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexTests.swift"; sourceTree = "<group>"; };
 		3826CAFB203652F800549707 /* DivingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivingBoard.swift; sourceTree = "<group>"; };
 		382AB2F62042106F00932147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		388716872053467D00FC37BE /* ContainerViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerTests.swift; sourceTree = "<group>"; };
+		38871689205346D600FC37BE /* ViewControllerForPresentingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerForPresentingPicker.swift; sourceTree = "<group>"; };
 		38C02AC0203E137B00319C83 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoCollectionViewController+Search.swift"; sourceTree = "<group>"; };
 		38CB067720362C2500AE6EDA /* DivingBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DivingBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3887168B2055C8CE00FC37BE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				38871689205346D600FC37BE /* ViewControllerForPresentingPicker.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		38CB066D20362C2500AE6EDA = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +139,9 @@
 			isa = PBXGroup;
 			children = (
 				38CB068520362C2500AE6EDA /* DivingBoardTests.swift */,
+				388716872053467D00FC37BE /* ContainerViewControllerTests.swift */,
+				3812900E205321F100E8D768 /* UIColor+HexTests.swift */,
+				3887168B2055C8CE00FC37BE /* Helpers */,
 				38CB068720362C2500AE6EDA /* Info.plist */,
 			);
 			path = DivingBoardTests;
@@ -289,6 +306,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				38CB068620362C2500AE6EDA /* DivingBoardTests.swift in Sources */,
+				3887168A205346D600FC37BE /* ViewControllerForPresentingPicker.swift in Sources */,
+				388716882053467D00FC37BE /* ContainerViewControllerTests.swift in Sources */,
+				3812900F205321F100E8D768 /* UIColor+HexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

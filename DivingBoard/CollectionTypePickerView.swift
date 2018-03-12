@@ -25,9 +25,9 @@ class CollectionTypePickerView: UIView {
     private let normalColor = UIView().tintColor! // default iOS blue color
     private let selectedColor = UIColor.black
     
-    @IBOutlet weak var newButton: UIButton!
-    @IBOutlet weak var curatedButton: UIButton!
-    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet private weak var newButton: UIButton!
+    @IBOutlet private weak var curatedButton: UIButton!
+    @IBOutlet private weak var searchButton: UIButton!
     
     private var currentCollectionType: CollectionType = .new {
         // when the currentCollectionType changes, update the button colors
@@ -50,19 +50,19 @@ class CollectionTypePickerView: UIView {
         selectionView.frame = frameForSelectionView(for: currentCollectionType)
     }
     
-    @IBAction func newButtonPressed(_ sender: Any) {
+    @IBAction private func newButtonPressed(_ sender: Any) {
         guard !transitionInProgress && currentCollectionType != .new else { return }
         setSelectedCollectionType(.new, animated: true)
         delegate?.collectionTypeChanged(.new)
     }
     
-    @IBAction func curatedButtonPressed(_ sender: Any) {
+    @IBAction private func curatedButtonPressed(_ sender: Any) {
         guard !transitionInProgress && currentCollectionType != .curated else { return }
         setSelectedCollectionType(.curated, animated: true)
         delegate?.collectionTypeChanged(.curated)
     }
     
-    @IBAction func searchButtonPressed(_ sender: Any) {
+    @IBAction private func searchButtonPressed(_ sender: Any) {
         guard !transitionInProgress && currentCollectionType != .search else { return }
         setSelectedCollectionType(.search, animated: true)
         delegate?.collectionTypeChanged(.search)
