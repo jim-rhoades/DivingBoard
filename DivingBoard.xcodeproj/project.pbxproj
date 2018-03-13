@@ -10,6 +10,7 @@
 		3812900F205321F100E8D768 /* UIColor+HexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3812900E205321F100E8D768 /* UIColor+HexTests.swift */; };
 		3826CAFC203652F800549707 /* DivingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3826CAFB203652F800549707 /* DivingBoard.swift */; };
 		382AB2F72042106F00932147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 382AB2F62042106F00932147 /* Assets.xcassets */; };
+		3838DF052056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838DF042056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift */; };
 		388716882053467D00FC37BE /* ContainerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388716872053467D00FC37BE /* ContainerViewControllerTests.swift */; };
 		3887168A205346D600FC37BE /* ViewControllerForPresentingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38871689205346D600FC37BE /* ViewControllerForPresentingPicker.swift */; };
 		38C02AC1203E137B00319C83 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C02AC0203E137B00319C83 /* UIColor+Hex.swift */; };
@@ -46,6 +47,7 @@
 		3812900E205321F100E8D768 /* UIColor+HexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexTests.swift"; sourceTree = "<group>"; };
 		3826CAFB203652F800549707 /* DivingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivingBoard.swift; sourceTree = "<group>"; };
 		382AB2F62042106F00932147 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3838DF042056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewControllerTests.swift; sourceTree = "<group>"; };
 		388716872053467D00FC37BE /* ContainerViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerTests.swift; sourceTree = "<group>"; };
 		38871689205346D600FC37BE /* ViewControllerForPresentingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerForPresentingPicker.swift; sourceTree = "<group>"; };
 		38C02AC0203E137B00319C83 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				38CB068520362C2500AE6EDA /* DivingBoardTests.swift */,
 				388716872053467D00FC37BE /* ContainerViewControllerTests.swift */,
+				3838DF042056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift */,
 				3812900E205321F100E8D768 /* UIColor+HexTests.swift */,
 				3887168B2055C8CE00FC37BE /* Helpers */,
 				38CB068720362C2500AE6EDA /* Info.plist */,
@@ -307,6 +310,7 @@
 			files = (
 				38CB068620362C2500AE6EDA /* DivingBoardTests.swift in Sources */,
 				3887168A205346D600FC37BE /* ViewControllerForPresentingPicker.swift in Sources */,
+				3838DF052056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift in Sources */,
 				388716882053467D00FC37BE /* ContainerViewControllerTests.swift in Sources */,
 				3812900F205321F100E8D768 /* UIColor+HexTests.swift in Sources */,
 			);

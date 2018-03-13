@@ -98,7 +98,7 @@
         <!--Photo Collection View Controller-->
         <scene sceneID="Ne9-va-9Fv">
             <objects>
-                <collectionViewController id="jd7-el-n7u" customClass="PhotoCollectionViewController" customModule="DivingBoard" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="PhotoCollectionViewController" id="jd7-el-n7u" customClass="PhotoCollectionViewController" customModule="DivingBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Dv2-9b-3Db">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
