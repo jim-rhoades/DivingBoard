@@ -38,13 +38,6 @@ class ContainerViewControllerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testSetup() {
-        XCTAssertNotNil(storyboard)
-        XCTAssertNotNil(containerViewController)
-        XCTAssertNotNil(stackedLayoutButton)
-        XCTAssertNotNil(gridLayoutButton)
-    }
-    
     // MARK: Initial state tests
     
     func testInitialLayoutStyle() {
@@ -75,27 +68,6 @@ class ContainerViewControllerTests: XCTestCase {
         XCTAssertNil(containerViewController.searchViewController, "searchViewController should be nil initially")
     }
     
-    // always fails, there is no navigationController since we're just loading the containerViewController
-    /*
-    func testNavigationBarHidesOnScrollingOnlyOnPhone() {
-        XCTAssertNotNil(containerViewController.navigationController, "there is no navigationController")
-    }
-    */
-    
-    
-    // always fails, there is no status bar since we're not running full application
-    /*
-    func testPreviousStatusBarColor() {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            XCTAssertNotNil(containerViewController.previousStatusBarColor, "previousStatusBarColor should not be nil on iPhone")
-        } else if UIDevice.current.userInterfaceIdiom == .pad {
-            XCTAssertNil(containerViewController.previousStatusBarColor, "previousStatusBarColor should be nil on iPad")
-        }
-    }
-    */
-    
-    
-    
     // MARK: - Interaction tests
     
     func testStackedLayoutButtonPress() {
@@ -116,7 +88,13 @@ class ContainerViewControllerTests: XCTestCase {
         XCTAssert(!gridLayoutButton.isEnabled, "gridLayoutButton should be disabled after tapping gridLayoutButton")
     }
     
-    // MARK: - CollectionTypePickerViewDelegate tests
+    // MARK: - UIPopoverPresentationControllerDelegate
+    
+    func testConformsToPopoverPresentationControllerDelegate() {
+        XCTAssert(containerViewController.conforms(to: UIPopoverPresentationControllerDelegate.self))
+    }
+    
+    // MARK: - CollectionTypePickerViewDelegate
     
     func testCollectionTypeChangeToCurated() {
         containerViewController.collectionTypeChanged(.curated)
