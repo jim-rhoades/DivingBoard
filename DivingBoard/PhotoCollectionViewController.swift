@@ -20,7 +20,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     var loadingView: LoadingView?
     var photos: [UnsplashPhoto] = []
     var pageNumber = 1
-    var searchBar: UISearchBar? // gets set during prepareForSegue in the ContainerViewController
+    var searchBar: UISearchBar?
     var currentSearchPhrase: String?
     var currentSearchTotalPages: Int = 0
     let sectionHeaderIdentifier = "SectionHeader"
