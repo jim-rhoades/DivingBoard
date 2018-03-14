@@ -113,13 +113,18 @@ class PhotoCollectionViewController: UICollectionViewController {
     // MARK: - Photo loading
     
     func loadPhotos() {
-        guard let url = unsplashURL(withSearchPhrase: currentSearchPhrase) else {
+        guard let url = UnsplashClient.urlForJSONRequest(withClientID: clientID,
+                                                   collectionType: collectionType,
+                                                   resultsPerPage: 40,
+                                                   pageNumber: pageNumber,
+                                                   searchPhrase: currentSearchPhrase) else {
             return
         }
         
+        // TODO: remove this
         print(url.absoluteString)
         
-        let dataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+        UnsplashClient.requestPhotosFor(url: url, collectionType: collectionType) { [weak self] requestedPhotos, searchResultsTotalPages, error in
             
             // remove the loadingView regardless of whether or not there was an error
             DispatchQueue.main.async {
@@ -132,54 +137,31 @@ class PhotoCollectionViewController: UICollectionViewController {
                 }
             }
             
-            guard let responseData = data else {
-                print("Error: did not receive data")
-                return
-            }
-            
-            guard error == nil else {
-                print(error!)
-                return
-            }
-            
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            do {
-                var newPhotos: [UnsplashPhoto]
-                
-                if self?.collectionType == .search {
-                    let searchResults = try decoder.decode(UnsplashSearchResults.self, from: responseData)
-                    newPhotos = searchResults.results
-                    self?.currentSearchTotalPages = searchResults.totalPages
-                } else {
-                    newPhotos = try decoder.decode([UnsplashPhoto].self, from: responseData)
-                }
-                self?.photos.append(contentsOf: newPhotos)
-                
+            // handle errors
+            if let error = error {
                 DispatchQueue.main.async {
-                    self?.collectionView?.reloadData()
+                    self?.showErrorAlert(message: error.localizedDescription)
                 }
-            } catch {
-                print("error trying to convert data to JSON: \(error)")
-                
-                // handle common errors
-                if let jsonString = String(data: responseData, encoding: .utf8) {
-                    print(jsonString)
-                    
-                    var errorMessage = "Unknown error"
-                    if jsonString == "Rate Limit Exceeded" {
-                        errorMessage = NSLocalizedString("Rate Limit Exceeded",
-                                                         comment: "error message shown when the Unsplash API rate limit has been exceeded")
-                    } else if jsonString.contains("The access token is invalid") {
-                        errorMessage = NSLocalizedString("The access token is invalid",
-                                                         comment: "error message shown when an incorrect application ID has been used to access the Unsplash API")
-                    }
-                    self?.showErrorAlert(message: errorMessage)
-                }
+                return
+            }
+            
+            // append the requested photos to the photos array
+            guard let requestedPhotos = requestedPhotos else {
+                print("Error: did not receive photos") // this should never happen?
+                return
+            }
+            self?.photos.append(contentsOf: requestedPhotos)
+            
+            // if searching, keep track of the total number of pages in the search
+            if self?.collectionType == .search,
+                let searchResultsTotalPages = searchResultsTotalPages {
+                self?.currentSearchTotalPages = searchResultsTotalPages
+            }
+            
+            DispatchQueue.main.async {
+                self?.collectionView?.reloadData()
             }
         }
-        
-        dataTask.resume()
     }
     
     private func showErrorAlert(message: String) {
@@ -189,39 +171,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         let okAction = UIAlertAction(title: okTitle, style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
-    }
-    
-    private func unsplashURL(withSearchPhrase searchPhrase: String?) -> URL? {
-        guard let clientID = clientID else {
-            return nil
-        }
-        
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = "api.unsplash.com"
-        
-        switch collectionType {
-        case .new:
-            urlComponents.path = "/photos"
-        case .curated:
-            urlComponents.path = "/photos/curated"
-        case .search:
-            urlComponents.path = "/search/photos"
-        }
-        
-        let clientIDItem = URLQueryItem(name: "client_id", value: clientID)
-        let perPageItem = URLQueryItem(name: "per_page", value: "30")
-        let pageNumberItem = URLQueryItem(name: "page", value: "\(pageNumber)")
-        urlComponents.queryItems = [clientIDItem, perPageItem, pageNumberItem]
-        
-        if collectionType == .search {
-            if let searchPhrase = currentSearchPhrase {
-                let queryItem = URLQueryItem(name: "query", value: searchPhrase)
-                urlComponents.queryItems?.append(queryItem)
-            }
-        }
-        
-        return urlComponents.url
     }
 }
 
@@ -254,7 +203,7 @@ extension PhotoCollectionViewController {
             searchBar = headerView.searchBar
             return headerView
         default:
-            preconditionFailure("Invalid UICollectionElementKind for this collection view")
+            fatalError("Invalid UICollectionElementKind for this collection view")
         }
     }
 }

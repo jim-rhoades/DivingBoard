@@ -129,7 +129,7 @@ class ViewController: UIViewController {
         
         // add proper attribution to the URL as described in Unsplash guidelines
         // https://medium.com/unsplash/unsplash-api-guidelines-attribution-4d433941d777
-        let url = DivingBoard.unsplashURLWithReferral(baseURL: photoURL,
+        let url = DivingBoard.unsplashWebsiteURLWithReferral(baseURL: photoURL,
                                                       appName: appName) ?? photoURL
         
         let safariVC = SFSafariViewController(url: url)
@@ -150,7 +150,7 @@ class ViewController: UIViewController {
         
         // add proper attribution to the URL as described in Unsplash guidelines
         // https://medium.com/unsplash/unsplash-api-guidelines-attribution-4d433941d777
-        let url = DivingBoard.unsplashURLWithReferral(baseURL: photographerURL,
+        let url = DivingBoard.unsplashWebsiteURLWithReferral(baseURL: photographerURL,
                                                       appName: appName) ?? photographerURL
         
         let safariVC = SFSafariViewController(url: url)

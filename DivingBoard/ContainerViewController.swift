@@ -100,16 +100,16 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
         let bundle = Bundle(for: DivingBoard.self)
         guard let stackedImage = UIImage(named: "layoutButtonStacked", in: bundle, compatibleWith: nil) else {
-            preconditionFailure("failed to load image: layoutButtonStacked")
+            fatalError("failed to load image: layoutButtonStacked")
         }
         guard let stackedImageDisabled = UIImage(named: "layoutButtonStacked_Disabled", in: bundle, compatibleWith: nil) else {
-            preconditionFailure("failed to load image: layoutButtonStacked_Disabled")
+            fatalError("failed to load image: layoutButtonStacked_Disabled")
         }
         guard let gridImage = UIImage(named: "layoutButtonGrid", in: bundle, compatibleWith: nil) else {
-            preconditionFailure("failed to load image: layoutButtonGrid")
+            fatalError("failed to load image: layoutButtonGrid")
         }
         guard let gridImageDisabled = UIImage(named: "layoutButtonGrid_Disabled", in: bundle, compatibleWith: nil) else {
-            preconditionFailure("failed to load image: layoutButtonGrid_Disabled")
+            fatalError("failed to load image: layoutButtonGrid_Disabled")
         }
         
         let rect = CGRect(x: 0, y: 0, width: 32.0, height: 32.0)

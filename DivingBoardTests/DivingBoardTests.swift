@@ -36,7 +36,7 @@ class DivingBoardTests: XCTestCase {
         // so don't do this here: containerViewController.loadViewIfNeeded()
     }
     
-    func testUnsplashURLWithReferral() {
+    func testUnsplashWebsiteURLWithReferral() {
         guard let inputURL = URL(string: "https://unsplash.com/photos/YNQgPXShu7g") else {
             XCTFail("Failed to create inputURL from string")
             return
@@ -48,7 +48,7 @@ class DivingBoardTests: XCTestCase {
         }
         
         let appName = "Diving Board"
-        guard let outputURL = DivingBoard.unsplashURLWithReferral(baseURL: inputURL, appName: appName) else {
+        guard let outputURL = DivingBoard.unsplashWebsiteURLWithReferral(baseURL: inputURL, appName: appName) else {
             XCTFail("Failed to retreive URL from unsplashURLWithReferral")
             return
         }
