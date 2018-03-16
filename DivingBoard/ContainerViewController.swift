@@ -87,7 +87,9 @@ class ContainerViewController: UIViewController, SegueHandlerType {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        // TODO: get rid of any PhotoCollectionViewController's
+        // that are NOT the one currently being displayed
     }
     
     // MARK: - Layout buttons
