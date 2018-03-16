@@ -124,7 +124,8 @@ class PhotoCollectionViewController: UICollectionViewController {
         // TODO: remove this
         print(url.absoluteString)
         
-        UnsplashClient.requestPhotosFor(url: url, collectionType: collectionType) { [weak self] requestedPhotos, searchResultsTotalPages, error in
+        let unsplashClient = UnsplashClient()
+        unsplashClient.requestPhotosFor(url: url, collectionType: collectionType) { [weak self] requestedPhotos, searchResultsTotalPages, error in
             
             // remove the loadingView regardless of whether or not there was an error
             DispatchQueue.main.async {
@@ -250,7 +251,7 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
             }
         }
         
-        cellWidth = (self.view.bounds.size.width - cellSpacing * (columns - 1)) / columns
+        cellWidth = (view.bounds.size.width - cellSpacing * (columns - 1)) / columns
         
         switch currentLayoutStyle {
         case .stacked:

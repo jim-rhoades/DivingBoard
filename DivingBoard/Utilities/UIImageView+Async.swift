@@ -48,7 +48,7 @@ public extension UIImageView {
         
         // download
         currentURL = url
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+        let task: URLSessionDataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             self?.currentTask = nil
             
             // error handling

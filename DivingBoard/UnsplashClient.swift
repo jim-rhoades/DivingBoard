@@ -10,26 +10,26 @@ import Foundation
 
 class UnsplashClient {
     
-    private init() {
-        // private init, to prevent instantiating UnsplashClient
+    private let session: URLSessionProtocol
+    typealias completionHandler = (_ photos: [UnsplashPhoto]?, _ searchResultsTotalPages: Int?, _ error: Error?) -> Void
+    
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
     }
     
-    typealias completionClosure = (_ photos: [UnsplashPhoto]?, _ searchResultsTotalPages: Int?, _ error: Error?) -> Void
-    
     // TODO: document this method
-    // TODO: this may need to be non-static for test purposes?
     
-    static func requestPhotosFor(url: URL, collectionType: CollectionType, completion: @escaping completionClosure) {
-        let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
+    func requestPhotosFor(url: URL, collectionType: CollectionType, completionHandler: @escaping completionHandler) {
+        let dataTask = session.dataTask(with: url) { data, response, error in
             
             guard let data = data else {
-                completion(nil, nil, UnsplashClientError.didNotReceiveData)
+                completionHandler(nil, nil, UnsplashClientError.didNotReceiveData)
                 return
             }
             
             if let error = error {
                 print("Unknown error: \(error)")
-                completion(nil, nil, UnsplashClientError.unknown)
+                completionHandler(nil, nil, UnsplashClientError.unknown)
                 return
             }
             
@@ -48,7 +48,7 @@ class UnsplashClient {
                 }
                 
                 // pass on the photos array + optional searchResultsTotalPages
-                completion(newPhotos, searchResultsTotalPages, nil)
+                completionHandler(newPhotos, searchResultsTotalPages, nil)
             } catch {
                 print("error trying to convert data to JSON: \(error)")
                 
@@ -57,14 +57,14 @@ class UnsplashClient {
                     print(jsonString)
                     
                     if jsonString == "Rate Limit Exceeded" {
-                        completion(nil, nil, UnsplashClientError.rateLimitExceeded)
+                        completionHandler(nil, nil, UnsplashClientError.rateLimitExceeded)
                     } else if jsonString.contains("The access token is invalid") {
-                        completion(nil, nil, UnsplashClientError.invalidAccessToken)
+                        completionHandler(nil, nil, UnsplashClientError.invalidAccessToken)
                     } else {
-                        completion(nil, nil, UnsplashClientError.receivedUnexpectedData)
+                        completionHandler(nil, nil, UnsplashClientError.receivedUnexpectedData)
                     }
                 } else {
-                    completion(nil, nil, UnsplashClientError.failedToParseJSON)
+                    completionHandler(nil, nil, UnsplashClientError.failedToParseJSON)
                 }
             }
         }
@@ -164,3 +164,25 @@ extension UnsplashClientError: LocalizedError {
         }
     }
 }
+
+// MARK: - Testability
+// with help from: http://masilotti.com/testing-nsurlsession-input/
+
+typealias DataTaskResult = (Data?, URLResponse?, Error?) -> Void
+
+protocol URLSessionProtocol {
+    func dataTask(with url: URL, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol
+}
+
+extension URLSession: URLSessionProtocol {
+    func dataTask(with url: URL, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        return (dataTask(with: url, completionHandler: completionHandler) as URLSessionDataTask) as URLSessionDataTaskProtocol
+    }
+}
+
+protocol URLSessionDataTaskProtocol {
+    func resume()
+}
+
+extension URLSessionDataTask: URLSessionDataTaskProtocol { }
+

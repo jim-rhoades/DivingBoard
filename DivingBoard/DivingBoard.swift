@@ -89,7 +89,7 @@ public class DivingBoard {
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task: URLSessionDataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print(error)
                 return
