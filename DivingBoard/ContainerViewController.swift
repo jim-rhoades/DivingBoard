@@ -261,10 +261,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     
     func swapFromViewController(_ fromViewController: UIViewController, toViewController: UIViewController) {
         // decide whether to slide left or right
-        var slideFromRight = false
-        if toCollectionTypeIndex > fromCollectionTypeIndex {
-            slideFromRight = true
-        }
+        let slideFromRight = toCollectionTypeIndex > fromCollectionTypeIndex
         
         // start the incoming viewController offscreen
         if slideFromRight == true {
@@ -276,6 +273,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         addChildViewController(toViewController)
         fromViewController.willMove(toParentViewController: nil)
         
+        // animate the transition
         transition(from: fromViewController, to: toViewController, duration: 0.25,
                    options: [.curveEaseOut], animations: {
             toViewController.view.frame = self.view.bounds
@@ -303,11 +301,17 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     func offScreenRightFrame() -> CGRect {
-        return CGRect(x: view.bounds.size.width, y: 0, width: view.bounds.size.width, height: view.bounds.size.height)
+        return CGRect(x: view.bounds.size.width,
+                      y: 0,
+                      width: view.bounds.size.width,
+                      height: view.bounds.size.height)
     }
     
     func offScreenLeftFrame() -> CGRect {
-        return CGRect(x: -view.bounds.size.width, y: 0, width: view.bounds.size.width, height: view.bounds.size.height)
+        return CGRect(x: -view.bounds.size.width,
+                      y: 0,
+                      width: view.bounds.size.width,
+                      height: view.bounds.size.height)
     }
 }
 
@@ -324,19 +328,22 @@ extension ContainerViewController: CollectionTypePickerViewDelegate {
         switch collectionType {
         case .new:
             if let newViewController = newViewController {
-                swapFromViewController(currentlyDisplayedViewController, toViewController: newViewController)
+                swapFromViewController(currentlyDisplayedViewController,
+                                       toViewController: newViewController)
             } else {
                 performSegue(withIdentifier: .embedNewVC, sender: self)
             }
         case .curated:
             if let curatedViewController = curatedViewController {
-                swapFromViewController(currentlyDisplayedViewController, toViewController: curatedViewController)
+                swapFromViewController(currentlyDisplayedViewController,
+                                       toViewController: curatedViewController)
             } else {
                 performSegue(withIdentifier: .embedCuratedVC, sender: self)
             }
         case .search:
             if let searchViewController = searchViewController {
-                swapFromViewController(currentlyDisplayedViewController, toViewController: searchViewController)
+                swapFromViewController(currentlyDisplayedViewController,
+                                       toViewController: searchViewController)
             } else {
                 performSegue(withIdentifier: .embedSearchVC, sender: self)
             }
