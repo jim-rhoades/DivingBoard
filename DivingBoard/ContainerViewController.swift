@@ -20,12 +20,15 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         case embedSearchVC = "EmbedSearchVC"
     }
     
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var collectionTypePickerView: CollectionTypePickerView!
+    
     weak var delegate: UnsplashPickerDelegate?
     var clientID: String?
-    
     var newViewController: PhotoCollectionViewController?
     var curatedViewController: PhotoCollectionViewController?
     var searchViewController: PhotoCollectionViewController?
+    var currentlyDisplayedViewController: PhotoCollectionViewController?
     var toCollectionTypeIndex: Int = 0
     var fromCollectionTypeIndex: Int = 0
     let commonBarColor = UIColor(white: 247.0/255.0, alpha: 1.0)
@@ -33,7 +36,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     var stackedLayoutButton: UIBarButtonItem?
     var gridLayoutButton: UIBarButtonItem?
     var currentLayoutStyle: LayoutStyle = .grid
-    @IBOutlet weak var collectionTypePickerView: CollectionTypePickerView!
     
     private lazy var isPhoneDevice: Bool = {
         return UIDevice.current.userInterfaceIdiom == .phone
@@ -88,28 +90,14 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-        // get rid of any PhotoCollectionViewController's
+        // get rid of any PhotoCollectionViewController instances
         // that are NOT the one currently being displayed
-        guard let currentlyDisplayedViewController = childViewControllers.first else {
-            return
-        }
-        if currentlyDisplayedViewController === newViewController {
-            curatedViewController = nil
-            searchViewController = nil
-        } else if currentlyDisplayedViewController === curatedViewController {
-            newViewController = nil
-            searchViewController = nil
-        } else if currentlyDisplayedViewController === searchViewController {
-            newViewController = nil
-            curatedViewController = nil
-        }
-        
-        /*
-        // do this if I switch to keeping all childViewControllers around
         for child in childViewControllers {
-            if child.view.frame.origin.x != 0 {
+            if child !== currentlyDisplayedViewController {
                 child.willMove(toParentViewController: nil)
+                child.view.removeFromSuperview()
                 child.removeFromParentViewController()
+                
                 if child === newViewController {
                     newViewController = nil
                 } else if child === curatedViewController {
@@ -119,7 +107,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
                 }
             }
         }
-        */
     }
     
     // MARK: - Layout buttons
@@ -249,6 +236,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         guard let photoCollectionViewController = segue.destination as? PhotoCollectionViewController else {
             return
         }
+        
         // configure common vars
         photoCollectionViewController.clientID = clientID
         photoCollectionViewController.delegate = delegate
@@ -278,56 +266,46 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     func handleSegue(to photoCollectionViewController: PhotoCollectionViewController) {
-        if let currentlyDisplayedViewController = childViewControllers.first {
+        if let currentlyDisplayed = currentlyDisplayedViewController {
             // there is an existing childViewController, so perform a swap
-            swapFromViewController(currentlyDisplayedViewController, toViewController: photoCollectionViewController)
+            swap(fromViewController: currentlyDisplayed,
+                 toViewController: photoCollectionViewController,
+                 shouldAddAsChild: true)
         } else {
             // no existing childViewController, so load it from scratch
-            addChildViewController(photoCollectionViewController)
-            view.insertSubview(photoCollectionViewController.view, belowSubview: collectionTypePickerView)
-            photoCollectionViewController.didMove(toParentViewController: self)
+            // have to force onto next runloop to fix issue with black bar at bottom
+            DispatchQueue.main.async {
+                self.addChildViewController(photoCollectionViewController)
+                self.containerView.addSubview(photoCollectionViewController.view)
+                photoCollectionViewController.didMove(toParentViewController: self)
+                
+                self.currentlyDisplayedViewController = photoCollectionViewController
+            }
         }
     }
     
-    func swapFromViewController(_ fromViewController: UIViewController, toViewController: UIViewController) {
+    func swap(fromViewController: PhotoCollectionViewController, toViewController: PhotoCollectionViewController, shouldAddAsChild: Bool = false) {
         // decide whether to slide left or right
         let slideFromRight = toCollectionTypeIndex > fromCollectionTypeIndex
+        toViewController.view.frame = slideFromRight ? offScreenRightFrame() : offScreenLeftFrame()
         
-        // start the incoming viewController offscreen
-        if slideFromRight == true {
-            toViewController.view.frame = offScreenRightFrame()
-        } else {
-            toViewController.view.frame = offScreenLeftFrame()
+        if shouldAddAsChild {
+            addChildViewController(toViewController)
         }
-        
-        addChildViewController(toViewController)
-        fromViewController.willMove(toParentViewController: nil)
         
         // animate the transition
         transition(from: fromViewController, to: toViewController, duration: 0.25,
                    options: [.curveEaseOut], animations: {
-            toViewController.view.frame = self.view.bounds
-            
-            if slideFromRight == true {
-                fromViewController.view.frame = self.offScreenLeftFrame()
-            } else {
-                fromViewController.view.frame = self.offScreenRightFrame()
-            }
+                    toViewController.view.frame = self.view.bounds
+                    fromViewController.view.frame = slideFromRight ? self.offScreenLeftFrame() : self.offScreenRightFrame()
         }) { finished in
-            toViewController.didMove(toParentViewController: self)
-            fromViewController.removeFromParentViewController()
+            if shouldAddAsChild {
+                toViewController.didMove(toParentViewController: self)
+            }
+            
+            self.currentlyDisplayedViewController = toViewController
             self.fromCollectionTypeIndex = self.toCollectionTypeIndex
         }
-    }
-    
-    override func transition(from fromViewController: UIViewController, to toViewController: UIViewController, duration: TimeInterval, options: UIViewAnimationOptions = [], animations: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
-        super.transition(from: fromViewController, to: toViewController, duration: duration, options: options, animations: animations, completion: completion)
-        
-        // the transition automatically adds toViewController.view as a subview of self.view,
-        // which covers up collectionTypePickerView
-        
-        // bring collectionTypePickerView to the front
-        view.bringSubview(toFront: collectionTypePickerView)
     }
     
     func offScreenRightFrame() -> CGRect {
@@ -349,7 +327,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
 
 extension ContainerViewController: CollectionTypePickerViewDelegate {
     func collectionTypeChanged(_ collectionType: CollectionType) {
-        guard let currentlyDisplayedViewController = childViewControllers.first else {
+        guard let currentlyDisplayed = currentlyDisplayedViewController else {
             return
         }
         
@@ -358,22 +336,19 @@ extension ContainerViewController: CollectionTypePickerViewDelegate {
         switch collectionType {
         case .new:
             if let newViewController = newViewController {
-                swapFromViewController(currentlyDisplayedViewController,
-                                       toViewController: newViewController)
+                swap(fromViewController: currentlyDisplayed, toViewController: newViewController)
             } else {
                 performSegue(withIdentifier: .embedNewVC, sender: self)
             }
         case .curated:
             if let curatedViewController = curatedViewController {
-                swapFromViewController(currentlyDisplayedViewController,
-                                       toViewController: curatedViewController)
+                swap(fromViewController: currentlyDisplayed, toViewController: curatedViewController)
             } else {
                 performSegue(withIdentifier: .embedCuratedVC, sender: self)
             }
         case .search:
             if let searchViewController = searchViewController {
-                swapFromViewController(currentlyDisplayedViewController,
-                                       toViewController: searchViewController)
+                swap(fromViewController: currentlyDisplayed, toViewController: searchViewController)
             } else {
                 performSegue(withIdentifier: .embedSearchVC, sender: self)
             }

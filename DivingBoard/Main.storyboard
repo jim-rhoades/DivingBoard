@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W3I-YE-Pie">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W3I-YE-Pie">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -86,6 +86,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionTypePickerView" destination="LlG-Pw-3jz" id="Xs7-2i-X89"/>
+                        <outlet property="containerView" destination="6V6-gS-IDa" id="8BV-xf-yfS"/>
                         <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedNewVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="P9F-uD-fLq"/>
                         <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedCuratedVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="0aY-Pm-OTJ"/>
                         <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedSearchVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="c40-X2-7MI"/>
