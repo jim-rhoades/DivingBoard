@@ -291,13 +291,13 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
         if shouldAddAsChild {
             addChildViewController(toViewController)
+            containerView.addSubview(toViewController.view)
         }
         
         // animate the transition
-        transition(from: fromViewController, to: toViewController, duration: 0.25,
-                   options: [.curveEaseOut], animations: {
-                    toViewController.view.frame = self.view.bounds
-                    fromViewController.view.frame = slideFromRight ? self.offScreenLeftFrame() : self.offScreenRightFrame()
+        UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseOut], animations: {
+            toViewController.view.frame = self.view.bounds
+            fromViewController.view.frame = slideFromRight ? self.offScreenLeftFrame() : self.offScreenRightFrame()
         }) { finished in
             if shouldAddAsChild {
                 toViewController.didMove(toParentViewController: self)
