@@ -60,6 +60,8 @@ class UnsplashClient {
                         completionHandler(nil, nil, UnsplashClientError.rateLimitExceeded)
                     } else if jsonString.contains("The access token is invalid") {
                         completionHandler(nil, nil, UnsplashClientError.invalidAccessToken)
+                    } else if jsonString.contains("Internal Server Error") {
+                        completionHandler(nil, nil, UnsplashClientError.internalServerError)
                     } else {
                         completionHandler(nil, nil, UnsplashClientError.receivedUnexpectedData)
                     }
@@ -136,6 +138,7 @@ enum UnsplashClientError: Error {
     case didNotReceiveData
     case rateLimitExceeded
     case invalidAccessToken
+    case internalServerError
     case receivedUnexpectedData
     case failedToParseJSON
 }
@@ -155,6 +158,9 @@ extension UnsplashClientError: LocalizedError {
         case .invalidAccessToken:
             return NSLocalizedString("Invalid access token.",
                                      comment: "Error message for when an incorrect application ID has been used to access the Unsplash API.")
+        case .internalServerError:
+            return NSLocalizedString("Internal server error.",
+                                     comment: "Error message for when the Unsplash API returns an 'Internal server error' message.")
         case .receivedUnexpectedData:
             return NSLocalizedString("The data received was not what was expected.",
                                      comment: "Error message for when the Unsplash API client receives data that it doesn't know how to handle.")
