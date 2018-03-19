@@ -88,8 +88,38 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-        // TODO: get rid of any PhotoCollectionViewController's
+        // get rid of any PhotoCollectionViewController's
         // that are NOT the one currently being displayed
+        guard let currentlyDisplayedViewController = childViewControllers.first else {
+            return
+        }
+        if currentlyDisplayedViewController === newViewController {
+            curatedViewController = nil
+            searchViewController = nil
+        } else if currentlyDisplayedViewController === curatedViewController {
+            newViewController = nil
+            searchViewController = nil
+        } else if currentlyDisplayedViewController === searchViewController {
+            newViewController = nil
+            curatedViewController = nil
+        }
+        
+        /*
+        // do this if I switch to keeping all childViewControllers around
+        for child in childViewControllers {
+            if child.view.frame.origin.x != 0 {
+                child.willMove(toParentViewController: nil)
+                child.removeFromParentViewController()
+                if child === newViewController {
+                    newViewController = nil
+                } else if child === curatedViewController {
+                    curatedViewController = nil
+                } else if child === searchViewController {
+                    searchViewController = nil
+                }
+            }
+        }
+        */
     }
     
     // MARK: - Layout buttons
