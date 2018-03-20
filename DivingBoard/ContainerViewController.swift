@@ -287,7 +287,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     func swap(fromViewController: PhotoCollectionViewController, toViewController: PhotoCollectionViewController, shouldAddAsChild: Bool = false) {
         // decide whether to slide left or right
         let slideFromRight = toCollectionTypeIndex > fromCollectionTypeIndex
-        toViewController.view.frame = slideFromRight ? offScreenRightFrame() : offScreenLeftFrame()
+        let viewWidth = containerView.bounds.size.width
+        toViewController.view.frame.origin.x = slideFromRight ? viewWidth : -viewWidth
         
         if shouldAddAsChild {
             addChildViewController(toViewController)
@@ -296,8 +297,8 @@ class ContainerViewController: UIViewController, SegueHandlerType {
         
         // animate the transition
         UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseOut], animations: {
-            toViewController.view.frame = self.view.bounds
-            fromViewController.view.frame = slideFromRight ? self.offScreenLeftFrame() : self.offScreenRightFrame()
+            toViewController.view.frame.origin.x = 0
+            fromViewController.view.frame.origin.x = slideFromRight ? -viewWidth : viewWidth
         }) { finished in
             if shouldAddAsChild {
                 toViewController.didMove(toParentViewController: self)
@@ -306,20 +307,6 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             self.currentlyDisplayedViewController = toViewController
             self.fromCollectionTypeIndex = self.toCollectionTypeIndex
         }
-    }
-    
-    func offScreenRightFrame() -> CGRect {
-        return CGRect(x: view.bounds.size.width,
-                      y: 0,
-                      width: view.bounds.size.width,
-                      height: view.bounds.size.height)
-    }
-    
-    func offScreenLeftFrame() -> CGRect {
-        return CGRect(x: -view.bounds.size.width,
-                      y: 0,
-                      width: view.bounds.size.width,
-                      height: view.bounds.size.height)
     }
 }
 
