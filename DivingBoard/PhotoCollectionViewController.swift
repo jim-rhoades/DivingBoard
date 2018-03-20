@@ -135,8 +135,9 @@ class PhotoCollectionViewController: UICollectionViewController {
             return
         }
         
-        // TODO: remove this
-        print(url.absoluteString)
+        #if DEBUG
+            print(url.absoluteString)
+        #endif
         
         let unsplashClient = UnsplashClient()
         unsplashClient.requestPhotosFor(url: url, collectionType: collectionType) { [weak self] requestedPhotos, searchResultsTotalPages, error in
