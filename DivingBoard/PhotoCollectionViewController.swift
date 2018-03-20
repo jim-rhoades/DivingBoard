@@ -28,32 +28,46 @@ class PhotoCollectionViewController: UICollectionViewController {
     // MARK: - Layout style switching
     
     var currentIndexPath: IndexPath?
-    var layoutStylePreviouslySet: Bool = false
     var currentLayoutStyle: LayoutStyle = .grid {
         willSet {
-            // prevent an issue where calling collectionView?.indexPathsForVisibleItems
-            // on the initial load blocks the contentInset from being set properly in viewDidLoad
-            guard layoutStylePreviouslySet else {
-                layoutStylePreviouslySet = true
+            // abort if view not loaded to prevent UI glitch
+            guard isViewLoaded,
+                let collectionView = collectionView else {
+                return
+            }
+            // abort if scrolled to top
+            if collectionView.contentOffset.y == -topInsetAdjustment {
                 return
             }
             
             // store the indexPath for the item displayed near the center
-            if let visibleIndexPaths = collectionView?.indexPathsForVisibleItems,
-                visibleIndexPaths.count > 0 {
-                let sortedIndexPaths = visibleIndexPaths.sorted(by: <)
-                let medianIndex = sortedIndexPaths.count / 2
-                let medianIndexPath = sortedIndexPaths[medianIndex]
-                currentIndexPath = medianIndexPath
+            let visibleIndexPaths = collectionView.indexPathsForVisibleItems
+            guard visibleIndexPaths.count > 0 else {
+                return
             }
+            let sortedIndexPaths = visibleIndexPaths.sorted(by: <)
+            let medianIndex = sortedIndexPaths.count / 2
+            let medianIndexPath = sortedIndexPaths[medianIndex]
+            currentIndexPath = medianIndexPath
         }
         didSet {
+            // abort if view not loaded to prevent UI glitch
+            guard isViewLoaded,
+                let collectionView = collectionView else {
+                return
+            }
+            
             // update the layout
             collectionViewLayout.invalidateLayout()
             
+            // abort if scrolled to top
+            if collectionView.contentOffset.y == -topInsetAdjustment {
+                return
+            }
+            
             // scroll to the same item that was being displayed near the center
             if let currentIndexPath = currentIndexPath {
-                collectionView?.scrollToItem(at: currentIndexPath, at: .centeredVertically, animated: false)
+                collectionView.scrollToItem(at: currentIndexPath, at: .centeredVertically, animated: false)
             }
         }
     }
