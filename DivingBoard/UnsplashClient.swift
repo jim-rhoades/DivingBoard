@@ -17,8 +17,13 @@ class UnsplashClient {
         self.session = session
     }
     
-    // TODO: document this method
-    
+    /**
+     Used to request photos via the Unsplash API.
+     
+     - Parameter url: The URL to use for the API request. (Which you can get by using 'UnsplashClient.urlForJSONRequest'.)
+     - Parameter collectionType: The CollectionType to use for the API call.
+     - Parameter completionHandler: Invoked when the request has completed. If successful it provides an array of UnsplashPhoto's and optional searchResultsTotalPages Int, otherwise an Error is returned.
+     */
     func requestPhotosFor(url: URL, collectionType: CollectionType, completionHandler: @escaping completionHandler) {
         let dataTask = session.dataTask(with: url) { data, response, error in
             
@@ -74,9 +79,17 @@ class UnsplashClient {
         dataTask.resume()
     }
     
-    
-    // TODO: document this method
-    
+    /**
+     Used to generate the URL for making a call to the Unsplash API.
+     
+     - Parameter clientID: Your Unsplash app ID.
+     - Parameter collectionType: The CollectionType to use for the API call.
+     - Parameter resultsPerPage: The number of results to return from the API call.
+     - Parameter pageNumber: The page number for the API call. (For example, if resultsPerPage is set to 50 and pageNumber is 1, it would return results 1 - 50. If you want the results for 51 - 100, you'd set pageNumber to 2.)
+     - Parameter searchPhrase: The phrase to search for if the collectionType is .search.
+     
+     - Returns: The URL to use when making a call to the Unsplash API.
+     */
     static func urlForJSONRequest(withClientID clientID: String?, collectionType: CollectionType, resultsPerPage: Int, pageNumber: Int, searchPhrase: String? = nil) -> URL? {
         guard let clientID = clientID else {
             // allow for nil clientID
