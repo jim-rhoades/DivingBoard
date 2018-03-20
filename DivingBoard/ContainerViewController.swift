@@ -262,6 +262,9 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             searchViewController?.collectionType = .search
         }
         
+        // set the initial frame
+        photoCollectionViewController.view.frame = containerView.frame
+        
         handleSegue(to: photoCollectionViewController)
     }
     
@@ -273,14 +276,10 @@ class ContainerViewController: UIViewController, SegueHandlerType {
                  shouldAddAsChild: true)
         } else {
             // no existing childViewController, so load it from scratch
-            // have to force onto next runloop to fix issue with black bar at bottom
-            DispatchQueue.main.async {
-                self.addChildViewController(photoCollectionViewController)
-                self.containerView.addSubview(photoCollectionViewController.view)
-                photoCollectionViewController.didMove(toParentViewController: self)
-                
-                self.currentlyDisplayedViewController = photoCollectionViewController
-            }
+            addChildViewController(photoCollectionViewController)
+            containerView.addSubview(photoCollectionViewController.view)
+            photoCollectionViewController.didMove(toParentViewController: self)
+            currentlyDisplayedViewController = photoCollectionViewController
         }
     }
     
