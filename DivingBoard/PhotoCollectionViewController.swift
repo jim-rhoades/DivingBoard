@@ -135,10 +135,6 @@ class PhotoCollectionViewController: UICollectionViewController {
             return
         }
         
-        #if DEBUG
-            print(url.absoluteString)
-        #endif
-        
         let unsplashClient = UnsplashClient()
         unsplashClient.requestPhotosFor(url: url, collectionType: collectionType) { [weak self] requestedPhotos, searchResultsTotalPages, error in
             

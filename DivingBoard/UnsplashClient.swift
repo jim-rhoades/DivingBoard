@@ -25,16 +25,45 @@ class UnsplashClient {
      - Parameter completionHandler: Invoked when the request has completed. If successful it provides an array of UnsplashPhoto's and optional searchResultsTotalPages Int, otherwise an Error is returned.
      */
     func requestPhotosFor(url: URL, collectionType: CollectionType, completionHandler: @escaping completionHandler) {
+        #if DEBUG
+            print("url: \(url.absoluteString)")
+        #endif
+        
         let dataTask = session.dataTask(with: url) { data, response, error in
-            
-            guard let data = data else {
-                completionHandler(nil, nil, UnsplashClientError.didNotReceiveData)
-                return
+            // handle common errors
+            if let response = response as? HTTPURLResponse {
+                #if DEBUG
+                    if response.statusCode != 200 {
+                        print("request failed with status code: \(response.statusCode)")
+                    }
+                #endif
+                
+                switch response.statusCode {
+                case UnsplashClientError.unauthorized.rawValue:
+                    completionHandler(nil, nil, UnsplashClientError.unauthorized)
+                    return
+                case UnsplashClientError.forbidden.rawValue:
+                    completionHandler(nil, nil, UnsplashClientError.forbidden)
+                    return
+                case UnsplashClientError.internalServerError.rawValue:
+                    completionHandler(nil, nil, UnsplashClientError.internalServerError)
+                    return
+                case UnsplashClientError.serviceUnavailable.rawValue:
+                    completionHandler(nil, nil, UnsplashClientError.serviceUnavailable)
+                    return
+                default:
+                    break
+                }
             }
             
             if let error = error {
                 print("Unknown error: \(error)")
                 completionHandler(nil, nil, UnsplashClientError.unknown)
+                return
+            }
+            
+            guard let data = data else {
+                completionHandler(nil, nil, UnsplashClientError.didNotReceiveData)
                 return
             }
             
@@ -57,25 +86,14 @@ class UnsplashClient {
             } catch {
                 print("error trying to convert data to JSON: \(error)")
                 
-                // handle common errors
                 if let jsonString = String(data: data, encoding: .utf8) {
                     print(jsonString)
-                    
-                    if jsonString == "Rate Limit Exceeded" {
-                        completionHandler(nil, nil, UnsplashClientError.rateLimitExceeded)
-                    } else if jsonString.contains("The access token is invalid") {
-                        completionHandler(nil, nil, UnsplashClientError.invalidAccessToken)
-                    } else if jsonString.contains("Internal Server Error") {
-                        completionHandler(nil, nil, UnsplashClientError.internalServerError)
-                    } else {
-                        completionHandler(nil, nil, UnsplashClientError.receivedUnexpectedData)
-                    }
+                    completionHandler(nil, nil, UnsplashClientError.receivedUnexpectedData)
                 } else {
                     completionHandler(nil, nil, UnsplashClientError.failedToParseJSON)
                 }
             }
         }
-        
         dataTask.resume()
     }
     
@@ -146,14 +164,15 @@ class UnsplashClient {
 
 // MARK: - Error handling
 
-enum UnsplashClientError: Error {
+enum UnsplashClientError: Int, Error {
     case unknown
     case didNotReceiveData
-    case rateLimitExceeded
-    case invalidAccessToken
-    case internalServerError
     case receivedUnexpectedData
     case failedToParseJSON
+    case unauthorized = 401
+    case forbidden = 403
+    case internalServerError = 500
+    case serviceUnavailable = 503
 }
 
 extension UnsplashClientError: LocalizedError {
@@ -165,21 +184,24 @@ extension UnsplashClientError: LocalizedError {
         case .didNotReceiveData:
             return NSLocalizedString("Did not receive data.",
                                      comment: "Error message for when the Unsplash API client doesn't receive any data.")
-        case .rateLimitExceeded:
-            return NSLocalizedString("Rate limit exceeded.",
-                                     comment: "Error message for when the Unsplash API rate limit has been exceeded.")
-        case .invalidAccessToken:
-            return NSLocalizedString("Invalid access token.",
-                                     comment: "Error message for when an incorrect application ID has been used to access the Unsplash API.")
-        case .internalServerError:
-            return NSLocalizedString("Internal server error.",
-                                     comment: "Error message for when the Unsplash API returns an 'Internal server error' message.")
         case .receivedUnexpectedData:
-            return NSLocalizedString("The data received was not what was expected.",
+            return NSLocalizedString("The data received is not what was expected.",
                                      comment: "Error message for when the Unsplash API client receives data that it doesn't know how to handle.")
         case .failedToParseJSON:
             return NSLocalizedString("Failed to parse JSON data.",
                                      comment: "Error message for when the Unsplash API client fails to parse JSON data.")
+        case .unauthorized:
+            return NSLocalizedString("Invalid Unsplash app ID.",
+                                     comment: "Error message for when an incorrect application ID has been used to access the Unsplash API.")
+        case .forbidden:
+            return NSLocalizedString("Access is forbidden, most likely because the rate limit has been exceeded.",
+                                     comment: "Error message for when the Unsplash API has forbidden access, most likely because the rate limit has been exceeded.")
+        case .internalServerError:
+            return NSLocalizedString("Internal server error.",
+                                     comment: "Error message for when the Unsplash API returns an 'Internal server error' message.")
+        case .serviceUnavailable:
+            return NSLocalizedString("Service unavailable.",
+                                     comment: "Error message for when the Unsplash API is unavailable due to a temporary overload or maintenance.")
         }
     }
 }
