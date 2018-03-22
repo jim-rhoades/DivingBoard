@@ -86,7 +86,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         } else {
             // display a loading indicator
             loadingView = LoadingView()
-            view.addCenteredSubview(view: loadingView!)
+            view.addCenteredSubview(loadingView!)
             
             // load photos from Unsplash
             loadPhotos()

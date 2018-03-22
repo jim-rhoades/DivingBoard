@@ -176,7 +176,7 @@ extension ViewController: UnsplashPickerDelegate {
         
         // show a loading indicator
         let loadingView = LoadingView()
-        photoView.addCenteredSubview(view: loadingView)
+        photoView.addCenteredSubview(loadingView)
         
         // load the photo
         let photoURL = photo.urls.full

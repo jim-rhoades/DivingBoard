@@ -79,7 +79,7 @@ extension PhotoCollectionViewController: UISearchBarDelegate {
             
             // display a loading indicator
             loadingView = LoadingView()
-            view.addCenteredSubview(view: loadingView!)
+            view.addCenteredSubview(loadingView!)
             
             loadPhotos()
         }
