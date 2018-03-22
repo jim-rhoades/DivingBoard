@@ -41,17 +41,22 @@ class ContainerViewControllerTests: XCTestCase {
     // MARK: Initial state tests
     
     func testInitialLayoutStyle() {
-        XCTAssert(containerViewController.currentLayoutStyle == .grid, "currentLayoutStyle should initially be set to .grid")
+        XCTAssert(containerViewController.currentLayoutStyle == .grid,
+                  "currentLayoutStyle should initially be set to .grid")
     }
     
     func testInitialLayoutButtonState() {
-        XCTAssert(stackedLayoutButton.isEnabled, "stackedLayoutButton should be enabled initially")
-        XCTAssert(!gridLayoutButton.isEnabled, "gridLaybuttonButton should NOT be enabled initially")
+        XCTAssert(stackedLayoutButton.isEnabled,
+                  "stackedLayoutButton should be enabled initially")
+        XCTAssert(!gridLayoutButton.isEnabled,
+                  "gridLaybuttonButton should NOT be enabled initially")
     }
     
     func testInitialCollectionTypeIndices() {
-        XCTAssert(containerViewController.toCollectionTypeIndex == 0, "toCollectionIndex should initially be set to 0")
-        XCTAssert(containerViewController.fromCollectionTypeIndex == 0, "fromCollectionTypeIndex should initially be set to 0")
+        XCTAssert(containerViewController.toCollectionTypeIndex == 0,
+                  "toCollectionIndex should initially be set to 0")
+        XCTAssert(containerViewController.fromCollectionTypeIndex == 0,
+                  "fromCollectionTypeIndex should initially be set to 0")
     }
     
     func testCollectionTypePickerViewExists() {
@@ -59,13 +64,17 @@ class ContainerViewControllerTests: XCTestCase {
     }
     
     func testCollectionTypePickerViewDelegate() {
-        XCTAssert(containerViewController.collectionTypePickerView.delegate === containerViewController, "collectionTypePickerView's delegate was not set as the containerViewController")
+        XCTAssert(containerViewController.collectionTypePickerView.delegate === containerViewController,
+                  "collectionTypePickerView's delegate was not set as the containerViewController")
     }
     
     func testInitialChildViewControllerState() {
-        XCTAssertNotNil(containerViewController.newViewController, "newViewController should be the initial child view controller, but was nil")
-        XCTAssertNil(containerViewController.curatedViewController, "curatedViewController should be nil initially")
-        XCTAssertNil(containerViewController.searchViewController, "searchViewController should be nil initially")
+        XCTAssertNotNil(containerViewController.newViewController,
+                        "newViewController should be the initial child view controller, but was nil")
+        XCTAssertNil(containerViewController.curatedViewController,
+                     "curatedViewController should be nil initially")
+        XCTAssertNil(containerViewController.searchViewController,
+                     "searchViewController should be nil initially")
     }
     
     // MARK: - Interaction tests
@@ -75,8 +84,10 @@ class ContainerViewControllerTests: XCTestCase {
         containerViewController.stackedLayoutButtonPressed(self)
         // test to make sure layout style and button states are correct
         XCTAssert(containerViewController.currentLayoutStyle == .stacked)
-        XCTAssert(!stackedLayoutButton.isEnabled, "stackedLayoutButton should be disabled after tapping stackedLayoutButton")
-        XCTAssert(gridLayoutButton.isEnabled, "gridLayoutButton should be enabled after tapping stackedLayoutButton")
+        XCTAssert(!stackedLayoutButton.isEnabled,
+                  "stackedLayoutButton should be disabled after tapping stackedLayoutButton")
+        XCTAssert(gridLayoutButton.isEnabled,
+                  "gridLayoutButton should be enabled after tapping stackedLayoutButton")
     }
     
     func testGridLayoutButtonPress() {
@@ -84,8 +95,10 @@ class ContainerViewControllerTests: XCTestCase {
         containerViewController.gridLayoutButtonPressed(self)
         // test to make sure layout style and button states are correct
         XCTAssert(containerViewController.currentLayoutStyle == .grid)
-        XCTAssert(stackedLayoutButton.isEnabled, "stackedLayoutButton should be enabled after tapping gridLayoutButton")
-        XCTAssert(!gridLayoutButton.isEnabled, "gridLayoutButton should be disabled after tapping gridLayoutButton")
+        XCTAssert(stackedLayoutButton.isEnabled,
+                  "stackedLayoutButton should be enabled after tapping gridLayoutButton")
+        XCTAssert(!gridLayoutButton.isEnabled,
+                  "gridLayoutButton should be disabled after tapping gridLayoutButton")
     }
     
     // MARK: - UIPopoverPresentationControllerDelegate
@@ -100,22 +113,23 @@ class ContainerViewControllerTests: XCTestCase {
         containerViewController.collectionTypeChanged(.curated)
         XCTAssertNotNil(containerViewController.curatedViewController)
         
-        // childViewControllers.first isn't set until the transition animation finishes
+        // currentlyDisplayedViewController isn't set until the transition animation finishes
         // forcing the assertion to happen on the next runloop ensures that it's set
         let promise = expectation(description: "currentlyDisplayedViewController is expected to be curatedViewController")
         DispatchQueue.main.async {
             promise.fulfill()
         }
         waitForExpectations(timeout: 1)
-        
-        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.curatedViewController, "curatedViewController was not the first childViewController")
+ 
+        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.curatedViewController,
+                  "curatedViewController was not the currentlyDisplayedViewController")
     }
     
     func testCollectionTypeChangeToSearch() {
         containerViewController.collectionTypeChanged(.search)
         XCTAssertNotNil(containerViewController.searchViewController)
         
-        // childViewControllers.first isn't set until the transition animation finishes
+        // currentlyDisplayedViewController isn't set until the transition animation finishes
         // forcing the assertion to happen on the next runloop ensures that it's set
         let promise = expectation(description: "currentlyDisplayedViewController is expected to be searchViewController")
         DispatchQueue.main.async {
@@ -123,7 +137,8 @@ class ContainerViewControllerTests: XCTestCase {
         }
         waitForExpectations(timeout: 1)
         
-        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.searchViewController, "searchViewController was not the first childViewController")
+        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.searchViewController,
+                  "searchViewController was not the currentlyDisplayedViewController")
     }
     
     func testCollectionTypeChangeToNew() {
@@ -133,7 +148,7 @@ class ContainerViewControllerTests: XCTestCase {
         containerViewController.collectionTypeChanged(.new)
         XCTAssertNotNil(containerViewController.newViewController)
         
-        // childViewControllers.first isn't set until the transition animation finishes
+        // currentlyDisplayedViewController isn't set until the transition animation finishes
         // forcing the assertion to happen on the next runloop ensures that it's set
         let promise = expectation(description: "currentlyDisplayedViewController is expected to be newViewController")
         DispatchQueue.main.async {
@@ -141,6 +156,7 @@ class ContainerViewControllerTests: XCTestCase {
         }
         waitForExpectations(timeout: 1)
         
-        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.newViewController, "newViewController was not the first childViewController")
+        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.newViewController,
+                  "newViewController was not the currentlyDisplayedViewController")
     }
 }

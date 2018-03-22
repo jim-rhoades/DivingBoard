@@ -22,7 +22,7 @@ class UIColor_HexTests: XCTestCase {
                                          "6fc": UIColor(red: 102.0/255.0, green: 1.0, blue: 204.0/255.0, alpha: 1.0)]
         
         for color in colors {
-            assert(UIColor(hexString: color.key) == color.value, "Hex string \(color.key) didn't match \(color.value)")
+            XCTAssertEqual(UIColor(hexString: color.key), color.value)
         }
     }
 }
