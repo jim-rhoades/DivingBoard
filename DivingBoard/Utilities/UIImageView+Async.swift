@@ -24,6 +24,12 @@ public extension UIImageView {
         set { objc_setAssociatedObject(self, &UIImageView.urlKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
+    /**
+     Used to load an image asynchronously from a given URL. If the image has already been downloaded, it's retrieved from an in-memory cache.
+     
+     - Parameter url: The URL for the image to display.
+     - Parameter completion: Invoked when the image has been displayed, or when the image has failed to load.
+     */
     public func loadImageAsync(with url: URL?, completion: ((_ success: Bool) -> Void)?) {
         // cancel prior task, if any
         weak var oldTask = currentTask

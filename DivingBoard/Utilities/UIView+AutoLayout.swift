@@ -9,6 +9,12 @@
 import UIKit
 
 public extension UIView {
+    
+    /**
+     Adds a subview along with autolayout constraints to center it within the view.
+     
+     - Parameter viewToAdd: The UIView to add as a subview.
+    */
     public func addCenteredSubview(_ viewToAdd: UIView) {
         viewToAdd.translatesAutoresizingMaskIntoConstraints = false
         addSubview(viewToAdd)
