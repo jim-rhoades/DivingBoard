@@ -93,6 +93,13 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // when the unsplashPicker is dismissed, hide the keyboard immediately if needed
+        hideKeyboardIfNeeded()
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
