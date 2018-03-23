@@ -56,6 +56,20 @@ extension PhotoCollectionViewController {
             flowLayout.sectionHeadersPinToVisibleBounds = true
         }
     }
+    
+    func showKeyboardIfNeeded() {
+        if let searchBar = searchBar,
+            collectionType == .search,
+            photos.count == 0 {
+            searchBar.becomeFirstResponder()
+        }
+    }
+    
+    func hideKeyboardIfNeeded() {
+        if collectionType == .search {
+            searchBar?.resignFirstResponder()
+        }
+    }
 }
 
 // MARK: - UISearchBarDelegate

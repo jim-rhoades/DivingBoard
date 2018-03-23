@@ -284,6 +284,10 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     }
     
     func swap(fromViewController: PhotoCollectionViewController, toViewController: PhotoCollectionViewController, shouldAddAsChild: Bool = false) {
+        
+        // dismiss the keyboard if needed
+        fromViewController.hideKeyboardIfNeeded()
+        
         // decide whether to slide left or right
         let slideFromRight = toCollectionTypeIndex > fromCollectionTypeIndex
         let viewWidth = containerView.bounds.size.width
@@ -305,6 +309,9 @@ class ContainerViewController: UIViewController, SegueHandlerType {
             
             self.currentlyDisplayedViewController = toViewController
             self.fromCollectionTypeIndex = self.toCollectionTypeIndex
+            
+            // show the keyboard if needed
+            toViewController.showKeyboardIfNeeded()
         }
     }
 }

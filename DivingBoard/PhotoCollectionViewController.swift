@@ -93,26 +93,6 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // show keyboard if appropriate
-        if let searchBar = searchBar,
-            collectionType == .search,
-            photos.count == 0 {
-            searchBar.becomeFirstResponder()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // dismiss keyboard if appropriate
-        if collectionType == .search {
-            searchBar?.resignFirstResponder()
-        }
-    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
