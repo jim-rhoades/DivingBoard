@@ -5,80 +5,37 @@
 //  Created by Jim Rhoades on 2/16/18.
 //  Copyright © 2018 Crush Apps. All rights reserved.
 //
-//
-//  slightly modified from: https://stackoverflow.com/a/45183939/234609
 
 import UIKit
 
 public extension UIImageView {
-    private static var taskKey = 0
-    private static var urlKey = 0
-    
-    private var currentTask: URLSessionTask? {
-        get { return objc_getAssociatedObject(self, &UIImageView.taskKey) as? URLSessionTask }
-        set { objc_setAssociatedObject(self, &UIImageView.taskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
-    }
-    
-    private var currentURL: URL? {
-        get { return objc_getAssociatedObject(self, &UIImageView.urlKey) as? URL }
-        set { objc_setAssociatedObject(self, &UIImageView.urlKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
-    }
-    
     /**
-     Used to load an image asynchronously from a given URL. If the image has already been downloaded, it's retrieved from an in-memory cache.
+     Used to load an image asynchronously from a given URL. If the image has already been downloaded, it's retrieved from a cache.
      
      - Parameter url: The URL for the image to display.
      - Parameter completion: Invoked when the image has been displayed, or when the image has failed to load.
      */
-    public func loadImageAsync(with url: URL?, completion: ((_ success: Bool) -> Void)?) {
-        // cancel prior task, if any
-        weak var oldTask = currentTask
-        currentTask = nil
-        oldTask?.cancel()
-        
-        // reset imageview's image
-        self.image = nil
-        
-        // allow supplying of `nil` to remove old image and then return immediately
-        guard let url = url else {
-            completion?(false)
-            return
-        }
-        
-        // check cache
-        if let cachedImage = ImageCache.shared.image(forKey: url.absoluteString) {
-            self.image = cachedImage
+    public func loadImageAsync(with url: URL, completion: ((_ success: Bool) -> Void)?) {
+        let cache = ImageCache.shared
+        let request = URLRequest(url: url)
+        if let data = cache.cachedResponse(for: request)?.data,
+            let cachedImage = UIImage(data: data) {
+            image = cachedImage
             completion?(true)
-            return
-        }
-        
-        // download
-        currentURL = url
-        let task: URLSessionDataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            self?.currentTask = nil
-            
-            // error handling
-            if let error = error {
-                // don't bother reporting cancelation errors
-                if (error as NSError).domain == NSURLErrorDomain && (error as NSError).code == NSURLErrorCancelled {
-                    completion?(false)
-                    return
+        } else {
+            image = nil
+            URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+                guard let data = data,
+                    let response = response as? HTTPURLResponse,
+                    response.statusCode == 200,
+                    let downloadedImage = UIImage(data: data) else {
+                        completion?(false)
+                        return
                 }
                 
-                print(error)
-                completion?(false)
-                return
-            }
-            
-            guard let data = data, let downloadedImage = UIImage(data: data) else {
-                print("unable to extract image")
-                completion?(false)
-                return
-            }
-            
-            ImageCache.shared.save(image: downloadedImage, forKey: url.absoluteString)
-            
-            if url == self?.currentURL {
+                let cachedData = CachedURLResponse(response: response, data: data)
+                cache.storeCachedResponse(cachedData, for: request)
+                
                 DispatchQueue.main.async {
                     self?.alpha = 0
                     self?.image = downloadedImage
@@ -88,37 +45,15 @@ public extension UIImageView {
                         completion?(true)
                     })
                 }
-            }
+            }).resume()
         }
-        
-        // save and start new task
-        currentTask = task
-        task.resume()
     }
 }
 
 class ImageCache {
-    private let cache = NSCache<NSString, UIImage>()
-    private var observer: NSObjectProtocol!
+    static let shared = URLCache(memoryCapacity: 4 * 1024 * 1024,
+                                 diskCapacity: 20 * 1024 * 1024,
+                                 diskPath: "DivingBoard")
     
-    static let shared = ImageCache()
-    
-    private init() {
-        // purge the cache when a memory warning is received
-        observer = NotificationCenter.default.addObserver(forName: .UIApplicationDidReceiveMemoryWarning, object: nil, queue: nil) { [weak self] notification in
-            self?.cache.removeAllObjects()
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(observer)
-    }
-    
-    func image(forKey key: String) -> UIImage? {
-        return cache.object(forKey: key as NSString)
-    }
-    
-    func save(image: UIImage, forKey key: String) {
-        cache.setObject(image, forKey: key as NSString)
-    }
+    private init() { }
 }
