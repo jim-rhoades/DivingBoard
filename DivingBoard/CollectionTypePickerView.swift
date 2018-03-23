@@ -91,7 +91,7 @@ class CollectionTypePickerView: UIView {
         if animated {
             transitionInProgress = true
             
-            UIView.animate(withDuration: 0.25, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseOut], animations: {
                 self.selectionView.frame = self.frameForSelectionView(for: collectionType)
             }) { completed in
                 self.transitionInProgress = false
