@@ -210,17 +210,35 @@ class ContainerViewController: UIViewController, SegueHandlerType {
     @objc func stackedLayoutButtonPressed(_ sender: Any) {
         currentLayoutStyle = .stacked
         updateLayoutButtons()
-        newViewController?.currentLayoutStyle = currentLayoutStyle
-        curatedViewController?.currentLayoutStyle = currentLayoutStyle
-        searchViewController?.currentLayoutStyle = currentLayoutStyle
+        performLayoutStyleChange()
     }
     
     @objc func gridLayoutButtonPressed(_ sender: Any) {
         currentLayoutStyle = .grid
         updateLayoutButtons()
-        newViewController?.currentLayoutStyle = currentLayoutStyle
-        curatedViewController?.currentLayoutStyle = currentLayoutStyle
-        searchViewController?.currentLayoutStyle = currentLayoutStyle
+        performLayoutStyleChange()
+    }
+    
+    func performLayoutStyleChange() {
+        guard let currentlyDisplayedViewController = currentlyDisplayedViewController,
+            let snapshot = currentlyDisplayedViewController.collectionView?.snapshotView(afterScreenUpdates: true) else {
+            return
+        }
+        
+        var controllersNotShown = [newViewController, curatedViewController, searchViewController]
+        controllersNotShown = controllersNotShown.filter { $0 != currentlyDisplayedViewController && $0 != nil }
+        
+        currentlyDisplayedViewController.view.addSubview(snapshot)
+        currentlyDisplayedViewController.currentLayoutStyle = currentLayoutStyle
+        
+        UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseOut], animations: {
+            snapshot.alpha = 0.0
+        }) { finished in
+            snapshot.removeFromSuperview()
+            for controller in controllersNotShown {
+                controller?.currentLayoutStyle = self.currentLayoutStyle
+            }
+        }
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
