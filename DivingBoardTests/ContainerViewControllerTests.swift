@@ -113,7 +113,7 @@ class ContainerViewControllerTests: XCTestCase {
         containerViewController.collectionTypeChanged(.curated)
         XCTAssertNotNil(containerViewController.curatedViewController)
         
-        // currentlyDisplayedViewController isn't set until the transition animation finishes
+        // currentlyDisplayedViewController isn't set immediately due to the transition animation
         // forcing the assertion to happen on the next runloop ensures that it's set
         let promise = expectation(description: "currentlyDisplayedViewController is expected to be curatedViewController")
         DispatchQueue.main.async {
@@ -129,7 +129,7 @@ class ContainerViewControllerTests: XCTestCase {
         containerViewController.collectionTypeChanged(.search)
         XCTAssertNotNil(containerViewController.searchViewController)
         
-        // currentlyDisplayedViewController isn't set until the transition animation finishes
+        // currentlyDisplayedViewController isn't set immediately due to the transition animation
         // forcing the assertion to happen on the next runloop ensures that it's set
         let promise = expectation(description: "currentlyDisplayedViewController is expected to be searchViewController")
         DispatchQueue.main.async {
@@ -139,24 +139,5 @@ class ContainerViewControllerTests: XCTestCase {
         
         XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.searchViewController,
                   "searchViewController was not the currentlyDisplayedViewController")
-    }
-    
-    func testCollectionTypeChangeToNew() {
-        // to test changing to new, we first have to change it to something else
-        testCollectionTypeChangeToCurated()
-        
-        containerViewController.collectionTypeChanged(.new)
-        XCTAssertNotNil(containerViewController.newViewController)
-        
-        // currentlyDisplayedViewController isn't set until the transition animation finishes
-        // forcing the assertion to happen on the next runloop ensures that it's set
-        let promise = expectation(description: "currentlyDisplayedViewController is expected to be newViewController")
-        DispatchQueue.main.async {
-            promise.fulfill()
-        }
-        waitForExpectations(timeout: 1)
-        
-        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.newViewController,
-                  "newViewController was not the currentlyDisplayedViewController")
     }
 }

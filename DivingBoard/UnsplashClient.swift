@@ -10,12 +10,7 @@ import Foundation
 
 class UnsplashClient {
     
-    private let session: URLSessionProtocol
     typealias completionHandler = (_ photos: [UnsplashPhoto]?, _ searchResultsTotalPages: Int?, _ error: Error?) -> Void
-    
-    init(session: URLSessionProtocol = URLSession.shared) {
-        self.session = session
-    }
     
     /**
      Used to request photos via the Unsplash API.
@@ -29,7 +24,7 @@ class UnsplashClient {
             print("url: \(url.absoluteString)")
         #endif
         
-        let dataTask = session.dataTask(with: url) { data, response, error in
+        let dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
             // handle common errors
             if let response = response as? HTTPURLResponse {
                 #if DEBUG
@@ -205,25 +200,4 @@ extension UnsplashClientError: LocalizedError {
         }
     }
 }
-
-// MARK: - Testability
-// with help from: http://masilotti.com/testing-nsurlsession-input/
-
-typealias DataTaskResult = (Data?, URLResponse?, Error?) -> Void
-
-protocol URLSessionProtocol {
-    func dataTask(with url: URL, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol
-}
-
-extension URLSession: URLSessionProtocol {
-    func dataTask(with url: URL, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
-        return (dataTask(with: url, completionHandler: completionHandler) as URLSessionDataTask) as URLSessionDataTaskProtocol
-    }
-}
-
-protocol URLSessionDataTaskProtocol {
-    func resume()
-}
-
-extension URLSessionDataTask: URLSessionDataTaskProtocol { }
 
