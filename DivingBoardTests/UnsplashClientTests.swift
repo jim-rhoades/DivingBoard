@@ -113,15 +113,4 @@ class UnsplashClientTests: XCTestCase {
         XCTAssertNotNil(outputURL)
         XCTAssertEqual(expectedOutputURL.absoluteString, outputURL!.absoluteString)
     }
-    
-    func testURLForIncrementingDownloadCount() {
-        let inputURL: URL! = URL(string: "https://api.unsplash.com/photos/YNQgPXShu7g/download")
-        let expectedOutputURL: URL! = URL(string: "https://api.unsplash.com/photos/YNQgPXShu7g/download?client_id=" + "\(clientID)")
-        
-        let outputURL = UnsplashClient.urlForIncrementingDownloadCount(baseURL: inputURL,
-                                                                       clientID: clientID)
-        
-        XCTAssertNotNil(outputURL)
-        XCTAssertEqual(expectedOutputURL.absoluteString, outputURL!.absoluteString)
-    }
 }

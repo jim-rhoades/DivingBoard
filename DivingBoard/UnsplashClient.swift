@@ -137,24 +137,6 @@ class UnsplashClient {
         
         return urlComponents.url
     }
-    
-    /**
-     Adds an Unsplash app ID to the URL for incrementing the download count for a photo.
-     
-     - Parameter baseURL: The URL you obtain from an instance of UnsplashPhoto
-     (via photo.links.downloadLocation).
-     - Parameter clientID: Your Unsplash app ID.
-     
-     - Returns: The baseURL with the clientID properly appended to it.
-     */
-    static func urlForIncrementingDownloadCount(baseURL: URL, clientID: String) -> URL? {
-        guard var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
-            return nil
-        }
-        let clientIDItem = URLQueryItem(name: "client_id", value: clientID)
-        urlComponents.queryItems = [clientIDItem]
-        return urlComponents.url
-    }
 }
 
 // MARK: - Error handling

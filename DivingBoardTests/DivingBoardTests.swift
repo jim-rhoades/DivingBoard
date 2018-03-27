@@ -11,8 +11,9 @@ import XCTest
 
 class DivingBoardTests: XCTestCase {
     
+    let clientID = "xxxxxx" // don't need a valid Unsplash app ID for these tests
+    
     func testUnsplashPickerCreation() {
-        let clientID = "xxxxxx" // ID is unimportant for this
         let viewController = ViewControllerForPresentingPicker()
         guard let unsplashPicker = DivingBoard.unsplashPicker(withClientID: clientID,
                                                               presentingViewController: viewController,
@@ -53,6 +54,18 @@ class DivingBoardTests: XCTestCase {
             return
         }
         
-        XCTAssert(outputURL == expectedOutputURL, "outputURL didn't match expectectOutputURL | outputURL: \(outputURL.absoluteString) | expectedOutputURL: \(expectedOutputURL.absoluteString)")
+        XCTAssert(outputURL == expectedOutputURL,
+                  "outputURL didn't match expectectOutputURL | outputURL: \(outputURL.absoluteString) | expectedOutputURL: \(expectedOutputURL.absoluteString)")
+    }
+    
+    func testURLForIncrementingDownloadCount() {
+        let inputURL: URL! = URL(string: "https://api.unsplash.com/photos/YNQgPXShu7g/download")
+        let expectedOutputURL: URL! = URL(string: "https://api.unsplash.com/photos/YNQgPXShu7g/download?client_id=" + "\(clientID)")
+        
+        let outputURL = DivingBoard.urlForIncrementingDownloadCount(baseURL: inputURL,
+                                                                    clientID: clientID)
+        
+        XCTAssertNotNil(outputURL)
+        XCTAssertEqual(expectedOutputURL.absoluteString, outputURL!.absoluteString)
     }
 }
