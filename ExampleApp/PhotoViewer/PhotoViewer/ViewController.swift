@@ -122,7 +122,7 @@ class ViewController: UIViewController {
             return
         }
         
-        // TODO: change to your app's name
+        // make sure to change the app name if using this in your real app
         let appName = "Photo Viewer"
         
         let photoURL = currentPhoto.links.html
@@ -143,7 +143,7 @@ class ViewController: UIViewController {
                 return
         }
         
-        // TODO: change to your app's name
+        // make sure to change the app name if using this in your real app
         let appName = "Photo Viewer"
         
         let photographerURL = currentPhoto.user.links.html
@@ -168,10 +168,10 @@ extension ViewController: UnsplashPickerDelegate {
         // reset
         resetInterface()
         
-        // enable the 'Save' button, to download photo and save it to camera roll
+        // enable the 'Save' button
         navigationItem.rightBarButtonItem?.isEnabled = true
         
-        // assign currentPhoto, will be used to retrieve URLs when tapping photo/avatar/save
+        // assign currentPhoto, will be used to retrieve URLs when tapping photo/avatar
         currentPhoto = photo
         
         // show a loading indicator
