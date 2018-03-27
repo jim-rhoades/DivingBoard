@@ -11,6 +11,6 @@ import UIKit
 class EmptySegue: UIStoryboardSegue {
     override func perform() {
         // do nothing
-        // the ContainerViewController class handles the animation / transition
+        // the UnsplashPickerViewController class handles the animation / transition
     }
 }

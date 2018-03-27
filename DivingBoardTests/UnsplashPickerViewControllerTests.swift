@@ -1,5 +1,5 @@
 //
-//  ContainerViewControllerTests.swift
+//  UnsplashPickerViewControllerTests.swift
 //  DivingBoardTests
 //
 //  Created by Jim Rhoades on 3/9/18.
@@ -9,10 +9,10 @@
 import XCTest
 @testable import DivingBoard
 
-class ContainerViewControllerTests: XCTestCase {
+class UnsplashPickerViewControllerTests: XCTestCase {
     
     var storyboard: UIStoryboard!
-    var containerViewController: ContainerViewController!
+    var unsplashPickerViewController: UnsplashPickerViewController!
     var stackedLayoutButton: UIBarButtonItem!
     var gridLayoutButton: UIBarButtonItem!
     
@@ -20,19 +20,19 @@ class ContainerViewControllerTests: XCTestCase {
         super.setUp()
         let bundle = Bundle(identifier: "com.crushapps.DivingBoard")!
         storyboard = UIStoryboard(name: "Main", bundle: bundle)
-        containerViewController = storyboard.instantiateViewController(withIdentifier: "ContainerViewController") as? ContainerViewController
+        unsplashPickerViewController = storyboard.instantiateViewController(withIdentifier: "UnsplashPickerViewController") as? UnsplashPickerViewController
         
         // note that this does NOT trigger a network request since clientID is nil
         // and nil is passed on to newViewController.clientID
-        containerViewController.loadViewIfNeeded()
+        unsplashPickerViewController.loadViewIfNeeded()
         
-        stackedLayoutButton = containerViewController.stackedLayoutButton
-        gridLayoutButton = containerViewController.gridLayoutButton
+        stackedLayoutButton = unsplashPickerViewController.stackedLayoutButton
+        gridLayoutButton = unsplashPickerViewController.gridLayoutButton
     }
     
     override func tearDown() {
         storyboard = nil
-        containerViewController = nil
+        unsplashPickerViewController = nil
         stackedLayoutButton = nil
         gridLayoutButton = nil
         super.tearDown()
@@ -41,7 +41,7 @@ class ContainerViewControllerTests: XCTestCase {
     // MARK: Initial state tests
     
     func testInitialLayoutStyle() {
-        XCTAssert(containerViewController.currentLayoutStyle == .grid,
+        XCTAssert(unsplashPickerViewController.currentLayoutStyle == .grid,
                   "currentLayoutStyle should initially be set to .grid")
     }
     
@@ -53,27 +53,27 @@ class ContainerViewControllerTests: XCTestCase {
     }
     
     func testInitialCollectionTypeIndices() {
-        XCTAssert(containerViewController.toCollectionTypeIndex == 0,
+        XCTAssert(unsplashPickerViewController.toCollectionTypeIndex == 0,
                   "toCollectionIndex should initially be set to 0")
-        XCTAssert(containerViewController.fromCollectionTypeIndex == 0,
+        XCTAssert(unsplashPickerViewController.fromCollectionTypeIndex == 0,
                   "fromCollectionTypeIndex should initially be set to 0")
     }
     
     func testCollectionTypePickerViewExists() {
-        XCTAssertNotNil(containerViewController.collectionTypePickerView)
+        XCTAssertNotNil(unsplashPickerViewController.collectionTypePickerView)
     }
     
     func testCollectionTypePickerViewDelegate() {
-        XCTAssert(containerViewController.collectionTypePickerView.delegate === containerViewController,
-                  "collectionTypePickerView's delegate was not set as the containerViewController")
+        XCTAssert(unsplashPickerViewController.collectionTypePickerView.delegate === unsplashPickerViewController,
+                  "collectionTypePickerView's delegate was not set as the unsplashPickerViewController")
     }
     
     func testInitialChildViewControllerState() {
-        XCTAssertNotNil(containerViewController.newViewController,
+        XCTAssertNotNil(unsplashPickerViewController.newViewController,
                         "newViewController should be the initial child view controller, but was nil")
-        XCTAssertNil(containerViewController.curatedViewController,
+        XCTAssertNil(unsplashPickerViewController.curatedViewController,
                      "curatedViewController should be nil initially")
-        XCTAssertNil(containerViewController.searchViewController,
+        XCTAssertNil(unsplashPickerViewController.searchViewController,
                      "searchViewController should be nil initially")
     }
     
@@ -81,9 +81,9 @@ class ContainerViewControllerTests: XCTestCase {
     
     func testStackedLayoutButtonPress() {
         // tap the layout button
-        containerViewController.stackedLayoutButtonPressed(self)
+        unsplashPickerViewController.stackedLayoutButtonPressed(self)
         // test to make sure layout style and button states are correct
-        XCTAssert(containerViewController.currentLayoutStyle == .stacked)
+        XCTAssert(unsplashPickerViewController.currentLayoutStyle == .stacked)
         XCTAssert(!stackedLayoutButton.isEnabled,
                   "stackedLayoutButton should be disabled after tapping stackedLayoutButton")
         XCTAssert(gridLayoutButton.isEnabled,
@@ -92,9 +92,9 @@ class ContainerViewControllerTests: XCTestCase {
     
     func testGridLayoutButtonPress() {
         // tap the layout button
-        containerViewController.gridLayoutButtonPressed(self)
+        unsplashPickerViewController.gridLayoutButtonPressed(self)
         // test to make sure layout style and button states are correct
-        XCTAssert(containerViewController.currentLayoutStyle == .grid)
+        XCTAssert(unsplashPickerViewController.currentLayoutStyle == .grid)
         XCTAssert(stackedLayoutButton.isEnabled,
                   "stackedLayoutButton should be enabled after tapping gridLayoutButton")
         XCTAssert(!gridLayoutButton.isEnabled,
@@ -104,14 +104,14 @@ class ContainerViewControllerTests: XCTestCase {
     // MARK: - UIPopoverPresentationControllerDelegate
     
     func testConformsToPopoverPresentationControllerDelegate() {
-        XCTAssert(containerViewController.conforms(to: UIPopoverPresentationControllerDelegate.self))
+        XCTAssert(unsplashPickerViewController.conforms(to: UIPopoverPresentationControllerDelegate.self))
     }
     
     // MARK: - CollectionTypePickerViewDelegate
     
     func testCollectionTypeChangeToCurated() {
-        containerViewController.collectionTypeChanged(.curated)
-        XCTAssertNotNil(containerViewController.curatedViewController)
+        unsplashPickerViewController.collectionTypeChanged(.curated)
+        XCTAssertNotNil(unsplashPickerViewController.curatedViewController)
         
         // currentlyDisplayedViewController isn't set immediately due to the transition animation
         // forcing the assertion to happen on the next runloop ensures that it's set
@@ -121,13 +121,13 @@ class ContainerViewControllerTests: XCTestCase {
         }
         waitForExpectations(timeout: 1)
  
-        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.curatedViewController,
+        XCTAssert(unsplashPickerViewController.currentlyDisplayedViewController === unsplashPickerViewController.curatedViewController,
                   "curatedViewController was not the currentlyDisplayedViewController")
     }
     
     func testCollectionTypeChangeToSearch() {
-        containerViewController.collectionTypeChanged(.search)
-        XCTAssertNotNil(containerViewController.searchViewController)
+        unsplashPickerViewController.collectionTypeChanged(.search)
+        XCTAssertNotNil(unsplashPickerViewController.searchViewController)
         
         // currentlyDisplayedViewController isn't set immediately due to the transition animation
         // forcing the assertion to happen on the next runloop ensures that it's set
@@ -137,7 +137,7 @@ class ContainerViewControllerTests: XCTestCase {
         }
         waitForExpectations(timeout: 1)
         
-        XCTAssert(containerViewController.currentlyDisplayedViewController === containerViewController.searchViewController,
+        XCTAssert(unsplashPickerViewController.currentlyDisplayedViewController === unsplashPickerViewController.searchViewController,
                   "searchViewController was not the currentlyDisplayedViewController")
     }
 }

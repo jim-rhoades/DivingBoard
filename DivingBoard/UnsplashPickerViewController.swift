@@ -1,5 +1,5 @@
 //
-//  ContainerViewController.swift
+//  UnsplashPickerViewController.swift
 //  DivingBoard
 //
 //  Created by Jim Rhoades on 2/15/18.
@@ -13,7 +13,7 @@ enum LayoutStyle {
     case grid
 }
 
-class ContainerViewController: UIViewController, SegueHandlerType {
+class UnsplashPickerViewController: UIViewController, SegueHandlerType {
     enum SegueIdentifier: String {
         case embedNewVC = "EmbedNewVC"
         case embedCuratedVC = "EmbedCuratedVC"
@@ -336,7 +336,7 @@ class ContainerViewController: UIViewController, SegueHandlerType {
 
 // MARK: - CollectionTypePickerViewDelegate
 
-extension ContainerViewController: CollectionTypePickerViewDelegate {
+extension UnsplashPickerViewController: CollectionTypePickerViewDelegate {
     func collectionTypeChanged(_ collectionType: CollectionType) {
         guard let currentlyDisplayed = currentlyDisplayedViewController else {
             return
@@ -369,7 +369,7 @@ extension ContainerViewController: CollectionTypePickerViewDelegate {
 
 // MARK: - UIPopoverPresentationControllerDelegate
 
-extension ContainerViewController: UIPopoverPresentationControllerDelegate {
+extension UnsplashPickerViewController: UIPopoverPresentationControllerDelegate {
     func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
         // remove the "Cancel" button when the unsplashPicker is presented as a popover
         navigationItem.rightBarButtonItem = nil

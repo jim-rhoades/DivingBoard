@@ -23,18 +23,18 @@ class DivingBoardTests: XCTestCase {
             return
         }
         
-        guard let containerViewController = unsplashPicker.viewControllers.first as? ContainerViewController else {
-            XCTFail("Failed to create containerViewController")
+        guard let unsplashPickerViewController = unsplashPicker.viewControllers.first as? UnsplashPickerViewController else {
+            XCTFail("Failed to create unsplashPickerViewController")
             return
         }
         
-        guard let _ = containerViewController.delegate else {
+        guard let _ = unsplashPickerViewController.delegate else {
             XCTFail("UnsplashPickerDelegate was not set")
             return
         }
         
         // since a clientID was provided, going any further would trigger a network call,
-        // so don't do this here: containerViewController.loadViewIfNeeded()
+        // so don't do this here: unsplashPickerViewController.loadViewIfNeeded()
     }
     
     func testUnsplashWebsiteURLWithReferral() {

@@ -13,7 +13,7 @@
 		3838DF052056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838DF042056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift */; };
 		384BCC6020645EE100355401 /* UIView+AutoLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384BCC5F20645EE100355401 /* UIView+AutoLayoutTests.swift */; };
 		38768A8E205873E60042D67B /* UnsplashClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38768A8D205873E60042D67B /* UnsplashClientTests.swift */; };
-		388716882053467D00FC37BE /* ContainerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388716872053467D00FC37BE /* ContainerViewControllerTests.swift */; };
+		388716882053467D00FC37BE /* UnsplashPickerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388716872053467D00FC37BE /* UnsplashPickerViewControllerTests.swift */; };
 		3887168A205346D600FC37BE /* ViewControllerForPresentingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38871689205346D600FC37BE /* ViewControllerForPresentingPicker.swift */; };
 		388E6FAE205869CD00B3A343 /* UnsplashClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388E6FAD205869CD00B3A343 /* UnsplashClient.swift */; };
 		38A0FB7A206AF586009A8820 /* test_data_search.json in Resources */ = {isa = PBXBuildFile; fileRef = 38A0FB78206AF586009A8820 /* test_data_search.json */; };
@@ -25,7 +25,7 @@
 		38CB068820362C2500AE6EDA /* DivingBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CB067A20362C2500AE6EDA /* DivingBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		38CB069220362DE200AE6EDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38CB069120362DE200AE6EDA /* Main.storyboard */; };
 		38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0697203649AA00AE6EDA /* EmptySegue.swift */; };
-		38CB069A203649F200AE6EDA /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0699203649F200AE6EDA /* ContainerViewController.swift */; };
+		38CB069A203649F200AE6EDA /* UnsplashPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0699203649F200AE6EDA /* UnsplashPickerViewController.swift */; };
 		38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */; };
 		38DC741220371C80007BAF33 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */; };
 		38DC741420371FCB007BAF33 /* UIImageView+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DC741320371FCB007BAF33 /* UIImageView+Async.swift */; };
@@ -55,7 +55,7 @@
 		3838DF042056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewControllerTests.swift; sourceTree = "<group>"; };
 		384BCC5F20645EE100355401 /* UIView+AutoLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayoutTests.swift"; sourceTree = "<group>"; };
 		38768A8D205873E60042D67B /* UnsplashClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashClientTests.swift; sourceTree = "<group>"; };
-		388716872053467D00FC37BE /* ContainerViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerTests.swift; sourceTree = "<group>"; };
+		388716872053467D00FC37BE /* UnsplashPickerViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerViewControllerTests.swift; sourceTree = "<group>"; };
 		38871689205346D600FC37BE /* ViewControllerForPresentingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerForPresentingPicker.swift; sourceTree = "<group>"; };
 		388E6FAD205869CD00B3A343 /* UnsplashClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashClient.swift; sourceTree = "<group>"; };
 		38A0FB78206AF586009A8820 /* test_data_search.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_data_search.json; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 		38CB068720362C2500AE6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38CB069120362DE200AE6EDA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		38CB0697203649AA00AE6EDA /* EmptySegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySegue.swift; sourceTree = "<group>"; };
-		38CB0699203649F200AE6EDA /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		38CB0699203649F200AE6EDA /* UnsplashPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerViewController.swift; sourceTree = "<group>"; };
 		38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		38DC741320371FCB007BAF33 /* UIImageView+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Async.swift"; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 				382AB2F62042106F00932147 /* Assets.xcassets */,
 				38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */,
 				38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */,
-				38CB0699203649F200AE6EDA /* ContainerViewController.swift */,
+				38CB0699203649F200AE6EDA /* UnsplashPickerViewController.swift */,
 				38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */,
 				38C5E928203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift */,
 				388E6FAD205869CD00B3A343 /* UnsplashClient.swift */,
@@ -153,12 +153,12 @@
 		38CB068420362C2500AE6EDA /* DivingBoardTests */ = {
 			isa = PBXGroup;
 			children = (
-				388716872053467D00FC37BE /* ContainerViewControllerTests.swift */,
 				38CB068520362C2500AE6EDA /* DivingBoardTests.swift */,
 				3838DF042056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift */,
 				3812900E205321F100E8D768 /* UIColor+HexTests.swift */,
 				384BCC5F20645EE100355401 /* UIView+AutoLayoutTests.swift */,
 				38768A8D205873E60042D67B /* UnsplashClientTests.swift */,
+				388716872053467D00FC37BE /* UnsplashPickerViewControllerTests.swift */,
 				3887168B2055C8CE00FC37BE /* Helpers */,
 				38CB068720362C2500AE6EDA /* Info.plist */,
 			);
@@ -307,7 +307,7 @@
 				38E87BDD203F6E640036BBFD /* UnsplashSearchResults.swift in Sources */,
 				38C5E929203F4AAE007A5D48 /* PhotoCollectionViewController+Search.swift in Sources */,
 				38E2E6B6203B24A70036173B /* UIView+AutoLayout.swift in Sources */,
-				38CB069A203649F200AE6EDA /* ContainerViewController.swift in Sources */,
+				38CB069A203649F200AE6EDA /* UnsplashPickerViewController.swift in Sources */,
 				38DC741220371C80007BAF33 /* PhotoCollectionViewCell.swift in Sources */,
 				38E2E6B4203B111B0036173B /* LoadingView.swift in Sources */,
 				3826CAFC203652F800549707 /* DivingBoard.swift in Sources */,
@@ -331,7 +331,7 @@
 				384BCC6020645EE100355401 /* UIView+AutoLayoutTests.swift in Sources */,
 				3887168A205346D600FC37BE /* ViewControllerForPresentingPicker.swift in Sources */,
 				3838DF052056EE8A00791B7F /* PhotoCollectionViewControllerTests.swift in Sources */,
-				388716882053467D00FC37BE /* ContainerViewControllerTests.swift in Sources */,
+				388716882053467D00FC37BE /* UnsplashPickerViewControllerTests.swift in Sources */,
 				3812900F205321F100E8D768 /* UIColor+HexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

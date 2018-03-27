@@ -36,14 +36,14 @@ public class DivingBoard {
     public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle) -> UIViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle(for: self))
         let navController = storyboard.instantiateInitialViewController() as! UINavigationController
-        let containerViewController = navController.topViewController as! ContainerViewController
-        containerViewController.delegate = presentingViewController as? UnsplashPickerDelegate
-        containerViewController.clientID = clientID
+        let unsplashPickerViewController = navController.topViewController as! UnsplashPickerViewController
+        unsplashPickerViewController.delegate = presentingViewController as? UnsplashPickerDelegate
+        unsplashPickerViewController.clientID = clientID
         
         navController.modalPresentationStyle = modalPresentationStyle
         if modalPresentationStyle == .popover {
-            // have containerViewController handle removing the cancel button if needed
-            navController.popoverPresentationController?.delegate = containerViewController
+            // have unsplashPickerViewController handle removing the cancel button if needed
+            navController.popoverPresentationController?.delegate = unsplashPickerViewController
         }
         
         return navController
