@@ -24,7 +24,8 @@ public extension UIImageView {
             completion?(true)
         } else {
             image = nil
-            URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
+            let session = URLSession(configuration: .default)
+            session.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
                 guard let data = data,
                     let response = response as? HTTPURLResponse,
                     response.statusCode == 200,
