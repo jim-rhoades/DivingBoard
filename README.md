@@ -12,12 +12,12 @@ This repository includes an example app named "PhotoViewer" that uses the Diving
 
 In order to run it, you'll first need to sign up for an [Unsplash app ID](https://unsplash.com/developers).
 
-Once you have an Unsplash app ID, open the file `ExampleApp/PhotoViewer/ViewController.swift` and insert it in the two places this appears:\
+Once you have an Unsplash app ID, clone or [download](https://github.com/jim-rhoades/DivingBoard/archive/master.zip) this repository. Then open `DivingBoard/ExampleApp/PhotoViewer/PhotoViewer.xcodeproj` in Xcode, and edit the file `ViewController.swift` to insert your Unsplash app ID in the two places this appears:\
 `// let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"`
 
-Then you'll be able to run PhotoViewer to see how DivingBoard works.
+(If you plan on contributing to DivingBoard, see "[Contributing to DivingBoard](#contributing-to-divingboard)" below for a better way to do this that will keep your Unsplash app ID out of commits.)
 
-If you plan on contributing to DivingBoard, see "[Contributing to DivingBoard](#contributing-to-divingboard)" below for a better way to do this that will keep your Unsplash app ID out of commits.
+Then you'll be able to run PhotoViewer to see how DivingBoard works.
 
 ## Setting up your Xcode project to use DivingBoard
 1. [Install Carthage](https://github.com/Carthage/Carthage#installing-carthage) if you don't already have it.
