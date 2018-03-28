@@ -7,7 +7,8 @@ An iOS framework that provides an interface for browsing and searching for photo
 
 ## Trying out DivingBoard
 
-This repository includes an example app named "PhotoViewer" that uses the DivingBoard framework:
+This repository includes an example app named "PhotoViewer" that uses the DivingBoard framework (watch a short [demo video](http://crushapps.com/divingboard/img/divingboard_demo.mp4).):
+
 ![PhotoViewer](http://crushapps.com/divingboard/img/photoviewer@0.65x.jpg)
 
 In order to run it, you'll first need to sign up for an [Unsplash app ID](https://unsplash.com/developers).
