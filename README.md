@@ -59,7 +59,9 @@ func unsplashPickerDidFinishPicking(photo: UnsplashPhoto)
 See PhotoViewer's `ViewController.swift` file for examples.
 
 ## Adhering to the Unsplash API guidelines
-It is up to you to "play nicely" and adhere to the [Unsplash API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-28e0216e6daa). DivingBoard includes a couple of methods that make this easy:
+It is up to you to "play nicely" and adhere to the [Unsplash API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-28e0216e6daa).
+
+DivingBoard includes a couple of methods that make adhering to the "technical guidelines" part easy:
 
 * Call `DivingBoard.incrementUnsplashPhotoDownloadCount` if you do something like save a photo to the camera roll. This method will call the Unsplash API's `download_location` endpoint to increment the download count for the photo on Unsplash.com. I highly recommend reading [Unsplash API Guidelines: Triggering a Download](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02) for recommendations on when to do this. (PhotoViewer uses this when saving a photo to the camera roll.)
 
