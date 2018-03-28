@@ -59,9 +59,9 @@ See PhotoViewer's `ViewController.swift` file for examples.
 ## Adhering to the Unsplash API guidelines
 It is up to you to "play nicely" and adhere to the [Unsplash API Guidelines](https://medium.com/unsplash/unsplash-api-guidelines-28e0216e6daa). DivingBoard includes a couple of methods that make this easy:
 
-When linking to a photo or user on Unsplash.com, call `DivingBoard.unsplashWebsiteURLWithReferral` to get a URL with the proper attribution as described in [Unsplash API Guidelines: Attribution](https://medium.com/unsplash/unsplash-api-guidelines-attribution-4d433941d777).  (PhotoViewer uses this when tapping on a photo or user avatar to view the photo/user on the Unsplash website.)
+* When linking to a photo or user on Unsplash.com, call `DivingBoard.unsplashWebsiteURLWithReferral` to get a URL with the proper attribution as described in [Unsplash API Guidelines: Attribution](https://medium.com/unsplash/unsplash-api-guidelines-attribution-4d433941d777).  (PhotoViewer uses this when tapping on a photo or user avatar to view the photo/user on the Unsplash website.)
 
-Call `DivingBoard.incrementUnsplashPhotoDownloadCount` if you do something like save a photo to the camera roll. This method will call the Unsplash API's `download_location` endpoint to increment the download count for the photo on Unsplash.com. I highly recommend reading [Unsplash API Guidelines: Triggering a Download](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02) for recommendations on when to do this. (PhotoViewer uses this when saving a photo to the camera roll.)
+* Call `DivingBoard.incrementUnsplashPhotoDownloadCount` if you do something like save a photo to the camera roll. This method will call the Unsplash API's `download_location` endpoint to increment the download count for the photo on Unsplash.com. I highly recommend reading [Unsplash API Guidelines: Triggering a Download](https://medium.com/unsplash/unsplash-api-guidelines-triggering-a-download-c39b24e99e02) for recommendations on when to do this. (PhotoViewer uses this when saving a photo to the camera roll.)
 
 ## Helpful utilities
 DivingBoard includes an extension on UIImageView to add the method `loadImageAsync`, which will load an image asynchronously and cache it to memory/disk.
@@ -100,7 +100,7 @@ let unsplashAppID = "YOUR_UNSPLASH_APP_ID"
 Since "ClientID.swift" is included in .gitignore, that will enable you to run and test changes to DivingBoard and PhotoViewer without risk of accidentally including your Unsplash app ID in a commit.
 
 ## ToDo
-- [ ] change from a square grid layout to a waterfall layout that shows uncropped photos instead of square crops
+- [ ] change from a square grid layout to a waterfall layout that shows uncropped photos instead of square crops:
 ![DivingBoard](http://crushapps.com/divingboard/img/divingboard_waterfall.jpg)
 - [ ] improve the unit tests - in particular, there should be tests for UnsplashClient's `requestPhotosFor` method using a stub / fake data (the project includes files containing real JSON data from the Unsplash API… `test_data_photos.json` and `test_data_search.json`, but they aren't currently being used)
 - [ ] add support for CocoaPods?
