@@ -12,6 +12,11 @@ import SafariServices
 
 class ViewController: UIViewController {
     
+    // TODO: ADD YOUR UNSPLASH APP ID HERE
+    // (or create a file named 'ClientID.swift' and declare it there... that file is ignored by git)
+    
+    // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
+    
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
@@ -49,7 +54,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func fullScreenButtonPressed(_ button: UIBarButtonItem) {
-        // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
         let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
                                                                      presentingViewController: self,
                                                                      modalPresentationStyle: .fullScreen)
@@ -58,7 +62,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func popoverButtonPressed(_ button: UIBarButtonItem) {
-        // let unsplashAppID = "INSERT_YOUR_APPLICATION_ID_HERE"
         let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
                                                         presentingViewController: self,
                                                         modalPresentationStyle: .popover)
