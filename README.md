@@ -1,7 +1,12 @@
 # DivingBoard
 An iOS framework that provides an interface for browsing and searching for photos from Unsplash.com.
 
+[![Swift version](https://img.shields.io/badge/swift%20-4.0-orange.svg)](https://img.shields.io/badge/swift%20-4.0-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Support Dependecy Manager](https://img.shields.io/badge/support-CocoaPods-green.svg?style=flat.svg)](https://img.shields.io/badge/support-CocoaPods-green.svg?style=flat.svg)
+[![Version](https://img.shields.io/cocoapods/v/DivingBoard.svg?style=flat)](https://cocoapods.org/pods/DivingBoard)
+[![License](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat.svg)](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat.svg)
+[![Platform](https://img.shields.io/badge/platform-ios-lightgrey.svg)](https://cocoapods.org/pods/DivingBoard)
 
 ![DivingBoard](http://crushapps.com/divingboard/img/divingboard.jpg)
 
@@ -107,5 +112,5 @@ Since "ClientID.swift" is included in .gitignore, that will enable you to run an
 - [ ] change from a square grid layout to a waterfall layout that shows uncropped photos instead of square crops:
 ![DivingBoard](http://crushapps.com/divingboard/img/divingboard_waterfall@0.65x.jpg)
 - [ ] improve the unit tests - in particular, there should be tests for UnsplashClient's `requestPhotosFor` method using a stub / fake data (the project includes files containing real JSON data from the Unsplash API… `test_data_photos.json` and `test_data_search.json`, but they aren't currently being used)
-- [ ] add support for CocoaPods?
 - [ ] add support for Swift Package Manager?
+
