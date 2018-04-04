@@ -49,6 +49,26 @@ public class DivingBoard {
         return navController
     }
     
+    /**
+     Retriece ViewController for searching a photo from Unsplash.
+     
+     - Parameter clientID: Your Unsplash app ID.
+     - Parameter presentingViewController: The UIViewController that you are presenting from,
+     which gets set as the delegate. (Make sure your presenting view controller conforms to
+     UnsplashPickerDelegate).
+     
+     - Returns: The view controller to present.
+     */
+    public static func unsplashSearch(withClientID clientID: String, presentingViewController: UIViewController) -> UICollectionViewController {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle(for: self))
+        let view = storyboard.instantiateViewController(withIdentifier: "PhotoCollectionViewController") as! PhotoCollectionViewController
+        view.delegate = presentingViewController as? UnsplashPickerDelegate
+        view.clientID = clientID
+        view.collectionType = .search
+        view.currentLayoutStyle = .grid
+        return view
+    }
+    
     // MARK: - Public utilities
     
     /**

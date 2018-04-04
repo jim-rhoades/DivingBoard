@@ -80,6 +80,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         // adjust insets to make room for the collectionTypePickerView
         collectionView?.contentInset.top += topInsetAdjustment
         collectionView?.scrollIndicatorInsets.top += topInsetAdjustment
+        collectionView?.backgroundColor = .white
         
         if collectionType == .search {
             configureToShowSearchBar()
