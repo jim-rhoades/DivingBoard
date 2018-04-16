@@ -23,7 +23,7 @@
 		38CB068120362C2500AE6EDA /* DivingBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CB067720362C2500AE6EDA /* DivingBoard.framework */; };
 		38CB068620362C2500AE6EDA /* DivingBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB068520362C2500AE6EDA /* DivingBoardTests.swift */; };
 		38CB068820362C2500AE6EDA /* DivingBoard.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CB067A20362C2500AE6EDA /* DivingBoard.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		38CB069220362DE200AE6EDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38CB069120362DE200AE6EDA /* Main.storyboard */; };
+		38CB069220362DE200AE6EDA /* DivingBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38CB069120362DE200AE6EDA /* DivingBoard.storyboard */; };
 		38CB0698203649AA00AE6EDA /* EmptySegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0697203649AA00AE6EDA /* EmptySegue.swift */; };
 		38CB069A203649F200AE6EDA /* UnsplashPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB0699203649F200AE6EDA /* UnsplashPickerViewController.swift */; };
 		38CB069C20364B8B00AE6EDA /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */; };
@@ -68,7 +68,7 @@
 		38CB068020362C2500AE6EDA /* DivingBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DivingBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38CB068520362C2500AE6EDA /* DivingBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivingBoardTests.swift; sourceTree = "<group>"; };
 		38CB068720362C2500AE6EDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		38CB069120362DE200AE6EDA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		38CB069120362DE200AE6EDA /* DivingBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DivingBoard.storyboard; sourceTree = "<group>"; };
 		38CB0697203649AA00AE6EDA /* EmptySegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySegue.swift; sourceTree = "<group>"; };
 		38CB0699203649F200AE6EDA /* UnsplashPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPickerViewController.swift; sourceTree = "<group>"; };
 		38CB069B20364B8B00AE6EDA /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 				38DC7415203720B8007BAF33 /* Utilities */,
 				38CB067A20362C2500AE6EDA /* DivingBoard.h */,
 				38CB067B20362C2500AE6EDA /* Info.plist */,
-				38CB069120362DE200AE6EDA /* Main.storyboard */,
+				38CB069120362DE200AE6EDA /* DivingBoard.storyboard */,
 				382AB2F62042106F00932147 /* Assets.xcassets */,
 				38DC741120371C80007BAF33 /* PhotoCollectionViewCell.swift */,
 				38DC741B20372DB4007BAF33 /* CollectionTypePickerView.swift */,
@@ -283,7 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				382AB2F72042106F00932147 /* Assets.xcassets in Resources */,
-				38CB069220362DE200AE6EDA /* Main.storyboard in Resources */,
+				38CB069220362DE200AE6EDA /* DivingBoard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

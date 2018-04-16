@@ -34,7 +34,7 @@ public class DivingBoard {
      - Returns: The view controller to present.
     */
     public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle) -> UIViewController {
-        let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle(for: self))
+        let storyboard = UIStoryboard.init(name: "DivingBoard", bundle: Bundle(for: self))
         let navController = storyboard.instantiateInitialViewController() as! UINavigationController
         let unsplashPickerViewController = navController.topViewController as! UnsplashPickerViewController
         unsplashPickerViewController.delegate = presentingViewController as? UnsplashPickerDelegate

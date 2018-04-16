@@ -19,7 +19,7 @@ class UnsplashPickerViewControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let bundle = Bundle(identifier: "com.crushapps.DivingBoard")!
-        storyboard = UIStoryboard(name: "Main", bundle: bundle)
+        storyboard = UIStoryboard(name: "DivingBoard", bundle: bundle)
         unsplashPickerViewController = storyboard.instantiateViewController(withIdentifier: "UnsplashPickerViewController") as? UnsplashPickerViewController
         
         // note that this does NOT trigger a network request since clientID is nil
