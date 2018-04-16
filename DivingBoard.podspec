@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "DivingBoard"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "An iOS framework that provides an interface for browsing and searching for photos from Unsplash.com."
   s.description  = <<-DESC
   DivingBoard is similar to a UIImagePickerController, but for retrieving photos from Unsplash instead of the camera roll. It uses the Unsplash API and requires an Unsplash app ID, which you can sign up for on their website.
