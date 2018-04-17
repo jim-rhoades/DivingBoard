@@ -1,7 +1,11 @@
 # DivingBoard
 An iOS framework that provides an interface for browsing and searching for photos from Unsplash.com.
 
+![Platform](https://img.shields.io/badge/platform-ios-blue.svg)
+![Swift version](https://img.shields.io/badge/swift%20-4.0-blue.svg)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jim-rhoades/DivingBoard/blob/master/LICENSE)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Version](https://img.shields.io/cocoapods/v/DivingBoard.svg?style=flat)](https://cocoapods.org/pods/DivingBoard)
 
 ![DivingBoard](http://crushapps.com/divingboard/img/divingboard.jpg)
 
@@ -20,7 +24,7 @@ Once you have an Unsplash app ID, clone or [download](https://github.com/jim-rho
 
 Then you'll be able to run PhotoViewer to see how DivingBoard works.
 
-## Setting up your Xcode project to use DivingBoard
+## Installing via Carthage
 1. [Install Carthage](https://github.com/Carthage/Carthage#installing-carthage) if you don't already have it.
 2. In the base directory of your project, create a file named "Cartfile" containing `github "jim-rhoades/DivingBoard"`
 3. Run `carthage update` in the terminal (in the same directory that you created the Cartfile). This will compile the framework and place it inside of your project folder at `Carthage/Build/iOS/DivingBoard.framework`.
@@ -37,6 +41,15 @@ Then you'll be able to run PhotoViewer to see how DivingBoard works.
 `$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/DivingBoard.framework`
 
 ![DivingBoard Xcode setup 2](http://crushapps.com/divingboard/img/setup2.png)
+
+## Installing via CocoaPods
+1. You can use [CocoaPods](https://cocoapods.org) to install DivingBoard by adding it to your Podfile:
+```
+platform :ios, '11.2'
+pod 'DivingBoard', '~> 1.0.3'
+```
+2. In the Terminal, navigate to the same directory that your Podfile is located, and run `pod install`.
+3. Remember to open your Xcode project using the `.xcworkspace` file instead of the original `.xcodeproj` file.
 
 ## Launching DivingBoard in your app
 To launch DivingBoard in your own app you'll need to get an instance of `UnsplashPickerViewController` and present it. The following code shows how you would do that to present it full screen:
@@ -107,5 +120,3 @@ Since "ClientID.swift" is included in .gitignore, that will enable you to run an
 - [ ] change from a square grid layout to a waterfall layout that shows uncropped photos instead of square crops:
 ![DivingBoard](http://crushapps.com/divingboard/img/divingboard_waterfall@0.65x.jpg)
 - [ ] improve the unit tests - in particular, there should be tests for UnsplashClient's `requestPhotosFor` method using a stub / fake data (the project includes files containing real JSON data from the Unsplash API… `test_data_photos.json` and `test_data_search.json`, but they aren't currently being used)
-- [ ] add support for CocoaPods?
-- [ ] add support for Swift Package Manager?
