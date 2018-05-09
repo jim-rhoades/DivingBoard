@@ -57,7 +57,7 @@ public class LoadingView: UIView {
     }
     
     private func setup() {
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
         
         let diameter = bounds.height
         let rect = CGRect(x: 0, y: 0, width: diameter, height: diameter)
@@ -72,17 +72,17 @@ public class LoadingView: UIView {
         addSubview(circle2)
         addSubview(circle3)
         
-        // start animating the first circle
+        // animate the first circle
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: {
             self.animateCircle(self.circle1)
         })
         
-        // animate the second circle after 0.25 seconds
+        // animate the second circle
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             self.animateCircle(self.circle2)
         })
         
-        // animate the third circle after 0.5 seconds
+        // animate the third circle
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75, execute: {
             self.animateCircle(self.circle3)
         })
@@ -116,7 +116,7 @@ class CircleView: UIView {
     }
     
     private func setup() {
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
     }
     
     override func draw(_ rect: CGRect) {
