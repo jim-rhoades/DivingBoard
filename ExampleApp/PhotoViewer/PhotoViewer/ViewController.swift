@@ -53,6 +53,13 @@ class ViewController: UIViewController {
         present(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func pushButtonPressed(_ sender: UIBarButtonItem) {
+        let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
+                                                        presentingViewController: self)
+        unsplashPicker.hidesBottomBarWhenPushed = true // only needed if your app is showing a toolbar like PhotoViewer does
+        navigationController?.pushViewController(unsplashPicker, animated: true)
+    }
+    
     @IBAction func fullScreenButtonPressed(_ button: UIBarButtonItem) {
         let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
                                                                      presentingViewController: self,
@@ -209,17 +216,31 @@ extension ViewController: UnsplashPickerDelegate {
         userImageView.addGestureRecognizer(userTapGesture!)
         
         // related color
-        // photoView.backgroundColor = UIColor(hexString: photo.color)
+        /*
+        if let relatedColor = photo.color {
+            photoView.backgroundColor = UIColor(hexString: relatedColor)
+        }
+        */
         
         // dates
         // print("photo created on: \(photo.createdAt)")
         // print("photo updated on: \(photo.updatedAt)")
         
-        dismiss(animated: true, completion: nil)
+        dismissUnsplashPicker()
     }
     
     func unsplashPickerDidCancel() {
-        dismiss(animated: true, completion: nil)
+        dismissUnsplashPicker()
+    }
+    
+    func dismissUnsplashPicker() {
+        if presentedViewController != nil {
+            // unsplashPicker was presented modally
+            dismiss(animated: true, completion: nil)
+        } else {
+            // unsplashPicker was pushed onto navigationController stack
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 

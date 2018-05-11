@@ -44,7 +44,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         // store the app's status bar color so it can be reset when the unsplashPicker is dismissed
         // (really only necessary for iPhone X, but this has no negative affect on other iPhones,
         //  and helps ensure compatibility with future devices)
-        if isPhoneDevice {
+        if isPhoneDevice && isModal {
             previousStatusBarColor = statusBarColor
         }
         
@@ -58,7 +58,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if isPhoneDevice {
+        if isPhoneDevice && isModal {
             // set status bar color, so that photos don't show behind it on iPhone X
             statusBarColor = commonBarColor
         }
@@ -68,7 +68,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         super.viewWillDisappear(animated)
         // DivingBoard is being dismissed
         
-        if isPhoneDevice {
+        if isPhoneDevice && isModal {
             // change status bar color back to what it was
             statusBarColor = previousStatusBarColor
         }
@@ -84,10 +84,17 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     // MARK: - Navigation bar
     
+    lazy var isModal: Bool = {
+        return presentingViewController != nil
+    }()
+    
     func configureNavigationBar() {
         createLayoutButtons()
         
-        guard let navigationController = navigationController else { return }
+        guard isModal, // continue only if presented modally
+            let navigationController = navigationController else {
+                return
+        }
         navigationController.navigationBar.setValue(true, forKey: "hidesShadow") // hide shadow line
         navigationController.navigationBar.barTintColor = commonBarColor
         
@@ -173,7 +180,14 @@ class PhotoCollectionViewController: UICollectionViewController {
         let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         fixedSpace.width = 16.0
         
-        navigationItem.leftBarButtonItems = [stackedBarButton, fixedSpace, gridBarButton]
+        if isModal {
+            navigationItem.leftBarButtonItems = [stackedBarButton, fixedSpace, gridBarButton]
+        } else {
+            // unsplashPicker was presented by pushing it onto a navigationController stack
+            // so place buttons on right (leaving "< Back" button on left)
+            navigationItem.rightBarButtonItems = [stackedBarButton, fixedSpace, gridBarButton]
+        }
+        
         updateLayoutButtons()
     }
     
@@ -426,14 +440,5 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.bounds.width, height: searchBarHeight)
-    }
-}
-
-// MARK: - UIPopoverPresentationControllerDelegate
-
-extension PhotoCollectionViewController: UIPopoverPresentationControllerDelegate {
-    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        // remove the "Cancel" button when the unsplashPicker is presented as a popover
-        navigationItem.rightBarButtonItem = nil
     }
 }

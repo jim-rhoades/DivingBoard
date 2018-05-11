@@ -79,12 +79,6 @@ class PhotoCollectionViewControllerTests: XCTestCase {
                   "gridLayoutButton should be disabled after tapping gridLayoutButton")
     }
     
-    // MARK: - UIPopoverPresentationControllerDelegate
-    
-    func testConformsToPopoverPresentationControllerDelegate() {
-        XCTAssert(photoCollectionViewController.conforms(to: UIPopoverPresentationControllerDelegate.self))
-    }
-    
     // MARK: - UICollectionViewDataSource
     
     func testCollectionViewDataSourceIsNotNil() {

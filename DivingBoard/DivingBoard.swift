@@ -23,30 +23,30 @@ public class DivingBoard {
     
     /**
      Used to retrieve the view controller that contains the UI for picking a photo from Unsplash.
-     You should present this view controller just as you would a UIImagePickerController.
      
      - Parameter clientID: Your Unsplash app ID.
      - Parameter presentingViewController: The UIViewController that you are presenting from,
     which gets set as the delegate. (Make sure your presenting view controller conforms to
     UnsplashPickerDelegate).
-     - Parameter modalPresentationStyle: The presentation style to use, typically .popover or .fullscreen.
+     - Parameter modalPresentationStyle: The presentation style to use (typically .popover or .fullscreen) when presenting modally. If you're pushing the unsplashPicker onto another UINavigationController's stack, leave modalPresentationStyle nil.
      
      - Returns: The view controller to present.
     */
-    public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle) -> UIViewController {
+    public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle? = nil) -> UIViewController {
         let storyboard = UIStoryboard.init(name: "DivingBoard", bundle: Bundle(for: self))
         let navController = storyboard.instantiateInitialViewController() as! UINavigationController
+        
+        var presentAsModal = false
+        if let modalPresentationStyle = modalPresentationStyle {
+            navController.modalPresentationStyle = modalPresentationStyle
+            presentAsModal = true
+        }
+        
         let photoCollectionViewController = navController.topViewController as! PhotoCollectionViewController
         photoCollectionViewController.delegate = presentingViewController as? UnsplashPickerDelegate
         photoCollectionViewController.clientID = clientID
         
-        navController.modalPresentationStyle = modalPresentationStyle
-        if modalPresentationStyle == .popover {
-            // have photoCollectionViewController handle removing the cancel button if needed
-            navController.popoverPresentationController?.delegate = photoCollectionViewController
-        }
-        
-        return navController
+        return presentAsModal ? navController : photoCollectionViewController
     }
     
     // MARK: - Public utilities
