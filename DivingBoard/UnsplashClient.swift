@@ -76,6 +76,21 @@ class UnsplashClient {
                     newPhotos = try decoder.decode([UnsplashPhoto].self, from: data)
                 }
                 
+                // handle API issue where a photo that failed to upload
+                // is still returned in API results by removing the photo
+                if let photos = newPhotos {
+                    #if DEBUG
+                        for photo in photos {
+                            if photo.width == nil || photo.height == nil {
+                                print("found a photo with null width or height... removing it from results | photo ID: \(photo.id)")
+                            }
+                        }
+                    #endif
+                    
+                    // filter out any photos that have null values that it shouldn't
+                    newPhotos = photos.filter { $0.width != nil && $0.height != nil }
+                }
+                
                 // pass on the photos array + optional searchResultsTotalPages
                 completionHandler(newPhotos, searchResultsTotalPages, nil)
             } catch {
@@ -117,8 +132,6 @@ class UnsplashClient {
         switch collectionType {
         case .new:
             urlComponents.path = "/photos"
-        case .curated:
-            urlComponents.path = "/photos/curated"
         case .search:
             urlComponents.path = "/search/photos"
         }

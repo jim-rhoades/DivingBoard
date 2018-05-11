@@ -33,41 +33,17 @@ class CollectionReusableSearchView: UICollectionReusableView {
         searchBar = UISearchBar(frame: searchBarFrame)
         searchBar.autoresizingMask = [.flexibleWidth]
         searchBar.backgroundImage = UIImage()
-        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = UIColor(white: 247.0/255.0, alpha: 0.9)
-            
-            // ugly fix for issue where cursor animates in from upper left
-            // https://stackoverflow.com/q/46367768/234609
-            let previousTintColor = textField.tintColor
-            textField.tintColor = .clear
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                textField.tintColor = previousTintColor
-            }
-        }
+        searchBar.backgroundColor = commonBarColor
         addSubview(searchBar)
     }
 }
 
 extension PhotoCollectionViewController {
-    func configureToShowSearchBar() {
+    func configureSearchBar() {
         // prepare to add the UISearchBar as a section header in collectionView
         collectionView?.register(CollectionReusableSearchView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderIdentifier)
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.sectionHeadersPinToVisibleBounds = true
-        }
-    }
-    
-    func showKeyboardIfNeeded() {
-        if let searchBar = searchBar,
-            collectionType == .search,
-            photos.count == 0 {
-            searchBar.becomeFirstResponder()
-        }
-    }
-    
-    func hideKeyboardIfNeeded() {
-        if collectionType == .search {
-            searchBar?.resignFirstResponder()
         }
     }
 }
@@ -75,28 +51,40 @@ extension PhotoCollectionViewController {
 // MARK: - UISearchBarDelegate
 
 extension PhotoCollectionViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // if a search was performed, reset and show .new photos again
+        if collectionType == .search {
+            reset()
+            collectionType = .new
+            loadPhotos(showLoadingIndicator: true)
+        }
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        // reset for a new search
-        photos.removeAll()
-        pageNumber = 1
-        currentSearchPhrase = nil
-        
-        // the new search might not produce any results,
-        // so reloadData immediately to prevent old results from still showing
-        collectionView?.reloadData()
+        reset()
+        collectionType = .search
         
         // perform the search
         if let searchPhrase = searchBar.text,
-            searchPhrase != "" {
+            !searchPhrase.isEmpty {
             currentSearchPhrase = searchPhrase
-            
-            // display a loading indicator
-            loadingView = LoadingView()
-            view.addCenteredSubview(loadingView!)
-            
-            loadPhotos()
+            loadPhotos(showLoadingIndicator: true)
         }
         searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
+    func reset() {
+        photos.removeAll()
+        pageNumber = 1
+        currentSearchPhrase = nil
+        collectionView?.reloadData()
     }
 }

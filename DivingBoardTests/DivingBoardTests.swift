@@ -23,12 +23,12 @@ class DivingBoardTests: XCTestCase {
             return
         }
         
-        guard let unsplashPickerViewController = unsplashPicker.viewControllers.first as? UnsplashPickerViewController else {
+        guard let photoCollectionViewController = unsplashPicker.viewControllers.first as? PhotoCollectionViewController else {
             XCTFail("Failed to create unsplashPickerViewController")
             return
         }
         
-        guard let _ = unsplashPickerViewController.delegate else {
+        guard let _ = photoCollectionViewController.delegate else {
             XCTFail("UnsplashPickerDelegate was not set")
             return
         }

@@ -1,107 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W3I-YE-Pie">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NZn-9q-vh9">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Unsplash Picker View Controller-->
-        <scene sceneID="w6L-Ds-8HS">
-            <objects>
-                <viewController storyboardIdentifier="UnsplashPickerViewController" id="uKU-x6-yg8" customClass="UnsplashPickerViewController" customModule="DivingBoard" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CRl-fQ-X18">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6V6-gS-IDa">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
-                            </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LlG-Pw-3jz" customClass="CollectionTypePickerView" customModule="DivingBoard" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ge-9u-7QP">
-                                        <rect key="frame" x="16" y="3.6666666666666714" width="36" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <state key="normal" title="New"/>
-                                        <connections>
-                                            <action selector="newButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="gjC-eJ-L5J"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfo-cX-4hT">
-                                        <rect key="frame" x="155.66666666666666" y="3.6666666666666714" width="64" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <state key="normal" title="Curated"/>
-                                        <connections>
-                                            <action selector="curatedButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="D5e-sd-TJU"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6I-bf-n3D">
-                                        <rect key="frame" x="304" y="3.6666666666666714" width="55" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <state key="normal" title="Search"/>
-                                        <connections>
-                                            <action selector="searchButtonPressed:" destination="LlG-Pw-3jz" eventType="touchUpInside" id="b8e-vv-2Ia"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="xfo-cX-4hT" firstAttribute="centerX" secondItem="LlG-Pw-3jz" secondAttribute="centerX" id="30u-6y-b9Z"/>
-                                    <constraint firstItem="xfo-cX-4hT" firstAttribute="centerY" secondItem="LlG-Pw-3jz" secondAttribute="centerY" id="Mtt-mv-fkR"/>
-                                    <constraint firstItem="2Ge-9u-7QP" firstAttribute="centerY" secondItem="LlG-Pw-3jz" secondAttribute="centerY" id="S8v-U6-NTP"/>
-                                    <constraint firstItem="S6I-bf-n3D" firstAttribute="centerY" secondItem="LlG-Pw-3jz" secondAttribute="centerY" id="VvX-e7-PJk"/>
-                                    <constraint firstAttribute="height" constant="40" id="eT6-wU-IRH"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="curatedButton" destination="xfo-cX-4hT" id="4df-os-vFx"/>
-                                    <outlet property="newButton" destination="2Ge-9u-7QP" id="p7E-bQ-ioB"/>
-                                    <outlet property="searchButton" destination="S6I-bf-n3D" id="wRI-RS-Ctk"/>
-                                </connections>
-                            </view>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="LlG-Pw-3jz" firstAttribute="top" secondItem="8K1-6A-pGN" secondAttribute="top" id="9Uj-T1-UPO"/>
-                            <constraint firstItem="8K1-6A-pGN" firstAttribute="trailing" secondItem="S6I-bf-n3D" secondAttribute="trailing" constant="16" id="C6V-Yy-uPv"/>
-                            <constraint firstAttribute="trailing" secondItem="LlG-Pw-3jz" secondAttribute="trailing" id="DOv-xx-uvF"/>
-                            <constraint firstItem="6V6-gS-IDa" firstAttribute="trailing" secondItem="CRl-fQ-X18" secondAttribute="trailing" id="L5S-T3-d86"/>
-                            <constraint firstItem="6V6-gS-IDa" firstAttribute="top" secondItem="CRl-fQ-X18" secondAttribute="top" id="N0b-GR-iS3"/>
-                            <constraint firstItem="6V6-gS-IDa" firstAttribute="bottom" secondItem="CRl-fQ-X18" secondAttribute="bottom" id="NvA-Sk-tgb"/>
-                            <constraint firstItem="LlG-Pw-3jz" firstAttribute="leading" secondItem="CRl-fQ-X18" secondAttribute="leading" id="aVU-r9-9eL"/>
-                            <constraint firstItem="6V6-gS-IDa" firstAttribute="leading" secondItem="CRl-fQ-X18" secondAttribute="leading" id="eTv-3m-9u6"/>
-                            <constraint firstItem="2Ge-9u-7QP" firstAttribute="leading" secondItem="8K1-6A-pGN" secondAttribute="leading" constant="16" id="kFI-zQ-hfN"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="8K1-6A-pGN"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="HKy-rb-RIx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="E58-tI-H75">
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="uKU-x6-yg8" id="aOy-Jk-Wjz"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="collectionTypePickerView" destination="LlG-Pw-3jz" id="Xs7-2i-X89"/>
-                        <outlet property="containerView" destination="6V6-gS-IDa" id="8BV-xf-yfS"/>
-                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedNewVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="P9F-uD-fLq"/>
-                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedCuratedVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="0aY-Pm-OTJ"/>
-                        <segue destination="jd7-el-n7u" kind="custom" identifier="EmbedSearchVC" customClass="EmptySegue" customModule="DivingBoard" customModuleProvider="target" id="c40-X2-7MI"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="k77-CV-uXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="549.60000000000002" y="166.99507389162562"/>
-        </scene>
         <!--Photo Collection View Controller-->
         <scene sceneID="Ne9-va-9Fv">
             <objects>
                 <collectionViewController storyboardIdentifier="PhotoCollectionViewController" id="jd7-el-n7u" customClass="PhotoCollectionViewController" customModule="DivingBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Dv2-9b-3Db">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="05N-9S-H1f">
@@ -139,31 +52,38 @@
                             <outlet property="delegate" destination="jd7-el-n7u" id="r9C-kN-a8X"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="IF9-fC-CpJ">
+                        <barButtonItem key="rightBarButtonItem" image="dismiss" id="JG3-cA-7c7">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="jd7-el-n7u" id="Pcg-So-560"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mUZ-97-EZ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1470" y="167"/>
+            <point key="canvasLocation" x="2412" y="166.99507389162562"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="DM2-B6-SIv">
+        <scene sceneID="UMl-bc-prE">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="W3I-YE-Pie" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NZn-9q-vh9" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="VnU-6P-EVf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="AHu-HQ-qs0">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="uKU-x6-yg8" kind="relationship" relationship="rootViewController" id="JDp-6m-OXD"/>
+                        <segue destination="jd7-el-n7u" kind="relationship" relationship="rootViewController" id="AYk-js-h0F"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZKC-Qc-yiD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w3o-9Y-eTY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-380" y="167"/>
+            <point key="canvasLocation" x="1469.5999999999999" y="166.99507389162562"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="0aY-Pm-OTJ"/>
-    </inferredMetricsTieBreakers>
+    <resources>
+        <image name="dismiss" width="25" height="25"/>
+    </resources>
 </document>

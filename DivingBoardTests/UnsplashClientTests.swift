@@ -86,19 +86,6 @@ class UnsplashClientTests: XCTestCase {
         XCTAssertEqual(expectedOutputURL.absoluteString, outputURL!.absoluteString)
     }
     
-    func testURLForJSONRequestWithCollectionTypeCurated() {
-        let expectedURLString = "https://api.unsplash.com/photos/curated?client_id=" + "\(clientID)" + "&per_page=30&page=3"
-        let expectedOutputURL: URL! = URL(string: expectedURLString)
-        
-        let outputURL = UnsplashClient.urlForJSONRequest(withClientID: clientID,
-                                                         collectionType: .curated,
-                                                         resultsPerPage: 30,
-                                                         pageNumber: 3)
-        
-        XCTAssertNotNil(outputURL)
-        XCTAssertEqual(expectedOutputURL.absoluteString, outputURL!.absoluteString)
-    }
-    
     func testURLForJSONRequestWithCollectionTypeSearch() {
         let searchPhrase = "puppies"
         let expectedURLString = "https://api.unsplash.com/search/photos?client_id=" + "\(clientID)" + "&per_page=40&page=1&query=" + "\(searchPhrase)"

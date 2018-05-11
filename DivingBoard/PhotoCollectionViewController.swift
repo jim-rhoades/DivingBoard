@@ -8,13 +8,16 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+let commonBarColor = UIColor(white: 247.0/255.0, alpha: 1.0)
 
 class PhotoCollectionViewController: UICollectionViewController {
+    enum LayoutStyle {
+        case stacked
+        case grid
+    }
     
     var clientID: String?
     weak var delegate: UnsplashPickerDelegate?
-    var topInsetAdjustment: CGFloat = 0
     var collectionType: CollectionType = .new
     let cellSpacing: CGFloat = 2 // spacing between the photo thumbnails
     var loadingView: LoadingView?
@@ -23,9 +26,184 @@ class PhotoCollectionViewController: UICollectionViewController {
     var searchBar: UISearchBar?
     var currentSearchPhrase: String?
     var currentSearchTotalPages: Int = 0
+    let reuseIdentifier = "Cell"
     let sectionHeaderIdentifier = "SectionHeader"
+    var stackedLayoutButton: UIBarButtonItem?
+    var gridLayoutButton: UIBarButtonItem?
+    var previousStatusBarColor: UIColor?
+    
+    private lazy var isPhoneDevice: Bool = {
+        return UIDevice.current.userInterfaceIdiom == .phone
+    }()
+    
+    // MARK: - View lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // store the app's status bar color so it can be reset when the unsplashPicker is dismissed
+        // (really only necessary for iPhone X, but this has no negative affect on other iPhones,
+        //  and helps ensure compatibility with future devices)
+        if isPhoneDevice {
+            previousStatusBarColor = statusBarColor
+        }
+        
+        // configure UI
+        configureNavigationBar()
+        configureSearchBar()
+        
+        // load photos from Unsplash
+        loadPhotos(showLoadingIndicator: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if isPhoneDevice {
+            // set status bar color, so that photos don't show behind it on iPhone X
+            statusBarColor = commonBarColor
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // DivingBoard is being dismissed
+        
+        if isPhoneDevice {
+            // change status bar color back to what it was
+            statusBarColor = previousStatusBarColor
+        }
+        
+        // dismiss keyboard if needed
+        searchBar?.resignFirstResponder()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionViewLayout.invalidateLayout()
+    }
+    
+    // MARK: - Navigation bar
+    
+    func configureNavigationBar() {
+        createLayoutButtons()
+        
+        guard let navigationController = navigationController else { return }
+        navigationController.navigationBar.setValue(true, forKey: "hidesShadow") // hide shadow line
+        navigationController.navigationBar.barTintColor = commonBarColor
+        
+        // on iPhone, hide navigation bar when scrolling down
+        if isPhoneDevice {
+            navigationController.hidesBarsOnSwipe = true
+        }
+    }
+    
+    // MARK: - Status bar
+    
+    var statusBarColor: UIColor? {
+        get {
+            guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else {
+                return nil
+            }
+            return statusBar.backgroundColor
+        }
+        set {
+            if let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView {
+                statusBar.backgroundColor = newValue
+            }
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        // never hide status bar on iPhone X in portrait
+        if UIApplication.shared.statusBarFrame.height >= 44.0 {
+            return false
+        }
+        
+        // always hide status bar in landscape on iPhone devices
+        if isPhoneDevice && UIDevice.current.orientation.isLandscape {
+            return true
+        }
+        
+        // hide the status bar when the navigation bar is hidden
+        return navigationController?.isNavigationBarHidden ?? false
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    
+    // MARK: - Layout style buttons
+    
+    func createLayoutButtons() {
+        // only if they haven't already been created
+        guard stackedLayoutButton == nil || gridLayoutButton == nil else {
+            return
+        }
+        
+        let bundle = Bundle(for: DivingBoard.self)
+        guard let stackedImage = UIImage(named: "layoutButtonStacked", in: bundle, compatibleWith: nil) else {
+            fatalError("failed to load image: layoutButtonStacked")
+        }
+        guard let stackedImageDisabled = UIImage(named: "layoutButtonStacked_Disabled", in: bundle, compatibleWith: nil) else {
+            fatalError("failed to load image: layoutButtonStacked_Disabled")
+        }
+        guard let gridImage = UIImage(named: "layoutButtonGrid", in: bundle, compatibleWith: nil) else {
+            fatalError("failed to load image: layoutButtonGrid")
+        }
+        guard let gridImageDisabled = UIImage(named: "layoutButtonGrid_Disabled", in: bundle, compatibleWith: nil) else {
+            fatalError("failed to load image: layoutButtonGrid_Disabled")
+        }
+        
+        let rect = CGRect(x: 0, y: 0, width: 32.0, height: 32.0)
+        
+        let stackedButton = UIButton(frame: rect)
+        stackedButton.setImage(stackedImage, for: .normal)
+        stackedButton.setImage(stackedImageDisabled, for: .disabled)
+        stackedButton.addTarget(self, action: #selector(stackedLayoutButtonPressed(_:)), for: .touchUpInside)
+        let stackedBarButton = UIBarButtonItem(customView: stackedButton)
+        stackedLayoutButton = stackedBarButton
+        
+        let gridButton = UIButton(frame: rect)
+        gridButton.setImage(gridImage, for: .normal)
+        gridButton.setImage(gridImageDisabled, for: .disabled)
+        gridButton.addTarget(self, action: #selector(gridLayoutButtonPressed(_:)), for: .touchUpInside)
+        let gridBarButton = UIBarButtonItem(customView: gridButton)
+        gridLayoutButton = gridBarButton
+        
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedSpace.width = 16.0
+        
+        navigationItem.leftBarButtonItems = [stackedBarButton, fixedSpace, gridBarButton]
+        updateLayoutButtons()
+    }
+    
+    func updateLayoutButtons() {
+        guard let stackedLayoutButton = stackedLayoutButton,
+            let gridLayoutButton = gridLayoutButton else {
+                return
+        }
+        
+        switch currentLayoutStyle {
+        case .stacked:
+            stackedLayoutButton.isEnabled = false
+            gridLayoutButton.isEnabled = true
+        case .grid:
+            stackedLayoutButton.isEnabled = true
+            gridLayoutButton.isEnabled = false
+        }
+    }
     
     // MARK: - Layout style switching
+    
+    @objc func stackedLayoutButtonPressed(_ sender: Any) {
+        currentLayoutStyle = .stacked
+        updateLayoutButtons()
+    }
+    
+    @objc func gridLayoutButtonPressed(_ sender: Any) {
+        currentLayoutStyle = .grid
+        updateLayoutButtons()
+    }
     
     var currentIndexPath: IndexPath?
     var currentLayoutStyle: LayoutStyle = .grid {
@@ -33,10 +211,11 @@ class PhotoCollectionViewController: UICollectionViewController {
             // abort if view not loaded to prevent UI glitch
             guard isViewLoaded,
                 let collectionView = collectionView else {
-                return
+                    return
             }
+            
             // abort if scrolled to top
-            if collectionView.contentOffset.y == -topInsetAdjustment {
+            if collectionView.contentOffset.y == 0 {
                 return
             }
             
@@ -54,14 +233,14 @@ class PhotoCollectionViewController: UICollectionViewController {
             // abort if view not loaded to prevent UI glitch
             guard isViewLoaded,
                 let collectionView = collectionView else {
-                return
+                    return
             }
             
             // update the layout
             collectionViewLayout.invalidateLayout()
             
             // abort if scrolled to top
-            if collectionView.contentOffset.y == -topInsetAdjustment {
+            if collectionView.contentOffset.y == 0 {
                 return
             }
             
@@ -72,54 +251,20 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
     }
     
-    // MARK: - View lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // adjust insets to make room for the collectionTypePickerView
-        collectionView?.contentInset.top += topInsetAdjustment
-        collectionView?.scrollIndicatorInsets.top += topInsetAdjustment
-        
-        if collectionType == .search {
-            configureToShowSearchBar()
-        } else {
-            // display a loading indicator
-            loadingView = LoadingView()
-            view.addCenteredSubview(loadingView!)
-            
-            // load photos from Unsplash
-            loadPhotos()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // when the unsplashPicker is dismissed, hide the keyboard immediately if needed
-        hideKeyboardIfNeeded()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        collectionViewLayout.invalidateLayout()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     // MARK: - Photo loading
     
-    func loadPhotos() {
+    func loadPhotos(showLoadingIndicator: Bool) {
         guard let url = UnsplashClient.urlForJSONRequest(withClientID: clientID,
                                                    collectionType: collectionType,
                                                    resultsPerPage: 40,
                                                    pageNumber: pageNumber,
                                                    searchPhrase: currentSearchPhrase) else {
             return
+        }
+        
+        if showLoadingIndicator {
+            loadingView = LoadingView()
+            view.addCenteredSubview(loadingView!)
         }
         
         let unsplashClient = UnsplashClient()
@@ -170,6 +315,12 @@ class PhotoCollectionViewController: UICollectionViewController {
         let okAction = UIAlertAction(title: okTitle, style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: - Interaction
+    
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        delegate?.unsplashPickerDidCancel()
     }
 }
 
@@ -222,7 +373,7 @@ extension PhotoCollectionViewController {
             }
             
             pageNumber += 1
-            loadPhotos()
+            loadPhotos(showLoadingIndicator: false)
         }
     }
     
@@ -254,8 +405,11 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
         switch currentLayoutStyle {
         case .stacked:
             let photo = photos[indexPath.item]
-            let scale = cellWidth / photo.size.width
-            let cellHeight = photo.size.height * scale
+            var cellHeight = cellWidth
+            if let width = photo.size?.width, let height = photo.size?.height {
+                let scale = cellWidth / width
+                cellHeight = height * scale
+            }
             return CGSize(width: cellWidth, height: cellHeight)
         case .grid:
             return CGSize(width: cellWidth, height: cellWidth)
@@ -271,10 +425,15 @@ extension PhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if collectionType == .search {
-            return CGSize(width: view.bounds.width, height: searchBarHeight)
-        } else {
-            return CGSize.zero
-        }
+        return CGSize(width: view.bounds.width, height: searchBarHeight)
+    }
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+
+extension PhotoCollectionViewController: UIPopoverPresentationControllerDelegate {
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        // remove the "Cancel" button when the unsplashPicker is presented as a popover
+        navigationItem.rightBarButtonItem = nil
     }
 }

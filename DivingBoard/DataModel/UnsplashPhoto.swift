@@ -12,9 +12,9 @@ public struct UnsplashPhoto: Codable {
     public let id: String
     public let createdAt: Date
     public let updatedAt: Date
-    public let width: Int
-    public let height: Int
-    public let color: String // hex string like #60544D
+    public let width: Int?
+    public let height: Int?
+    public let color: String? // hex string like #60544D
     public let description: String?
     public let urls: URLs
     public let links: Links
@@ -53,8 +53,12 @@ public struct UnsplashPhoto: Codable {
         }
     }
     
-    public var size: CGSize {
+    public var size: CGSize? {
         get {
+            guard let width = width,
+                let height = height else {
+                    return nil
+            }
             return CGSize(width: width, height: height)
         }
     }
