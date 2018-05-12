@@ -97,11 +97,7 @@ class PhotoCollectionViewController: UICollectionViewController {
         }
         navigationController.navigationBar.setValue(true, forKey: "hidesShadow") // hide shadow line
         navigationController.navigationBar.barTintColor = commonBarColor
-        
-        // on iPhone, hide navigation bar when scrolling down
-        if isPhoneDevice {
-            navigationController.hidesBarsOnSwipe = true
-        }
+        navigationController.hidesBarsOnSwipe = true // hide navigation bar when scrolling down
     }
     
     // MARK: - Status bar
