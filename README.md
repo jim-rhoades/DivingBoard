@@ -46,7 +46,7 @@ Then you'll be able to run PhotoViewer to see how DivingBoard works.
 1. You can use [CocoaPods](https://cocoapods.org) to install DivingBoard by adding it to your Podfile:
 ```
 platform :ios, '11.2'
-pod 'DivingBoard', '~> 1.0.3'
+pod 'DivingBoard', '~> 1.1'
 ```
 2. In the Terminal, navigate to the same directory that your Podfile is located, and run `pod install`.
 3. Remember to open your Xcode project using the `.xcworkspace` file instead of the original `.xcodeproj` file.
@@ -61,7 +61,7 @@ let unsplashPicker = DivingBoard.unsplashPicker(withClientID: unsplashAppID,
 
 present(unsplashPicker, animated: true, completion: nil)
 ```
-In PhotoViewer's `ViewController.swift` you'll also find an example for presenting it as a popover where appropriate.
+In PhotoViewer's `ViewController.swift` you'll also find examples for presenting it as a popover and pushing it onto a UINavigationController stack.
 
 ## Conforming to UnsplashPickerDelegate
 The view controller that you're presenting DivingBoard from also needs to conform to the `UnsplashPickerDelegate` protocol, which consists of two methods:
