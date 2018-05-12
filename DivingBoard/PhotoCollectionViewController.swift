@@ -229,7 +229,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             }
             
             // abort if scrolled to top
-            if collectionView.contentOffset.y == 0 {
+            if collectionView.contentOffset.y <= 0 {
                 return
             }
             
@@ -254,7 +254,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             collectionViewLayout.invalidateLayout()
             
             // abort if scrolled to top
-            if collectionView.contentOffset.y == 0 {
+            if collectionView.contentOffset.y <= 0 {
                 return
             }
             
