@@ -46,7 +46,7 @@ Then you'll be able to run PhotoViewer to see how DivingBoard works.
 1. You can use [CocoaPods](https://cocoapods.org) to install DivingBoard by adding it to your Podfile:
 ```
 platform :ios, '10.0'
-pod 'DivingBoard', '~> 1.1.1'
+pod 'DivingBoard', '~> 1.1.2'
 ```
 2. In the Terminal, navigate to the same directory that your Podfile is located, and run `pod install`.
 3. Remember to open your Xcode project using the `.xcworkspace` file instead of the original `.xcodeproj` file.
