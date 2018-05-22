@@ -360,6 +360,12 @@ extension PhotoCollectionViewController {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderIdentifier, for: indexPath as IndexPath) as! CollectionReusableSearchView
             headerView.searchBar.delegate = self
+            
+            // if an initial search phrase was provided, set the searchBar text
+            if searchBar == nil, let searchPhrase = currentSearchPhrase {
+                headerView.searchBar.text = searchPhrase
+            }
+            
             searchBar = headerView.searchBar
             return headerView
         default:
