@@ -160,15 +160,15 @@ class PhotoCollectionViewController: UICollectionViewController {
         let rect = CGRect(x: 0, y: 0, width: 32.0, height: 32.0)
         
         let stackedButton = UIButton(frame: rect)
-        stackedButton.setImage(stackedImage, for: .normal)
-        stackedButton.setImage(stackedImageDisabled, for: .disabled)
+        stackedButton.setImage(stackedImageDisabled, for: .normal)
+        stackedButton.setImage(stackedImage, for: .disabled)
         stackedButton.addTarget(self, action: #selector(stackedLayoutButtonPressed(_:)), for: .touchUpInside)
         let stackedBarButton = UIBarButtonItem(customView: stackedButton)
         stackedLayoutButton = stackedBarButton
         
         let gridButton = UIButton(frame: rect)
-        gridButton.setImage(gridImage, for: .normal)
-        gridButton.setImage(gridImageDisabled, for: .disabled)
+        gridButton.setImage(gridImageDisabled, for: .normal)
+        gridButton.setImage(gridImage, for: .disabled)
         gridButton.addTarget(self, action: #selector(gridLayoutButtonPressed(_:)), for: .touchUpInside)
         let gridBarButton = UIBarButtonItem(customView: gridButton)
         gridLayoutButton = gridBarButton
