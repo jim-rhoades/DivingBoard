@@ -142,8 +142,14 @@ class PhotoCollectionViewController: UICollectionViewController {
                 fatalError("failed to load layout button image")
         }
         
-        let rect = CGRect(x: 0, y: 0, width: 24.0, height: 24.0)
-        let button = UIButton(frame: rect)
+        let button = UIButton(type: .custom)
+        if #available(iOS 11.0, *) {
+            button.widthAnchor.constraint(equalToConstant: 44.0).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+        } else {
+            button.frame = CGRect(x: 0, y: 0, width: 44.0, height: 44.0)
+        }
+        
         button.addTarget(self, action: #selector(layoutButtonPressed(_:)), for: .touchUpInside)
         switch currentLayoutStyle {
         case .stacked:
@@ -154,10 +160,12 @@ class PhotoCollectionViewController: UICollectionViewController {
         
         let barButton = UIBarButtonItem(customView: button)
         if isModal {
+            button.contentHorizontalAlignment = .left
             navigationItem.leftBarButtonItem = barButton
         } else {
             // unsplashPicker was presented by pushing it onto a navigationController stack
             // so place button on right (leaving "< Back" button on left)
+            button.contentHorizontalAlignment = .right
             navigationItem.rightBarButtonItem = barButton
         }
     }
