@@ -63,3 +63,9 @@ public struct UnsplashPhoto: Codable {
         }
     }
 }
+
+public enum UnsplashPhotoOrientation: String {
+    case landscape
+    case portrait
+    case squarish
+}
