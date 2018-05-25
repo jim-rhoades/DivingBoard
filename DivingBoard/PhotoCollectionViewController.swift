@@ -26,6 +26,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     var searchBar: UISearchBar?
     var currentSearchPhrase: String?
     var currentSearchTotalPages: Int = 0
+    var searchOrientation: UnsplashPhotoOrientation? = nil
     let reuseIdentifier = "Cell"
     let sectionHeaderIdentifier = "SectionHeader"
     var previousStatusBarColor: UIColor?
@@ -234,7 +235,8 @@ class PhotoCollectionViewController: UICollectionViewController {
                                                    collectionType: collectionType,
                                                    resultsPerPage: 40,
                                                    pageNumber: pageNumber,
-                                                   searchPhrase: currentSearchPhrase) else {
+                                                   searchPhrase: currentSearchPhrase,
+                                                   searchOrientation: searchOrientation) else {
             return
         }
         

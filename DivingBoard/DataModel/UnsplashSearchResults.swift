@@ -19,3 +19,9 @@ struct UnsplashSearchResults: Codable {
         case results
     }
 }
+
+enum UnsplashPhotoOrientation: String {
+    case landscape
+    case portrait
+    case squarish
+}
