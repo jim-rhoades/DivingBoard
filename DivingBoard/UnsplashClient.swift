@@ -115,10 +115,11 @@ class UnsplashClient {
      - Parameter resultsPerPage: The number of results to return from the API call.
      - Parameter pageNumber: The page number for the API call. (For example, if resultsPerPage is set to 50 and pageNumber is 1, it would return results 1 - 50. If you want the results for 51 - 100, you'd set pageNumber to 2.)
      - Parameter searchPhrase: The phrase to search for if the collectionType is .search.
+     - Parameter searchOrientation: Filter results by a certain photo orientation
      
      - Returns: The URL to use when making a call to the Unsplash API.
      */
-    static func urlForJSONRequest(withClientID clientID: String?, collectionType: CollectionType, resultsPerPage: Int, pageNumber: Int, searchPhrase: String? = nil) -> URL? {
+    static func urlForJSONRequest(withClientID clientID: String?, collectionType: CollectionType, resultsPerPage: Int, pageNumber: Int, searchPhrase: String? = nil, searchOrientation: UnsplashPhotoOrientation? = nil) -> URL? {
         guard let clientID = clientID else {
             // allow for nil clientID
             // so that view controller tests can be run without triggering a call to the API
@@ -145,6 +146,9 @@ class UnsplashClient {
             if let searchPhrase = searchPhrase {
                 let queryItem = URLQueryItem(name: "query", value: searchPhrase)
                 urlComponents.queryItems?.append(queryItem)
+            }
+            if let orientation = searchOrientation {
+                urlComponents.queryItems?.append(URLQueryItem(name: "orientation", value: orientation.rawValue))
             }
         }
         
