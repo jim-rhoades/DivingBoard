@@ -34,6 +34,7 @@ class CollectionReusableSearchView: UICollectionReusableView {
         searchBar.autoresizingMask = [.flexibleWidth]
         searchBar.backgroundImage = UIImage()
         searchBar.backgroundColor = commonBarColor
+	searchBar.placeholder = "Search"
         addSubview(searchBar)
     }
 }
