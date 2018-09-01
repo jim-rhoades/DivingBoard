@@ -29,10 +29,12 @@ public class DivingBoard {
     which gets set as the delegate. (Make sure your presenting view controller conforms to
     UnsplashPickerDelegate).
      - Parameter modalPresentationStyle: The presentation style to use (typically .popover or .fullscreen) when presenting modally. If you're pushing the unsplashPicker onto another UINavigationController's stack, leave modalPresentationStyle nil.
+     - Parameter initialSearchPhrase: The initial search term to pre-populate
+     - Parameter searchOrientation: Filter search results by orientation
      
      - Returns: The view controller to present.
     */
-    public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle? = nil) -> UIViewController {
+    public static func unsplashPicker(withClientID clientID: String, presentingViewController: UIViewController, modalPresentationStyle: UIModalPresentationStyle? = nil, initialSearchPhrase: String? = nil, searchOrientation: UnsplashPhotoOrientation? = nil) -> UIViewController {
         let storyboard = UIStoryboard.init(name: "DivingBoard", bundle: Bundle(for: self))
         let navController = storyboard.instantiateInitialViewController() as! UINavigationController
         
@@ -45,6 +47,12 @@ public class DivingBoard {
         let photoCollectionViewController = navController.topViewController as! PhotoCollectionViewController
         photoCollectionViewController.delegate = presentingViewController as? UnsplashPickerDelegate
         photoCollectionViewController.clientID = clientID
+        
+        if let searchPhrase = initialSearchPhrase {
+            photoCollectionViewController.currentSearchPhrase = searchPhrase
+            photoCollectionViewController.collectionType = .search
+            photoCollectionViewController.searchOrientation = searchOrientation
+        }
         
         return presentAsModal ? navController : photoCollectionViewController
     }

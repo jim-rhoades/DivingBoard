@@ -26,10 +26,9 @@ class PhotoCollectionViewController: UICollectionViewController {
     var searchBar: UISearchBar?
     var currentSearchPhrase: String?
     var currentSearchTotalPages: Int = 0
+    var searchOrientation: UnsplashPhotoOrientation? = nil
     let reuseIdentifier = "Cell"
     let sectionHeaderIdentifier = "SectionHeader"
-    var stackedLayoutButton: UIBarButtonItem?
-    var gridLayoutButton: UIBarButtonItem?
     var previousStatusBarColor: UIColor?
     
     private lazy var isPhoneDevice: Bool = {
@@ -89,7 +88,7 @@ class PhotoCollectionViewController: UICollectionViewController {
     }()
     
     func configureNavigationBar() {
-        createLayoutButtons()
+        configureLayoutButton()
         
         guard isModal, // continue only if presented modally
             let navigationController = navigationController else {
@@ -135,84 +134,52 @@ class PhotoCollectionViewController: UICollectionViewController {
         return .slide
     }
     
-    // MARK: - Layout style buttons
-    
-    func createLayoutButtons() {
-        // only if they haven't already been created
-        guard stackedLayoutButton == nil || gridLayoutButton == nil else {
-            return
-        }
-        
-        let bundle = Bundle(for: DivingBoard.self)
-        guard let stackedImage = UIImage(named: "layoutButtonStacked", in: bundle, compatibleWith: nil) else {
-            fatalError("failed to load image: layoutButtonStacked")
-        }
-        guard let stackedImageDisabled = UIImage(named: "layoutButtonStacked_Disabled", in: bundle, compatibleWith: nil) else {
-            fatalError("failed to load image: layoutButtonStacked_Disabled")
-        }
-        guard let gridImage = UIImage(named: "layoutButtonGrid", in: bundle, compatibleWith: nil) else {
-            fatalError("failed to load image: layoutButtonGrid")
-        }
-        guard let gridImageDisabled = UIImage(named: "layoutButtonGrid_Disabled", in: bundle, compatibleWith: nil) else {
-            fatalError("failed to load image: layoutButtonGrid_Disabled")
-        }
-        
-        let rect = CGRect(x: 0, y: 0, width: 32.0, height: 32.0)
-        
-        let stackedButton = UIButton(frame: rect)
-        stackedButton.setImage(stackedImage, for: .normal)
-        stackedButton.setImage(stackedImageDisabled, for: .disabled)
-        stackedButton.addTarget(self, action: #selector(stackedLayoutButtonPressed(_:)), for: .touchUpInside)
-        let stackedBarButton = UIBarButtonItem(customView: stackedButton)
-        stackedLayoutButton = stackedBarButton
-        
-        let gridButton = UIButton(frame: rect)
-        gridButton.setImage(gridImage, for: .normal)
-        gridButton.setImage(gridImageDisabled, for: .disabled)
-        gridButton.addTarget(self, action: #selector(gridLayoutButtonPressed(_:)), for: .touchUpInside)
-        let gridBarButton = UIBarButtonItem(customView: gridButton)
-        gridLayoutButton = gridBarButton
-        
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedSpace.width = 16.0
-        
-        if isModal {
-            navigationItem.leftBarButtonItems = [stackedBarButton, fixedSpace, gridBarButton]
-        } else {
-            // unsplashPicker was presented by pushing it onto a navigationController stack
-            // so place buttons on right (leaving "< Back" button on left)
-            navigationItem.rightBarButtonItems = [stackedBarButton, fixedSpace, gridBarButton]
-        }
-        
-        updateLayoutButtons()
-    }
-    
-    func updateLayoutButtons() {
-        guard let stackedLayoutButton = stackedLayoutButton,
-            let gridLayoutButton = gridLayoutButton else {
-                return
-        }
-        
-        switch currentLayoutStyle {
-        case .stacked:
-            stackedLayoutButton.isEnabled = false
-            gridLayoutButton.isEnabled = true
-        case .grid:
-            stackedLayoutButton.isEnabled = true
-            gridLayoutButton.isEnabled = false
-        }
-    }
-    
     // MARK: - Layout style switching
     
-    @objc func stackedLayoutButtonPressed(_ sender: Any) {
-        currentLayoutStyle = .stacked
-        updateLayoutButtons()
+    func configureLayoutButton() {
+        let bundle = Bundle(for: DivingBoard.self)
+        guard let stackedImage = UIImage(named: "layoutButtonStacked", in: bundle, compatibleWith: nil),
+            let gridImage = UIImage(named: "layoutButtonGrid", in: bundle, compatibleWith: nil) else {
+                fatalError("failed to load layout button image")
+        }
+        
+        let button = UIButton(type: .custom)
+        if #available(iOS 11.0, *) {
+            button.widthAnchor.constraint(equalToConstant: 44.0).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+        } else {
+            button.frame = CGRect(x: 0, y: 0, width: 44.0, height: 44.0)
+        }
+        
+        button.addTarget(self, action: #selector(layoutButtonPressed(_:)), for: .touchUpInside)
+        switch currentLayoutStyle {
+        case .stacked:
+            button.setImage(gridImage, for: .normal)
+        case .grid:
+            button.setImage(stackedImage, for: .normal)
+        }
+        
+        let barButton = UIBarButtonItem(customView: button)
+        if isModal {
+            button.contentHorizontalAlignment = .left
+            navigationItem.leftBarButtonItem = barButton
+        } else {
+            // unsplashPicker was presented by pushing it onto a navigationController stack
+            // so place button on right (leaving "< Back" button on left)
+            button.contentHorizontalAlignment = .right
+            navigationItem.rightBarButtonItem = barButton
+        }
     }
     
-    @objc func gridLayoutButtonPressed(_ sender: Any) {
-        currentLayoutStyle = .grid
-        updateLayoutButtons()
+    @objc func layoutButtonPressed(_ sender: Any) {
+        switch currentLayoutStyle {
+        case .stacked:
+            currentLayoutStyle = .grid
+        case .grid:
+            currentLayoutStyle = .stacked
+        }
+        
+        configureLayoutButton()
     }
     
     var currentIndexPath: IndexPath?
@@ -268,7 +235,8 @@ class PhotoCollectionViewController: UICollectionViewController {
                                                    collectionType: collectionType,
                                                    resultsPerPage: 40,
                                                    pageNumber: pageNumber,
-                                                   searchPhrase: currentSearchPhrase) else {
+                                                   searchPhrase: currentSearchPhrase,
+                                                   searchOrientation: searchOrientation) else {
             return
         }
         
@@ -360,6 +328,12 @@ extension PhotoCollectionViewController {
         case UICollectionElementKindSectionHeader:
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionHeaderIdentifier, for: indexPath as IndexPath) as! CollectionReusableSearchView
             headerView.searchBar.delegate = self
+            
+            // if an initial search phrase was provided, set the searchBar text
+            if searchBar == nil, let searchPhrase = currentSearchPhrase {
+                headerView.searchBar.text = searchPhrase
+            }
+            
             searchBar = headerView.searchBar
             return headerView
         default:
