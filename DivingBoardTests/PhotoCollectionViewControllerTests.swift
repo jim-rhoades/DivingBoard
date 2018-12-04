@@ -25,8 +25,6 @@ class PhotoCollectionViewControllerTests: XCTestCase {
         // note that this does NOT trigger a network request since clientID is nil
         photoCollectionViewController.loadViewIfNeeded()
         
-        stackedLayoutButton = photoCollectionViewController.stackedLayoutButton
-        gridLayoutButton = photoCollectionViewController.gridLayoutButton
     }
     
     override func tearDown() {
@@ -53,30 +51,6 @@ class PhotoCollectionViewControllerTests: XCTestCase {
     
     func testCollectionViewIsNotNilAfterViewDidLoad() {
         XCTAssertNotNil(photoCollectionViewController.collectionView)
-    }
-    
-    // MARK: - Interaction tests
-    
-    func testStackedLayoutButtonPress() {
-        // tap the layout button
-        photoCollectionViewController.stackedLayoutButtonPressed(self)
-        // test to make sure layout style and button states are correct
-        XCTAssert(photoCollectionViewController.currentLayoutStyle == .stacked)
-        XCTAssert(!stackedLayoutButton.isEnabled,
-                  "stackedLayoutButton should be disabled after tapping stackedLayoutButton")
-        XCTAssert(gridLayoutButton.isEnabled,
-                  "gridLayoutButton should be enabled after tapping stackedLayoutButton")
-    }
-    
-    func testGridLayoutButtonPress() {
-        // tap the layout button
-        photoCollectionViewController.gridLayoutButtonPressed(self)
-        // test to make sure layout style and button states are correct
-        XCTAssert(photoCollectionViewController.currentLayoutStyle == .grid)
-        XCTAssert(stackedLayoutButton.isEnabled,
-                  "stackedLayoutButton should be enabled after tapping gridLayoutButton")
-        XCTAssert(!gridLayoutButton.isEnabled,
-                  "gridLayoutButton should be disabled after tapping gridLayoutButton")
     }
     
     // MARK: - UICollectionViewDataSource

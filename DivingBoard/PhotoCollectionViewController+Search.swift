@@ -42,7 +42,7 @@ class CollectionReusableSearchView: UICollectionReusableView {
 extension PhotoCollectionViewController {
     func configureSearchBar() {
         // prepare to add the UISearchBar as a section header in collectionView
-        collectionView?.register(CollectionReusableSearchView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderIdentifier)
+        collectionView?.register(CollectionReusableSearchView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: sectionHeaderIdentifier)
         if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.sectionHeadersPinToVisibleBounds = true
         }
