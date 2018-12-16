@@ -1,6 +1,9 @@
 # DivingBoard
 An iOS framework that provides an interface for browsing and searching for photos from Unsplash.com.
 
+NOTE: Unsplash now has an [official UnsplashPhotoPicker framework](https://medium.com/unsplash/easily-add-unsplash-search-into-your-ios-apps-e081a7ad1a2). You might consider using that instead of DivingBoard.
+--
+
 ![Platform](https://img.shields.io/badge/platform-ios-blue.svg)
 ![Swift version](https://img.shields.io/badge/swift%20-4.0-blue.svg)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jim-rhoades/DivingBoard/blob/master/LICENSE)
